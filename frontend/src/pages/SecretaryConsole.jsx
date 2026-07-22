@@ -28,7 +28,7 @@ export default function SecretaryConsole() {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const res = await fetch(`http://${window.location.hostname}:3000/api/upload-listone`, {
+      const res = await fetch(`${BACKEND_URL}/api/upload-listone`, {
         method: 'POST',
         body: formData
       });
@@ -86,7 +86,7 @@ export default function SecretaryConsole() {
     const formData = new FormData();
     formData.append('file', statsFile);
     try {
-      const res = await fetch(`http://${window.location.hostname}:3000/api/upload-stats`, {
+      const res = await fetch(`${BACKEND_URL}/api/upload-stats`, {
         method: 'POST',
         body: formData
       });
