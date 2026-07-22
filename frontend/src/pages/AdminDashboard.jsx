@@ -23,7 +23,13 @@ export default function AdminDashboard() {
     fetch(`${BACKEND_URL}/api/pins`)
       .then(res => res.json())
       .then(data => {
-        if (data.success) setPins(data.pins);
+        if (data.pins) {
+          const pinsArray = Object.entries(data.pins).map(([teamName, pin]) => ({
+            teamName,
+            pin
+          }));
+          setPins(pinsArray);
+        }
       })
       .catch(err => console.error("Could not fetch pins", err));
   }, []);
