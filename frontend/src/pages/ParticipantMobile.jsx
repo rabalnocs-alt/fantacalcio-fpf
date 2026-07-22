@@ -203,6 +203,14 @@ export default function ParticipantMobile() {
       </div>
     );
   }
+  
+  if (!myTeam) {
+    return (
+      <div className="page-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', color: 'white' }}>
+        <h2>Caricamento dati squadra...</h2>
+      </div>
+    );
+  }
 
   const isMyPlayerAtBivio = auction?.status === 'BIVIO' && auction?.currentPlayer?.currentOwner === myTeamName;
 
