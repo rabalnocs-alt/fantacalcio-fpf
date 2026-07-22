@@ -1,0 +1,4258 @@
+[
+  {
+    "Nome": "Carnesecchi",
+    "Ruolo": "Por",
+    "Quotazione": 80,
+    "FM": 5.58,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Milinkovic-Savic V.",
+    "Ruolo": "Por",
+    "Quotazione": 37,
+    "FM": 5.65,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Svilar",
+    "Ruolo": "Por",
+    "Quotazione": 105,
+    "FM": 5.45,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Butez",
+    "Ruolo": "Por",
+    "Quotazione": 95,
+    "FM": 5.37,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Maignan",
+    "Ruolo": "Por",
+    "Quotazione": 88,
+    "FM": 5.42,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Di Gregorio",
+    "Ruolo": "Por",
+    "Quotazione": 30,
+    "FM": 5.33,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Falcone",
+    "Ruolo": "Por",
+    "Quotazione": 35,
+    "FM": 5.22,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Okoye",
+    "Ruolo": "Por",
+    "Quotazione": 14,
+    "FM": 5.08,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Sommer",
+    "Ruolo": "Por",
+    "Quotazione": 60,
+    "FM": 5.02,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Caprile",
+    "Ruolo": "Por",
+    "Quotazione": 20,
+    "FM": 4.87,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Audero",
+    "Ruolo": "Por",
+    "Quotazione": 11,
+    "FM": 4.91,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "De Gea",
+    "Ruolo": "Por",
+    "Quotazione": 28,
+    "FM": 5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Montipò",
+    "Ruolo": "Por",
+    "Quotazione": 5,
+    "FM": 4.94,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Skorupski",
+    "Ruolo": "Por",
+    "Quotazione": 14,
+    "FM": 5.28,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Provedel",
+    "Ruolo": "Por",
+    "Quotazione": 15,
+    "FM": 5.35,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Suzuki",
+    "Ruolo": "Por",
+    "Quotazione": 8,
+    "FM": 4.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Muric",
+    "Ruolo": "Por",
+    "Quotazione": 6,
+    "FM": 4.77,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Bijlow",
+    "Ruolo": "Por",
+    "Quotazione": 10,
+    "FM": 4.78,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Leali",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 4.84,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Corvi",
+    "Ruolo": "Por",
+    "Quotazione": 5,
+    "FM": 5.09,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Paleari",
+    "Ruolo": "Por",
+    "Quotazione": 9,
+    "FM": 4.52,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Perin",
+    "Ruolo": "Por",
+    "Quotazione": 10,
+    "FM": 5.11,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Meret",
+    "Ruolo": "Por",
+    "Quotazione": 20,
+    "FM": 5.18,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Turati",
+    "Ruolo": "Por",
+    "Quotazione": 5,
+    "FM": 5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Semper",
+    "Ruolo": "Por",
+    "Quotazione": 3,
+    "FM": 4.38,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pessina Mas.",
+    "Ruolo": "Por",
+    "Quotazione": 2,
+    "FM": 5.62,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Martinez Jo.",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 5.2,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Motta",
+    "Ruolo": "Por",
+    "Quotazione": 15,
+    "FM": 5.17,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ravaglia F.",
+    "Ruolo": "Por",
+    "Quotazione": 3,
+    "FM": 4.38,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Furlanetto",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Christensen O.",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 6.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Rossi F.",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sportiello",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 4.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ciocci",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Vigorito",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Nava",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Siegrist",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sommariva",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 3.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Di Gennaro",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pinsoglio",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Fruchtl",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Samooja",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Terracciano",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Torriani",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Contini",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Rinaldi",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 6.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Nicolas",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 3.58,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Scuffet",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 4.07,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zelezny",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gollini",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Satalino",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Israel",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 3.83,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Padelli",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 5.25,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sava",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 3.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Perilli",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 3.83,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Nunziante",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Lezzerini",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Silvestri",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 4.62,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Toniolo",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Cavlina",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ferrante",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Calligaris",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Tornqvist",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sherri",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Siviero",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pannozzo",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Giacomone",
+    "Ruolo": "Por",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Dimarco",
+    "Ruolo": "E",
+    "Quotazione": 320,
+    "FM": 7.64,
+    "GOL": 7,
+    "ASS": 17
+  },
+  {
+    "Nome": "Bremer",
+    "Ruolo": "Dc",
+    "Quotazione": 74,
+    "FM": 6.81,
+    "GOL": 4,
+    "ASS": 3
+  },
+  {
+    "Nome": "Pavlovic",
+    "Ruolo": "Dc",
+    "Quotazione": 60,
+    "FM": 6.62,
+    "GOL": 5,
+    "ASS": 0
+  },
+  {
+    "Nome": "Palestra",
+    "Ruolo": "E",
+    "Quotazione": 75,
+    "FM": 6.42,
+    "GOL": 1,
+    "ASS": 4
+  },
+  {
+    "Nome": "Kempf",
+    "Ruolo": "Dc",
+    "Quotazione": 18,
+    "FM": 6.52,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Spinazzola",
+    "Ruolo": "Ds;E",
+    "Quotazione": 33,
+    "FM": 6.55,
+    "GOL": 3,
+    "ASS": 3
+  },
+  {
+    "Nome": "Scalvini",
+    "Ruolo": "Dc",
+    "Quotazione": 22,
+    "FM": 6.44,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bisseck",
+    "Ruolo": "Dc",
+    "Quotazione": 41,
+    "FM": 6.65,
+    "GOL": 3,
+    "ASS": 2
+  },
+  {
+    "Nome": "Mancini",
+    "Ruolo": "Dc",
+    "Quotazione": 54,
+    "FM": 6.51,
+    "GOL": 4,
+    "ASS": 2
+  },
+  {
+    "Nome": "Ostigard",
+    "Ruolo": "Dc",
+    "Quotazione": 50,
+    "FM": 6.52,
+    "GOL": 5,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kalulu",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 68,
+    "FM": 6.35,
+    "GOL": 2,
+    "ASS": 4
+  },
+  {
+    "Nome": "Celik",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 14,
+    "FM": 6.27,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Wesley",
+    "Ruolo": "E",
+    "Quotazione": 46,
+    "FM": 6.47,
+    "GOL": 5,
+    "ASS": 0
+  },
+  {
+    "Nome": "Solet",
+    "Ruolo": "Dc",
+    "Quotazione": 55,
+    "FM": 6.4,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bastoni",
+    "Ruolo": "Dc",
+    "Quotazione": 40,
+    "FM": 6.34,
+    "GOL": 1,
+    "ASS": 4
+  },
+  {
+    "Nome": "Hermoso",
+    "Ruolo": "Dc",
+    "Quotazione": 25,
+    "FM": 6.41,
+    "GOL": 3,
+    "ASS": 2
+  },
+  {
+    "Nome": "Rensch",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 17,
+    "FM": 6.5,
+    "GOL": 1,
+    "ASS": 4
+  },
+  {
+    "Nome": "Akanji",
+    "Ruolo": "Dc",
+    "Quotazione": 64,
+    "FM": 6.41,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zappacosta",
+    "Ruolo": "E",
+    "Quotazione": 18,
+    "FM": 6.3,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Dumfries",
+    "Ruolo": "E",
+    "Quotazione": 56,
+    "FM": 6.58,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "N'Dicka",
+    "Ruolo": "Dc",
+    "Quotazione": 51,
+    "FM": 6.32,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Gosens",
+    "Ruolo": "E",
+    "Quotazione": 19,
+    "FM": 6.28,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Vasquez",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 26,
+    "FM": 6.14,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kelly L.",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 27,
+    "FM": 6.07,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Rrahmani",
+    "Ruolo": "Dc",
+    "Quotazione": 45,
+    "FM": 6.45,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Valeri",
+    "Ruolo": "Ds;E",
+    "Quotazione": 22,
+    "FM": 6.09,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Kristensen T.",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 14,
+    "FM": 6.23,
+    "GOL": 3,
+    "ASS": 0
+  },
+  {
+    "Nome": "Athekame",
+    "Ruolo": "Dd;E",
+    "Quotazione": 9,
+    "FM": 6.32,
+    "GOL": 2,
+    "ASS": 2
+  },
+  {
+    "Nome": "Holm",
+    "Ruolo": "Dd;E",
+    "Quotazione": 8,
+    "FM": 6.44,
+    "GOL": 1,
+    "ASS": 4
+  },
+  {
+    "Nome": "Miranda J.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 25,
+    "FM": 6.1,
+    "GOL": 1,
+    "ASS": 3
+  },
+  {
+    "Nome": "Vojvoda",
+    "Ruolo": "Dd;E",
+    "Quotazione": 12,
+    "FM": 6.24,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Valle",
+    "Ruolo": "Ds;E",
+    "Quotazione": 17,
+    "FM": 6.23,
+    "GOL": 1,
+    "ASS": 3
+  },
+  {
+    "Nome": "Dodò",
+    "Ruolo": "E",
+    "Quotazione": 30,
+    "FM": 6.03,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Martin",
+    "Ruolo": "Ds;E",
+    "Quotazione": 11,
+    "FM": 6.1,
+    "GOL": 1,
+    "ASS": 5
+  },
+  {
+    "Nome": "Carlos Augusto",
+    "Ruolo": "B;Ds;E",
+    "Quotazione": 15,
+    "FM": 6.16,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Tiago Gabriel",
+    "Ruolo": "Dc",
+    "Quotazione": 25,
+    "FM": 6.01,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gallo",
+    "Ruolo": "Ds;E",
+    "Quotazione": 15,
+    "FM": 5.99,
+    "GOL": 0,
+    "ASS": 3
+  },
+  {
+    "Nome": "Bartesaghi",
+    "Ruolo": "Ds;E",
+    "Quotazione": 15,
+    "FM": 6.05,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Beukema",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 6.16,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Di Lorenzo",
+    "Ruolo": "Dd;E",
+    "Quotazione": 28,
+    "FM": 6.33,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Delprato",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 22,
+    "FM": 6.01,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kabasele",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 6.18,
+    "GOL": 3,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ramon",
+    "Ruolo": "Dc",
+    "Quotazione": 23,
+    "FM": 6.14,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Belghali",
+    "Ruolo": "Dd;E",
+    "Quotazione": 12,
+    "FM": 6.21,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gutierrez",
+    "Ruolo": "Ds;E",
+    "Quotazione": 12,
+    "FM": 6.17,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Obrador",
+    "Ruolo": "Ds;E",
+    "Quotazione": 16,
+    "FM": 6.41,
+    "GOL": 1,
+    "ASS": 3
+  },
+  {
+    "Nome": "Mina",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 6.17,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Moreno Alb.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 10,
+    "FM": 6.38,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Cambiaso",
+    "Ruolo": "E",
+    "Quotazione": 17,
+    "FM": 5.99,
+    "GOL": 3,
+    "ASS": 4
+  },
+  {
+    "Nome": "Baschirotto",
+    "Ruolo": "Dc",
+    "Quotazione": 13,
+    "FM": 6.12,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Angori",
+    "Ruolo": "Ds;E",
+    "Quotazione": 13,
+    "FM": 5.94,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Coco",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.91,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bernasconi",
+    "Ruolo": "E",
+    "Quotazione": 12,
+    "FM": 6.16,
+    "GOL": 0,
+    "ASS": 3
+  },
+  {
+    "Nome": "Luperto",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.9,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Zortea",
+    "Ruolo": "E",
+    "Quotazione": 12,
+    "FM": 5.89,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Gila",
+    "Ruolo": "Dc",
+    "Quotazione": 16,
+    "FM": 5.95,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Romagnoli",
+    "Ruolo": "Dc",
+    "Quotazione": 16,
+    "FM": 5.92,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Marusic",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 12,
+    "FM": 5.97,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Tomori",
+    "Ruolo": "Dc",
+    "Quotazione": 21,
+    "FM": 5.88,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Buongiorno",
+    "Ruolo": "Dc",
+    "Quotazione": 13,
+    "FM": 5.88,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Circati",
+    "Ruolo": "Dc",
+    "Quotazione": 13,
+    "FM": 5.92,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Muharemovic",
+    "Ruolo": "Dc",
+    "Quotazione": 18,
+    "FM": 5.89,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Maripan",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 6.1,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ghilardi",
+    "Ruolo": "Dc",
+    "Quotazione": 11,
+    "FM": 5.95,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Idzes",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.9,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Diego Carlos",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 6.1,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Garcia U.",
+    "Ruolo": "B;Ds;E",
+    "Quotazione": 17,
+    "FM": 6.46,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Djimsiti",
+    "Ruolo": "Dc",
+    "Quotazione": 13,
+    "FM": 5.8,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kolasinac",
+    "Ruolo": "B;Ds;E",
+    "Quotazione": 12,
+    "FM": 5.94,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Lucumì",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.89,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Obert",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 13,
+    "FM": 5.82,
+    "GOL": 0,
+    "ASS": 3
+  },
+  {
+    "Nome": "Marcandalli",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.84,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Norton-Cuffy",
+    "Ruolo": "Dd;E",
+    "Quotazione": 14,
+    "FM": 6.09,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Provstgaard",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.85,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Terracciano F.",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 11,
+    "FM": 5.83,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Angelino",
+    "Ruolo": "E",
+    "Quotazione": 7,
+    "FM": 5.67,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pedersen",
+    "Ruolo": "Dd;E",
+    "Quotazione": 12,
+    "FM": 5.96,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Ehizibue",
+    "Ruolo": "Dd;E",
+    "Quotazione": 10,
+    "FM": 5.96,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Frese",
+    "Ruolo": "Ds;E",
+    "Quotazione": 12,
+    "FM": 5.84,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Hien",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 5.86,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kossounou",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 8,
+    "FM": 6.09,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Bellanova",
+    "Ruolo": "E",
+    "Quotazione": 11,
+    "FM": 5.82,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Zappa",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 8,
+    "FM": 5.98,
+    "GOL": 0,
+    "ASS": 3
+  },
+  {
+    "Nome": "Smolcic I.",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 12,
+    "FM": 5.84,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Barbieri",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 10,
+    "FM": 5.87,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ranieri L.",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 10,
+    "FM": 5.79,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Parisi",
+    "Ruolo": "E",
+    "Quotazione": 12,
+    "FM": 5.98,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "De Winter",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 10,
+    "FM": 5.9,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Cabal",
+    "Ruolo": "B;Ds;E",
+    "Quotazione": 9,
+    "FM": 6.56,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Joao Mario",
+    "Ruolo": "E",
+    "Quotazione": 12,
+    "FM": 6,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Tavares N.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 18,
+    "FM": 5.8,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zanoli",
+    "Ruolo": "Dd;E",
+    "Quotazione": 12,
+    "FM": 6.29,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Caracciolo A.",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 5.77,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ismajli",
+    "Ruolo": "Dc",
+    "Quotazione": 14,
+    "FM": 5.9,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Kamara H.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 15,
+    "FM": 5.87,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Bradaric",
+    "Ruolo": "Ds;E",
+    "Quotazione": 11,
+    "FM": 5.84,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Siebert",
+    "Ruolo": "Dc",
+    "Quotazione": 14,
+    "FM": 5.76,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Edmundsson",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.73,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Idrissi R.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 9,
+    "FM": 6.09,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Dossena",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 5.68,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Van Der Brempt",
+    "Ruolo": "Dd;E",
+    "Quotazione": 8,
+    "FM": 5.96,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Floriani Mussolini",
+    "Ruolo": "Dd;E",
+    "Quotazione": 12,
+    "FM": 5.72,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Pongracic",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.67,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Acerbi",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 5.94,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gatti",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 6.22,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pellegrini Lu.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 9,
+    "FM": 5.81,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Veiga D.",
+    "Ruolo": "Dd;E",
+    "Quotazione": 13,
+    "FM": 5.69,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gabbia",
+    "Ruolo": "Dc",
+    "Quotazione": 14,
+    "FM": 5.84,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Olivera",
+    "Ruolo": "Ds;E",
+    "Quotazione": 14,
+    "FM": 5.68,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Valenti",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 5.83,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Canestrelli",
+    "Ruolo": "Dc",
+    "Quotazione": 11,
+    "FM": 5.72,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Walukiewicz",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 12,
+    "FM": 5.74,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bertola",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 5.84,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ebosse",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 7,
+    "FM": 5.72,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Cuadrado",
+    "Ruolo": "E",
+    "Quotazione": 8,
+    "FM": 6.13,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Nelsson",
+    "Ruolo": "Dc",
+    "Quotazione": 11,
+    "FM": 5.57,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Troilo",
+    "Ruolo": "Dc",
+    "Quotazione": 12,
+    "FM": 5.71,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zè Pedro",
+    "Ruolo": "Dc",
+    "Quotazione": 11,
+    "FM": 5.68,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ahanor",
+    "Ruolo": "B;Ds;E",
+    "Quotazione": 10,
+    "FM": 5.69,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Vitik",
+    "Ruolo": "Dc",
+    "Quotazione": 7,
+    "FM": 5.86,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Bianchetti",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 5.69,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Folino",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 6.05,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pezzella Giu.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 10,
+    "FM": 5.55,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Comuzzo",
+    "Ruolo": "Dc",
+    "Quotazione": 11,
+    "FM": 5.75,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Juan Jesus",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 10,
+    "FM": 5.62,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Mazzocchi",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 7,
+    "FM": 5.94,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Doig",
+    "Ruolo": "Ds;E",
+    "Quotazione": 10,
+    "FM": 5.76,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Lazaro",
+    "Ruolo": "Dd;E",
+    "Quotazione": 11,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Oyegoke",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 4,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Heggem",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 12,
+    "FM": 5.8,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Britschgi",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 8,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Rodriguez Ju.",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 10,
+    "FM": 5.72,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Coulibaly W.",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 4,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "De Silvestri",
+    "Ruolo": "Dd;E",
+    "Quotazione": 8,
+    "FM": 5.95,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sabelli",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 10,
+    "FM": 5.65,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "De Vrij",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 6.06,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Darmian",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 8,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Patric",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 10,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Lazzari",
+    "Ruolo": "Dd;E",
+    "Quotazione": 9,
+    "FM": 5.74,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Marianucci",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 5.73,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Calabresi",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 6,
+    "FM": 5.58,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zemura",
+    "Ruolo": "Ds;E",
+    "Quotazione": 8,
+    "FM": 5.77,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Valentini N.",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 5.58,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Bella-Kotchap",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Tsimikas",
+    "Ruolo": "Ds;E",
+    "Quotazione": 8,
+    "FM": 5.69,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zatterstrom",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Carboni F.",
+    "Ruolo": "Ds;E",
+    "Quotazione": 4,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pedro Felipe",
+    "Ruolo": "Dc",
+    "Quotazione": 3,
+    "FM": 6.25,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Lykogiannis",
+    "Ruolo": "Ds;E",
+    "Quotazione": 10,
+    "FM": 5.56,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Fortini",
+    "Ruolo": "E",
+    "Quotazione": 9,
+    "FM": 5.96,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Otoa",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 5.35,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Rugani",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 5.56,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gaspar K.",
+    "Ruolo": "Dc",
+    "Quotazione": 10,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Jean",
+    "Ruolo": "Dc",
+    "Quotazione": 3,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Estupinan",
+    "Ruolo": "Ds;E",
+    "Quotazione": 8,
+    "FM": 5.71,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Biraghi",
+    "Ruolo": "Ds;E",
+    "Quotazione": 5,
+    "FM": 5.59,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Slotsager",
+    "Ruolo": "Dc",
+    "Quotazione": 7,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ndiaye",
+    "Ruolo": "Dc",
+    "Quotazione": 5,
+    "FM": 5.36,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Cham",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 6,
+    "FM": 5.17,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ziolkowski",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 5.78,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Nkounkou",
+    "Ruolo": "Ds;E",
+    "Quotazione": 8,
+    "FM": 5.81,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Arizala",
+    "Ruolo": "Ds;E",
+    "Quotazione": 1,
+    "FM": 5.8,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Helland",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 7,
+    "FM": 5.33,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Lirola",
+    "Ruolo": "B;Dd;E",
+    "Quotazione": 7,
+    "FM": 5.6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Mlacic",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 5.67,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Balbo",
+    "Ruolo": "Ds;E",
+    "Quotazione": 4,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Casale",
+    "Ruolo": "Dc",
+    "Quotazione": 9,
+    "FM": 5.65,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Goldaniga",
+    "Ruolo": "Dc",
+    "Quotazione": 6,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ceccherini",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 7,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Gigot",
+    "Ruolo": "Dc",
+    "Quotazione": 3,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Hysaj",
+    "Ruolo": "Dd;Ds;E",
+    "Quotazione": 4,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Perez M.",
+    "Ruolo": "Dd;Dc",
+    "Quotazione": 2,
+    "FM": 5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ndaba",
+    "Ruolo": "Ds;E",
+    "Quotazione": 7,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Coppola F.",
+    "Ruolo": "Dc",
+    "Quotazione": 4,
+    "FM": 4.9,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Romagna",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pieragnolo",
+    "Ruolo": "Ds;E",
+    "Quotazione": 3,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Denoon",
+    "Ruolo": "Dc",
+    "Quotazione": 4,
+    "FM": 5.25,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Candè",
+    "Ruolo": "Ds;Dc",
+    "Quotazione": 5,
+    "FM": 5.56,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kouadio",
+    "Ruolo": "Dc",
+    "Quotazione": 1,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Faye",
+    "Ruolo": "Dc",
+    "Quotazione": 5,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Odogu",
+    "Ruolo": "Dc",
+    "Quotazione": 5,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Albiol",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 5.69,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bozhinov",
+    "Ruolo": "Dc",
+    "Quotazione": 8,
+    "FM": 5.06,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Raterink",
+    "Ruolo": "Dd;E",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Paz N.",
+    "Ruolo": "T;A",
+    "Quotazione": 245,
+    "FM": 7.3,
+    "GOL": 12,
+    "ASS": 5
+  },
+  {
+    "Nome": "McTominay",
+    "Ruolo": "C;T",
+    "Quotazione": 215,
+    "FM": 7.26,
+    "GOL": 10,
+    "ASS": 2
+  },
+  {
+    "Nome": "Baturina",
+    "Ruolo": "T",
+    "Quotazione": 95,
+    "FM": 7.14,
+    "GOL": 6,
+    "ASS": 3
+  },
+  {
+    "Nome": "Calhanoglu",
+    "Ruolo": "M;C",
+    "Quotazione": 190,
+    "FM": 7.64,
+    "GOL": 9,
+    "ASS": 4
+  },
+  {
+    "Nome": "Pulisic",
+    "Ruolo": "T;A",
+    "Quotazione": 100,
+    "FM": 7.07,
+    "GOL": 8,
+    "ASS": 4
+  },
+  {
+    "Nome": "Rabiot",
+    "Ruolo": "C;T",
+    "Quotazione": 195,
+    "FM": 6.98,
+    "GOL": 6,
+    "ASS": 4
+  },
+  {
+    "Nome": "De Bruyne",
+    "Ruolo": "T",
+    "Quotazione": 92,
+    "FM": 7.24,
+    "GOL": 5,
+    "ASS": 2
+  },
+  {
+    "Nome": "Da Cunha",
+    "Ruolo": "C;W;T",
+    "Quotazione": 80,
+    "FM": 6.91,
+    "GOL": 6,
+    "ASS": 4
+  },
+  {
+    "Nome": "Zielinski",
+    "Ruolo": "C;T",
+    "Quotazione": 60,
+    "FM": 6.8,
+    "GOL": 6,
+    "ASS": 2
+  },
+  {
+    "Nome": "Atta",
+    "Ruolo": "C",
+    "Quotazione": 85,
+    "FM": 6.88,
+    "GOL": 5,
+    "ASS": 3
+  },
+  {
+    "Nome": "Orsolini",
+    "Ruolo": "W;A",
+    "Quotazione": 150,
+    "FM": 6.76,
+    "GOL": 10,
+    "ASS": 1
+  },
+  {
+    "Nome": "Zaniolo",
+    "Ruolo": "T;A",
+    "Quotazione": 100,
+    "FM": 6.77,
+    "GOL": 5,
+    "ASS": 5
+  },
+  {
+    "Nome": "Barella",
+    "Ruolo": "C",
+    "Quotazione": 58,
+    "FM": 6.71,
+    "GOL": 3,
+    "ASS": 9
+  },
+  {
+    "Nome": "McKennie",
+    "Ruolo": "M;C",
+    "Quotazione": 107,
+    "FM": 6.68,
+    "GOL": 5,
+    "ASS": 6
+  },
+  {
+    "Nome": "Conceicao",
+    "Ruolo": "W;A",
+    "Quotazione": 65,
+    "FM": 6.7,
+    "GOL": 3,
+    "ASS": 5
+  },
+  {
+    "Nome": "Modric",
+    "Ruolo": "C",
+    "Quotazione": 90,
+    "FM": 6.67,
+    "GOL": 2,
+    "ASS": 3
+  },
+  {
+    "Nome": "Mandragora",
+    "Ruolo": "M;C",
+    "Quotazione": 60,
+    "FM": 6.62,
+    "GOL": 7,
+    "ASS": 2
+  },
+  {
+    "Nome": "Konè I.",
+    "Ruolo": "M;C",
+    "Quotazione": 67,
+    "FM": 6.63,
+    "GOL": 6,
+    "ASS": 0
+  },
+  {
+    "Nome": "Vlasic",
+    "Ruolo": "T",
+    "Quotazione": 100,
+    "FM": 6.66,
+    "GOL": 8,
+    "ASS": 3
+  },
+  {
+    "Nome": "Perrone",
+    "Ruolo": "M;C",
+    "Quotazione": 50,
+    "FM": 6.47,
+    "GOL": 3,
+    "ASS": 4
+  },
+  {
+    "Nome": "Messias",
+    "Ruolo": "C;W",
+    "Quotazione": 12,
+    "FM": 6.68,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Isaksen",
+    "Ruolo": "W;A",
+    "Quotazione": 35,
+    "FM": 6.63,
+    "GOL": 5,
+    "ASS": 1
+  },
+  {
+    "Nome": "Malinovskyi",
+    "Ruolo": "C;T",
+    "Quotazione": 34,
+    "FM": 6.54,
+    "GOL": 6,
+    "ASS": 3
+  },
+  {
+    "Nome": "Saelemaekers",
+    "Ruolo": "E;W",
+    "Quotazione": 36,
+    "FM": 6.41,
+    "GOL": 3,
+    "ASS": 3
+  },
+  {
+    "Nome": "Zambo Anguissa",
+    "Ruolo": "M;C",
+    "Quotazione": 20,
+    "FM": 6.86,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bernabè",
+    "Ruolo": "C",
+    "Quotazione": 23,
+    "FM": 6.48,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Thorstvedt",
+    "Ruolo": "C;T",
+    "Quotazione": 40,
+    "FM": 6.48,
+    "GOL": 4,
+    "ASS": 3
+  },
+  {
+    "Nome": "Rowe",
+    "Ruolo": "W;T",
+    "Quotazione": 49,
+    "FM": 6.59,
+    "GOL": 3,
+    "ASS": 3
+  },
+  {
+    "Nome": "Zalewski",
+    "Ruolo": "E;W",
+    "Quotazione": 19,
+    "FM": 6.4,
+    "GOL": 2,
+    "ASS": 5
+  },
+  {
+    "Nome": "Mkhitaryan",
+    "Ruolo": "C;T",
+    "Quotazione": 14,
+    "FM": 6.59,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Thuram K.",
+    "Ruolo": "M;C",
+    "Quotazione": 41,
+    "FM": 6.4,
+    "GOL": 3,
+    "ASS": 2
+  },
+  {
+    "Nome": "Pisilli",
+    "Ruolo": "C",
+    "Quotazione": 17,
+    "FM": 6.48,
+    "GOL": 2,
+    "ASS": 4
+  },
+  {
+    "Nome": "Ekkelenkamp",
+    "Ruolo": "C;T",
+    "Quotazione": 51,
+    "FM": 6.61,
+    "GOL": 5,
+    "ASS": 3
+  },
+  {
+    "Nome": "Taylor K.",
+    "Ruolo": "C;T",
+    "Quotazione": 52,
+    "FM": 6.56,
+    "GOL": 3,
+    "ASS": 2
+  },
+  {
+    "Nome": "Ederson D.S.",
+    "Ruolo": "M;C",
+    "Quotazione": 30,
+    "FM": 6.43,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bernardeschi",
+    "Ruolo": "W;A",
+    "Quotazione": 33,
+    "FM": 6.56,
+    "GOL": 4,
+    "ASS": 2
+  },
+  {
+    "Nome": "Odgaard",
+    "Ruolo": "T;A",
+    "Quotazione": 14,
+    "FM": 6.61,
+    "GOL": 5,
+    "ASS": 1
+  },
+  {
+    "Nome": "Gaetano",
+    "Ruolo": "T",
+    "Quotazione": 15,
+    "FM": 6.31,
+    "GOL": 2,
+    "ASS": 4
+  },
+  {
+    "Nome": "Caqueret",
+    "Ruolo": "C;T",
+    "Quotazione": 18,
+    "FM": 6.41,
+    "GOL": 2,
+    "ASS": 4
+  },
+  {
+    "Nome": "Strefezza",
+    "Ruolo": "W;A",
+    "Quotazione": 50,
+    "FM": 6.68,
+    "GOL": 2,
+    "ASS": 2
+  },
+  {
+    "Nome": "Gudmundsson A.",
+    "Ruolo": "T;A",
+    "Quotazione": 35,
+    "FM": 6.34,
+    "GOL": 5,
+    "ASS": 3
+  },
+  {
+    "Nome": "Zaccagni",
+    "Ruolo": "W;A",
+    "Quotazione": 25,
+    "FM": 5.96,
+    "GOL": 3,
+    "ASS": 0
+  },
+  {
+    "Nome": "Coulibaly L.",
+    "Ruolo": "M;C",
+    "Quotazione": 21,
+    "FM": 6.29,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Politano",
+    "Ruolo": "W",
+    "Quotazione": 31,
+    "FM": 6.36,
+    "GOL": 2,
+    "ASS": 5
+  },
+  {
+    "Nome": "Cristante",
+    "Ruolo": "M;C",
+    "Quotazione": 26,
+    "FM": 6.22,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Konè M.",
+    "Ruolo": "M;C",
+    "Quotazione": 39,
+    "FM": 6.53,
+    "GOL": 2,
+    "ASS": 3
+  },
+  {
+    "Nome": "Pellegrini Lo.",
+    "Ruolo": "C;T",
+    "Quotazione": 24,
+    "FM": 6.58,
+    "GOL": 4,
+    "ASS": 2
+  },
+  {
+    "Nome": "Volpato",
+    "Ruolo": "W;T",
+    "Quotazione": 17,
+    "FM": 6.52,
+    "GOL": 2,
+    "ASS": 4
+  },
+  {
+    "Nome": "Casadei",
+    "Ruolo": "C;T",
+    "Quotazione": 20,
+    "FM": 6.45,
+    "GOL": 6,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pasalic",
+    "Ruolo": "C;T",
+    "Quotazione": 14,
+    "FM": 6.27,
+    "GOL": 3,
+    "ASS": 3
+  },
+  {
+    "Nome": "Thorsby",
+    "Ruolo": "C;T",
+    "Quotazione": 12,
+    "FM": 6.48,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Locatelli",
+    "Ruolo": "M;C",
+    "Quotazione": 47,
+    "FM": 6.19,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Santos A.",
+    "Ruolo": "W;A",
+    "Quotazione": 54,
+    "FM": 7.23,
+    "GOL": 4,
+    "ASS": 0
+  },
+  {
+    "Nome": "Vandeputte",
+    "Ruolo": "W;T",
+    "Quotazione": 15,
+    "FM": 6.27,
+    "GOL": 1,
+    "ASS": 5
+  },
+  {
+    "Nome": "Fagioli",
+    "Ruolo": "C",
+    "Quotazione": 35,
+    "FM": 6.23,
+    "GOL": 2,
+    "ASS": 3
+  },
+  {
+    "Nome": "Sucic P.",
+    "Ruolo": "C",
+    "Quotazione": 21,
+    "FM": 6.27,
+    "GOL": 2,
+    "ASS": 2
+  },
+  {
+    "Nome": "Cataldi",
+    "Ruolo": "M;C",
+    "Quotazione": 17,
+    "FM": 6.41,
+    "GOL": 3,
+    "ASS": 3
+  },
+  {
+    "Nome": "Basic",
+    "Ruolo": "C",
+    "Quotazione": 25,
+    "FM": 6.43,
+    "GOL": 2,
+    "ASS": 3
+  },
+  {
+    "Nome": "Ricci S.",
+    "Ruolo": "M;C",
+    "Quotazione": 13,
+    "FM": 6.18,
+    "GOL": 1,
+    "ASS": 3
+  },
+  {
+    "Nome": "Keita M.",
+    "Ruolo": "M;C",
+    "Quotazione": 18,
+    "FM": 6.06,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Harrison",
+    "Ruolo": "W",
+    "Quotazione": 23,
+    "FM": 6.27,
+    "GOL": 1,
+    "ASS": 3
+  },
+  {
+    "Nome": "Brescianini",
+    "Ruolo": "C;T",
+    "Quotazione": 15,
+    "FM": 6.31,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Maldini",
+    "Ruolo": "T;A",
+    "Quotazione": 20,
+    "FM": 6.31,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Folorunsho",
+    "Ruolo": "C;T",
+    "Quotazione": 14,
+    "FM": 6.21,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Fofana Y.",
+    "Ruolo": "M;C",
+    "Quotazione": 18,
+    "FM": 6.06,
+    "GOL": 2,
+    "ASS": 3
+  },
+  {
+    "Nome": "Loftus-Cheek",
+    "Ruolo": "C;T",
+    "Quotazione": 12,
+    "FM": 6.52,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Lobotka",
+    "Ruolo": "M;C",
+    "Quotazione": 20,
+    "FM": 6.1,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Neres",
+    "Ruolo": "W;A",
+    "Quotazione": 15,
+    "FM": 6.84,
+    "GOL": 3,
+    "ASS": 3
+  },
+  {
+    "Nome": "Leris",
+    "Ruolo": "W",
+    "Quotazione": 12,
+    "FM": 6.19,
+    "GOL": 2,
+    "ASS": 3
+  },
+  {
+    "Nome": "Mazzitelli",
+    "Ruolo": "M;C",
+    "Quotazione": 12,
+    "FM": 6.57,
+    "GOL": 2,
+    "ASS": 2
+  },
+  {
+    "Nome": "De Roon",
+    "Ruolo": "M;C",
+    "Quotazione": 22,
+    "FM": 6,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Samardzic",
+    "Ruolo": "T",
+    "Quotazione": 11,
+    "FM": 6.29,
+    "GOL": 2,
+    "ASS": 2
+  },
+  {
+    "Nome": "Moro N.",
+    "Ruolo": "M;C",
+    "Quotazione": 11,
+    "FM": 6.12,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ndour",
+    "Ruolo": "M;C",
+    "Quotazione": 22,
+    "FM": 6.07,
+    "GOL": 3,
+    "ASS": 0
+  },
+  {
+    "Nome": "Frendrup",
+    "Ruolo": "M;C",
+    "Quotazione": 15,
+    "FM": 5.97,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kostic",
+    "Ruolo": "E;W",
+    "Quotazione": 8,
+    "FM": 7.2,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "El Shaarawy",
+    "Ruolo": "W",
+    "Quotazione": 11,
+    "FM": 6.33,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Baldanzi",
+    "Ruolo": "T;A",
+    "Quotazione": 15,
+    "FM": 6.38,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Karlstrom",
+    "Ruolo": "M;C",
+    "Quotazione": 15,
+    "FM": 5.96,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zhegrova",
+    "Ruolo": "W",
+    "Quotazione": 12,
+    "FM": 5.96,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gandelman",
+    "Ruolo": "C;T",
+    "Quotazione": 13,
+    "FM": 6.41,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Freuler",
+    "Ruolo": "M;C",
+    "Quotazione": 14,
+    "FM": 6.04,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Pobega",
+    "Ruolo": "M;C",
+    "Quotazione": 13,
+    "FM": 6.17,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Adopo",
+    "Ruolo": "M;C",
+    "Quotazione": 13,
+    "FM": 5.88,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ellertsson",
+    "Ruolo": "C;W",
+    "Quotazione": 10,
+    "FM": 5.91,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Luis Henrique",
+    "Ruolo": "E;W",
+    "Quotazione": 12,
+    "FM": 6.06,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Ramadani",
+    "Ruolo": "M;C",
+    "Quotazione": 13,
+    "FM": 5.85,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "El Aynaoui",
+    "Ruolo": "M;C",
+    "Quotazione": 11,
+    "FM": 6.1,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Fadera",
+    "Ruolo": "W",
+    "Quotazione": 10,
+    "FM": 6.15,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Sottil",
+    "Ruolo": "W;A",
+    "Quotazione": 9,
+    "FM": 6.24,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Vergara",
+    "Ruolo": "W;T",
+    "Quotazione": 12,
+    "FM": 6.5,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Matic",
+    "Ruolo": "M;C",
+    "Quotazione": 13,
+    "FM": 5.96,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Nicolussi Caviglia",
+    "Ruolo": "M;C",
+    "Quotazione": 15,
+    "FM": 6.02,
+    "GOL": 0,
+    "ASS": 4
+  },
+  {
+    "Nome": "Prati",
+    "Ruolo": "M;C",
+    "Quotazione": 11,
+    "FM": 5.88,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Felici",
+    "Ruolo": "W",
+    "Quotazione": 7,
+    "FM": 6.55,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Miretti",
+    "Ruolo": "C;T",
+    "Quotazione": 12,
+    "FM": 6.2,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Berisha M.",
+    "Ruolo": "C;T",
+    "Quotazione": 9,
+    "FM": 6.92,
+    "GOL": 2,
+    "ASS": 3
+  },
+  {
+    "Nome": "Pierotti",
+    "Ruolo": "W;A",
+    "Quotazione": 13,
+    "FM": 5.85,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Gilmour",
+    "Ruolo": "M;C",
+    "Quotazione": 12,
+    "FM": 6.27,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gineitis",
+    "Ruolo": "C",
+    "Quotazione": 9,
+    "FM": 5.81,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bernede",
+    "Ruolo": "C",
+    "Quotazione": 11,
+    "FM": 6,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Piotrowski",
+    "Ruolo": "C",
+    "Quotazione": 11,
+    "FM": 5.95,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Miller L.",
+    "Ruolo": "M;C",
+    "Quotazione": 11,
+    "FM": 5.95,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Sorensen O.",
+    "Ruolo": "C",
+    "Quotazione": 12,
+    "FM": 5.95,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ilkhan",
+    "Ruolo": "C;T",
+    "Quotazione": 8,
+    "FM": 6,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Diouf",
+    "Ruolo": "C",
+    "Quotazione": 13,
+    "FM": 6.45,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Elmas",
+    "Ruolo": "W;T",
+    "Quotazione": 13,
+    "FM": 5.96,
+    "GOL": 1,
+    "ASS": 3
+  },
+  {
+    "Nome": "Gagliardini",
+    "Ruolo": "M;C",
+    "Quotazione": 12,
+    "FM": 5.84,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sulemana I.",
+    "Ruolo": "M;C",
+    "Quotazione": 10,
+    "FM": 5.78,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Aebischer",
+    "Ruolo": "C",
+    "Quotazione": 12,
+    "FM": 5.8,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Fabbian",
+    "Ruolo": "C;T",
+    "Quotazione": 9,
+    "FM": 6.05,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Deiola",
+    "Ruolo": "M;C",
+    "Quotazione": 11,
+    "FM": 5.95,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Dele-Bashiru",
+    "Ruolo": "C;T",
+    "Quotazione": 14,
+    "FM": 5.83,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zerbin",
+    "Ruolo": "E;W",
+    "Quotazione": 9,
+    "FM": 5.79,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Ordonez C.",
+    "Ruolo": "M;C",
+    "Quotazione": 12,
+    "FM": 5.81,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Tramoni M.",
+    "Ruolo": "W;T",
+    "Quotazione": 10,
+    "FM": 6,
+    "GOL": 2,
+    "ASS": 2
+  },
+  {
+    "Nome": "Lipani",
+    "Ruolo": "M;C",
+    "Quotazione": 8,
+    "FM": 5.9,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Serdar",
+    "Ruolo": "C",
+    "Quotazione": 10,
+    "FM": 6.22,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ferguson",
+    "Ruolo": "C;T",
+    "Quotazione": 12,
+    "FM": 5.78,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Grassi",
+    "Ruolo": "M;C",
+    "Quotazione": 8,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Masini",
+    "Ruolo": "M;C",
+    "Quotazione": 7,
+    "FM": 5.9,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Maleh",
+    "Ruolo": "M;C",
+    "Quotazione": 5,
+    "FM": 5.71,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Bondo",
+    "Ruolo": "M;C",
+    "Quotazione": 12,
+    "FM": 5.76,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Musah",
+    "Ruolo": "C;W",
+    "Quotazione": 11,
+    "FM": 6.09,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Estevez",
+    "Ruolo": "M;C",
+    "Quotazione": 8,
+    "FM": 5.8,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Tourè I.",
+    "Ruolo": "E;M",
+    "Quotazione": 12,
+    "FM": 5.82,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Akinsanmiro",
+    "Ruolo": "C;T",
+    "Quotazione": 11,
+    "FM": 5.8,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Payero",
+    "Ruolo": "C",
+    "Quotazione": 8,
+    "FM": 5.86,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Akpa Akpro",
+    "Ruolo": "M;C",
+    "Quotazione": 10,
+    "FM": 5.8,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ngom",
+    "Ruolo": "M;C",
+    "Quotazione": 1,
+    "FM": 5.65,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Loyola",
+    "Ruolo": "M;C",
+    "Quotazione": 11,
+    "FM": 5.73,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Amorim",
+    "Ruolo": "M;C",
+    "Quotazione": 11,
+    "FM": 5.67,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Frattesi",
+    "Ruolo": "C;T",
+    "Quotazione": 10,
+    "FM": 5.89,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Koopmeiners",
+    "Ruolo": "C;T",
+    "Quotazione": 11,
+    "FM": 5.55,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sohm",
+    "Ruolo": "C",
+    "Quotazione": 12,
+    "FM": 5.62,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Piccinini G.",
+    "Ruolo": "E;M",
+    "Quotazione": 10,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Harroui",
+    "Ruolo": "W;T",
+    "Quotazione": 10,
+    "FM": 5.85,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Suslov",
+    "Ruolo": "W;T",
+    "Quotazione": 13,
+    "FM": 5.6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Jashari",
+    "Ruolo": "C",
+    "Quotazione": 10,
+    "FM": 5.79,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Oristanio",
+    "Ruolo": "W;T;A",
+    "Quotazione": 10,
+    "FM": 5.92,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zaragoza",
+    "Ruolo": "W;A",
+    "Quotazione": 10,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Sergi Roberto",
+    "Ruolo": "M;C",
+    "Quotazione": 12,
+    "FM": 5.73,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Fazzini",
+    "Ruolo": "C;T",
+    "Quotazione": 10,
+    "FM": 5.83,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Belahyane",
+    "Ruolo": "M;C",
+    "Quotazione": 7,
+    "FM": 5.82,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Ondrejka",
+    "Ruolo": "W;A",
+    "Quotazione": 9,
+    "FM": 5.63,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Hojholt",
+    "Ruolo": "M;C",
+    "Quotazione": 7,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Vural",
+    "Ruolo": "C",
+    "Quotazione": 6,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Iannoni",
+    "Ruolo": "C",
+    "Quotazione": 8,
+    "FM": 6.5,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zarraga",
+    "Ruolo": "M;C",
+    "Quotazione": 6,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Lovric",
+    "Ruolo": "C",
+    "Quotazione": 9,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Lorran",
+    "Ruolo": "T",
+    "Quotazione": 8,
+    "FM": 6.62,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Iling Junior",
+    "Ruolo": "E;W",
+    "Quotazione": 11,
+    "FM": 5.83,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Collocolo",
+    "Ruolo": "M;C",
+    "Quotazione": 8,
+    "FM": 5.8,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sabiri",
+    "Ruolo": "T",
+    "Quotazione": 4,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Venturino",
+    "Ruolo": "W",
+    "Quotazione": 12,
+    "FM": 5.86,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Rovella",
+    "Ruolo": "M;C",
+    "Quotazione": 8,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Helgason",
+    "Ruolo": "C;T",
+    "Quotazione": 7,
+    "FM": 5.62,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Marin M.",
+    "Ruolo": "M;C",
+    "Quotazione": 8,
+    "FM": 5.7,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Boloca",
+    "Ruolo": "M;C",
+    "Quotazione": 4,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Anjorin",
+    "Ruolo": "C;T",
+    "Quotazione": 9,
+    "FM": 5.72,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Niasse",
+    "Ruolo": "M;C",
+    "Quotazione": 9,
+    "FM": 5.72,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Gorter",
+    "Ruolo": "M;C",
+    "Quotazione": 1,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Al-Musrati",
+    "Ruolo": "M;C",
+    "Quotazione": 7,
+    "FM": 5.57,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Cornet",
+    "Ruolo": "W",
+    "Quotazione": 5,
+    "FM": 4.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Bakola",
+    "Ruolo": "C;T",
+    "Quotazione": 7,
+    "FM": 6.17,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Liteta",
+    "Ruolo": "M;C",
+    "Quotazione": 6,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Marchwinski",
+    "Ruolo": "T",
+    "Quotazione": 2,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Tameze",
+    "Ruolo": "M;C",
+    "Quotazione": 9,
+    "FM": 5.59,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ilic",
+    "Ruolo": "C",
+    "Quotazione": 8,
+    "FM": 5.88,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Adzic",
+    "Ruolo": "C;T",
+    "Quotazione": 1,
+    "FM": 6.88,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Vranckx",
+    "Ruolo": "M;C",
+    "Quotazione": 9,
+    "FM": 5.57,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sala A.",
+    "Ruolo": "C",
+    "Quotazione": 9,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Stengs",
+    "Ruolo": "W;T",
+    "Quotazione": 8,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Onana J.",
+    "Ruolo": "M;C",
+    "Quotazione": 4,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Cremaschi",
+    "Ruolo": "C",
+    "Quotazione": 8,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Fofana Sa.",
+    "Ruolo": "M;C",
+    "Quotazione": 6,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Przyborek",
+    "Ruolo": "W;T",
+    "Quotazione": 6,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Lahdo",
+    "Ruolo": "C;T",
+    "Quotazione": 5,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Martinez L.",
+    "Ruolo": "Pc",
+    "Quotazione": 315,
+    "FM": 8.25,
+    "GOL": 17,
+    "ASS": 6
+  },
+  {
+    "Nome": "Thuram",
+    "Ruolo": "Pc",
+    "Quotazione": 270,
+    "FM": 7.95,
+    "GOL": 13,
+    "ASS": 6
+  },
+  {
+    "Nome": "Hojlund",
+    "Ruolo": "Pc",
+    "Quotazione": 213,
+    "FM": 7.44,
+    "GOL": 12,
+    "ASS": 5
+  },
+  {
+    "Nome": "Douvikas",
+    "Ruolo": "Pc",
+    "Quotazione": 200,
+    "FM": 7.38,
+    "GOL": 14,
+    "ASS": 1
+  },
+  {
+    "Nome": "Yildiz",
+    "Ruolo": "A",
+    "Quotazione": 182,
+    "FM": 7.3,
+    "GOL": 10,
+    "ASS": 6
+  },
+  {
+    "Nome": "Berardi",
+    "Ruolo": "A",
+    "Quotazione": 90,
+    "FM": 7.19,
+    "GOL": 8,
+    "ASS": 4
+  },
+  {
+    "Nome": "Malen",
+    "Ruolo": "A",
+    "Quotazione": 350,
+    "FM": 8.97,
+    "GOL": 14,
+    "ASS": 2
+  },
+  {
+    "Nome": "Krstovic",
+    "Ruolo": "Pc",
+    "Quotazione": 95,
+    "FM": 7.19,
+    "GOL": 10,
+    "ASS": 5
+  },
+  {
+    "Nome": "Davis K.",
+    "Ruolo": "Pc",
+    "Quotazione": 110,
+    "FM": 7.37,
+    "GOL": 10,
+    "ASS": 4
+  },
+  {
+    "Nome": "Scamacca",
+    "Ruolo": "Pc",
+    "Quotazione": 95,
+    "FM": 7.55,
+    "GOL": 10,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bonazzoli",
+    "Ruolo": "A",
+    "Quotazione": 40,
+    "FM": 7.01,
+    "GOL": 10,
+    "ASS": 2
+  },
+  {
+    "Nome": "Esposito F.P.",
+    "Ruolo": "Pc",
+    "Quotazione": 41,
+    "FM": 7.02,
+    "GOL": 7,
+    "ASS": 3
+  },
+  {
+    "Nome": "Simeone",
+    "Ruolo": "Pc",
+    "Quotazione": 99,
+    "FM": 7.09,
+    "GOL": 11,
+    "ASS": 0
+  },
+  {
+    "Nome": "Esposito Se.",
+    "Ruolo": "A",
+    "Quotazione": 70,
+    "FM": 6.88,
+    "GOL": 7,
+    "ASS": 4
+  },
+  {
+    "Nome": "Laurientè",
+    "Ruolo": "A",
+    "Quotazione": 82,
+    "FM": 6.99,
+    "GOL": 7,
+    "ASS": 9
+  },
+  {
+    "Nome": "Bonny",
+    "Ruolo": "Pc",
+    "Quotazione": 15,
+    "FM": 6.83,
+    "GOL": 5,
+    "ASS": 4
+  },
+  {
+    "Nome": "Leao",
+    "Ruolo": "A",
+    "Quotazione": 80,
+    "FM": 6.86,
+    "GOL": 9,
+    "ASS": 3
+  },
+  {
+    "Nome": "Soulè",
+    "Ruolo": "A",
+    "Quotazione": 85,
+    "FM": 6.83,
+    "GOL": 6,
+    "ASS": 5
+  },
+  {
+    "Nome": "Pellegrino M.",
+    "Ruolo": "Pc",
+    "Quotazione": 67,
+    "FM": 6.65,
+    "GOL": 9,
+    "ASS": 0
+  },
+  {
+    "Nome": "Nkunku",
+    "Ruolo": "A",
+    "Quotazione": 43,
+    "FM": 6.87,
+    "GOL": 7,
+    "ASS": 3
+  },
+  {
+    "Nome": "Castro S.",
+    "Ruolo": "Pc",
+    "Quotazione": 30,
+    "FM": 6.51,
+    "GOL": 7,
+    "ASS": 1
+  },
+  {
+    "Nome": "De Ketelaere",
+    "Ruolo": "A",
+    "Quotazione": 59,
+    "FM": 6.6,
+    "GOL": 3,
+    "ASS": 5
+  },
+  {
+    "Nome": "Kean",
+    "Ruolo": "Pc",
+    "Quotazione": 40,
+    "FM": 6.77,
+    "GOL": 8,
+    "ASS": 1
+  },
+  {
+    "Nome": "Vlahovic",
+    "Ruolo": "Pc",
+    "Quotazione": 100,
+    "FM": 7.31,
+    "GOL": 7,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pedro",
+    "Ruolo": "A",
+    "Quotazione": 20,
+    "FM": 6.78,
+    "GOL": 5,
+    "ASS": 2
+  },
+  {
+    "Nome": "Moreo",
+    "Ruolo": "A",
+    "Quotazione": 25,
+    "FM": 6.56,
+    "GOL": 7,
+    "ASS": 0
+  },
+  {
+    "Nome": "Pinamonti",
+    "Ruolo": "Pc",
+    "Quotazione": 55,
+    "FM": 6.62,
+    "GOL": 9,
+    "ASS": 3
+  },
+  {
+    "Nome": "Adams C.",
+    "Ruolo": "A",
+    "Quotazione": 23,
+    "FM": 6.64,
+    "GOL": 6,
+    "ASS": 3
+  },
+  {
+    "Nome": "Vardy",
+    "Ruolo": "Pc",
+    "Quotazione": 32,
+    "FM": 6.62,
+    "GOL": 7,
+    "ASS": 1
+  },
+  {
+    "Nome": "Rodriguez Je.",
+    "Ruolo": "W;A",
+    "Quotazione": 27,
+    "FM": 6.66,
+    "GOL": 2,
+    "ASS": 8
+  },
+  {
+    "Nome": "Banda",
+    "Ruolo": "W;A",
+    "Quotazione": 22,
+    "FM": 6.55,
+    "GOL": 5,
+    "ASS": 4
+  },
+  {
+    "Nome": "Raspadori",
+    "Ruolo": "A",
+    "Quotazione": 37,
+    "FM": 6.88,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Lukaku",
+    "Ruolo": "Pc",
+    "Quotazione": 10,
+    "FM": 9.5,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Colombo",
+    "Ruolo": "Pc",
+    "Quotazione": 37,
+    "FM": 6.41,
+    "GOL": 7,
+    "ASS": 1
+  },
+  {
+    "Nome": "Noslin",
+    "Ruolo": "A",
+    "Quotazione": 24,
+    "FM": 6.5,
+    "GOL": 4,
+    "ASS": 2
+  },
+  {
+    "Nome": "Orban G.",
+    "Ruolo": "Pc",
+    "Quotazione": 15,
+    "FM": 6.54,
+    "GOL": 7,
+    "ASS": 2
+  },
+  {
+    "Nome": "Vitinha O.",
+    "Ruolo": "Pc",
+    "Quotazione": 20,
+    "FM": 6.39,
+    "GOL": 5,
+    "ASS": 1
+  },
+  {
+    "Nome": "David",
+    "Ruolo": "Pc",
+    "Quotazione": 28,
+    "FM": 6.33,
+    "GOL": 6,
+    "ASS": 2
+  },
+  {
+    "Nome": "Dybala",
+    "Ruolo": "A",
+    "Quotazione": 50,
+    "FM": 6.74,
+    "GOL": 2,
+    "ASS": 7
+  },
+  {
+    "Nome": "Giovane",
+    "Ruolo": "A",
+    "Quotazione": 8,
+    "FM": 6.45,
+    "GOL": 3,
+    "ASS": 6
+  },
+  {
+    "Nome": "Kilicsoy",
+    "Ruolo": "A",
+    "Quotazione": 7,
+    "FM": 6.78,
+    "GOL": 4,
+    "ASS": 0
+  },
+  {
+    "Nome": "Cambiaghi",
+    "Ruolo": "A",
+    "Quotazione": 10,
+    "FM": 6.42,
+    "GOL": 3,
+    "ASS": 4
+  },
+  {
+    "Nome": "Diao",
+    "Ruolo": "W;A",
+    "Quotazione": 30,
+    "FM": 6.38,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ekuban",
+    "Ruolo": "A",
+    "Quotazione": 12,
+    "FM": 6.43,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Gimenez",
+    "Ruolo": "Pc",
+    "Quotazione": 12,
+    "FM": 5.53,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Borrelli",
+    "Ruolo": "Pc",
+    "Quotazione": 15,
+    "FM": 6.46,
+    "GOL": 5,
+    "ASS": 1
+  },
+  {
+    "Nome": "Cancellieri",
+    "Ruolo": "W;A",
+    "Quotazione": 12,
+    "FM": 6.29,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Cheddira",
+    "Ruolo": "Pc",
+    "Quotazione": 23,
+    "FM": 6.31,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Boga",
+    "Ruolo": "W;A",
+    "Quotazione": 37,
+    "FM": 7.15,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Okereke",
+    "Ruolo": "A",
+    "Quotazione": 5,
+    "FM": 6.5,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Ekhator",
+    "Ruolo": "A",
+    "Quotazione": 8,
+    "FM": 6.28,
+    "GOL": 3,
+    "ASS": 0
+  },
+  {
+    "Nome": "Dovbyk",
+    "Ruolo": "Pc",
+    "Quotazione": 8,
+    "FM": 6.77,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ferguson E.",
+    "Ruolo": "Pc",
+    "Quotazione": 12,
+    "FM": 6.86,
+    "GOL": 3,
+    "ASS": 2
+  },
+  {
+    "Nome": "Nzola",
+    "Ruolo": "Pc",
+    "Quotazione": 15,
+    "FM": 6.26,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Fullkrug",
+    "Ruolo": "Pc",
+    "Quotazione": 12,
+    "FM": 5.76,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Durosinmi",
+    "Ruolo": "Pc",
+    "Quotazione": 9,
+    "FM": 6,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Bowie",
+    "Ruolo": "A",
+    "Quotazione": 33,
+    "FM": 6.79,
+    "GOL": 4,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sulemana K.",
+    "Ruolo": "A",
+    "Quotazione": 7,
+    "FM": 6.24,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Piccoli",
+    "Ruolo": "Pc",
+    "Quotazione": 15,
+    "FM": 6.24,
+    "GOL": 4,
+    "ASS": 1
+  },
+  {
+    "Nome": "Ratkov",
+    "Ruolo": "Pc",
+    "Quotazione": 9,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Zapata D.",
+    "Ruolo": "Pc",
+    "Quotazione": 15,
+    "FM": 6.13,
+    "GOL": 3,
+    "ASS": 1
+  },
+  {
+    "Nome": "Stulic",
+    "Ruolo": "Pc",
+    "Quotazione": 12,
+    "FM": 6.12,
+    "GOL": 4,
+    "ASS": 0
+  },
+  {
+    "Nome": "Solomon",
+    "Ruolo": "W;A",
+    "Quotazione": 18,
+    "FM": 6.46,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Vaz",
+    "Ruolo": "Pc",
+    "Quotazione": 11,
+    "FM": 6.36,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "N'Dri",
+    "Ruolo": "W;A",
+    "Quotazione": 10,
+    "FM": 6.09,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Buksa",
+    "Ruolo": "Pc",
+    "Quotazione": 8,
+    "FM": 6.24,
+    "GOL": 3,
+    "ASS": 0
+  },
+  {
+    "Nome": "Dallinga",
+    "Ruolo": "Pc",
+    "Quotazione": 9,
+    "FM": 6.13,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Addai",
+    "Ruolo": "W;A",
+    "Quotazione": 9,
+    "FM": 6.54,
+    "GOL": 3,
+    "ASS": 0
+  },
+  {
+    "Nome": "Dia",
+    "Ruolo": "Pc",
+    "Quotazione": 9,
+    "FM": 5.86,
+    "GOL": 1,
+    "ASS": 2
+  },
+  {
+    "Nome": "Njie",
+    "Ruolo": "A",
+    "Quotazione": 4,
+    "FM": 6.15,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Elphege",
+    "Ruolo": "Pc",
+    "Quotazione": 18,
+    "FM": 6.88,
+    "GOL": 2,
+    "ASS": 1
+  },
+  {
+    "Nome": "Kuhn",
+    "Ruolo": "W;A",
+    "Quotazione": 9,
+    "FM": 6.25,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Djuric",
+    "Ruolo": "Pc",
+    "Quotazione": 8,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Meister",
+    "Ruolo": "Pc",
+    "Quotazione": 9,
+    "FM": 5.83,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Belotti",
+    "Ruolo": "Pc",
+    "Quotazione": 10,
+    "FM": 7.62,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Gueye",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 5.92,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Mendy P.",
+    "Ruolo": "Pc",
+    "Quotazione": 15,
+    "FM": 6.62,
+    "GOL": 2,
+    "ASS": 0
+  },
+  {
+    "Nome": "Sanabria",
+    "Ruolo": "Pc",
+    "Quotazione": 10,
+    "FM": 5.89,
+    "GOL": 1,
+    "ASS": 1
+  },
+  {
+    "Nome": "Sarr A.",
+    "Ruolo": "A",
+    "Quotazione": 8,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Mosquera",
+    "Ruolo": "Pc",
+    "Quotazione": 8,
+    "FM": 6.07,
+    "GOL": 0,
+    "ASS": 2
+  },
+  {
+    "Nome": "Openda",
+    "Ruolo": "Pc",
+    "Quotazione": 8,
+    "FM": 6,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Stojilkovic",
+    "Ruolo": "Pc",
+    "Quotazione": 7,
+    "FM": 5.58,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Kulenovic",
+    "Ruolo": "Pc",
+    "Quotazione": 9,
+    "FM": 5.79,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Dominguez B.",
+    "Ruolo": "W;A",
+    "Quotazione": 8,
+    "FM": 6.04,
+    "GOL": 0,
+    "ASS": 3
+  },
+  {
+    "Nome": "Pavoletti",
+    "Ruolo": "Pc",
+    "Quotazione": 7,
+    "FM": 6.42,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Almqvist",
+    "Ruolo": "W;A",
+    "Quotazione": 7,
+    "FM": 6.06,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Camarda",
+    "Ruolo": "Pc",
+    "Quotazione": 8,
+    "FM": 5.64,
+    "GOL": 1,
+    "ASS": 0
+  },
+  {
+    "Nome": "Bayo V.",
+    "Ruolo": "Pc",
+    "Quotazione": 8,
+    "FM": 5.83,
+    "GOL": 0,
+    "ASS": 1
+  },
+  {
+    "Nome": "Morata",
+    "Ruolo": "Pc",
+    "Quotazione": 10,
+    "FM": 5.21,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Braschi",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 5.75,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Moumbagna",
+    "Ruolo": "Pc",
+    "Quotazione": 5,
+    "FM": 5.6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Albarracin",
+    "Ruolo": "A",
+    "Quotazione": 1,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Mikolajewski",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Milik",
+    "Ruolo": "Pc",
+    "Quotazione": 5,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Moro L.",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 5.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Aboukhlal",
+    "Ruolo": "A",
+    "Quotazione": 8,
+    "FM": 5.64,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Frigan",
+    "Ruolo": "Pc",
+    "Quotazione": 5,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Balentien",
+    "Ruolo": "A",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Arena A.",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Isaac",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 6,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Trepy",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 5.67,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Vermesan",
+    "Ruolo": "Pc",
+    "Quotazione": 1,
+    "FM": 6.5,
+    "GOL": 0,
+    "ASS": 0
+  },
+  {
+    "Nome": "Mosconi",
+    "Ruolo": "A",
+    "Quotazione": 1,
+    "FM": 0,
+    "GOL": 0,
+    "ASS": 0
+  }
+]

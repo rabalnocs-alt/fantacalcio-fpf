@@ -1,0 +1,1624 @@
+[
+  {
+    "name": "Salassuolo",
+    "balance": -71,
+    "roster": [
+      {
+        "name": "Martinez",
+        "role": "POR",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Buongiorno",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Mina",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Gila",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Lucumi",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Bisseck",
+        "role": "DC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Kristensen",
+        "role": "DC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Spinazzola",
+        "role": "E",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Obert",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "De Roon",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Freuler",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Calhanoglu",
+        "role": "M",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Frendrup",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Zielinski",
+        "role": "C",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Folorunsho",
+        "role": "C",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Atta",
+        "role": "C",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Orsolini",
+        "role": "W",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Neres",
+        "role": "W",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Cancellieri",
+        "role": "W",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Addai",
+        "role": "W",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "CDK",
+        "role": "A",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Lautaro",
+        "role": "PC",
+        "cost": 11,
+        "oldRinnovo": 11
+      },
+      {
+        "name": "P. Esposito",
+        "role": "PC",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 2,
+      "slot": 29,
+      "label": "Fascia 2"
+    }
+  },
+  {
+    "name": "Pertusio Club de Futbol",
+    "balance": -140,
+    "roster": [
+      {
+        "name": "Okoye",
+        "role": "POR",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Svilar",
+        "role": "POR",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Gatti",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Idzes",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Tiago G.",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Zappa",
+        "role": "B",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "De Winter",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Bremer",
+        "role": "DC",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Solet",
+        "role": "DC",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Kossounou",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Bellanova",
+        "role": "E",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Bernasconi",
+        "role": "E",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Dimarco",
+        "role": "E",
+        "cost": 10,
+        "oldRinnovo": 10
+      },
+      {
+        "name": "Prati",
+        "role": "M",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Thuram",
+        "role": "M",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Caqueret",
+        "role": "C",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Fagioli",
+        "role": "C",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Koopmeiners",
+        "role": "C",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Rabiot",
+        "role": "C",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Paz",
+        "role": "T",
+        "cost": 9,
+        "oldRinnovo": 9
+      },
+      {
+        "name": "Rowe",
+        "role": "T",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Strefezza",
+        "role": "W",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Douvikas",
+        "role": "PC",
+        "cost": 9,
+        "oldRinnovo": 9
+      },
+      {
+        "name": "Openda",
+        "role": "PC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Vlahovic",
+        "role": "PC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Davis",
+        "role": "PC",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Cheddira",
+        "role": "PC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 3,
+      "slot": 28,
+      "label": "Fascia 3"
+    }
+  },
+  {
+    "name": "Wormerhampton FFC",
+    "balance": -16,
+    "roster": [
+      {
+        "name": "Meret",
+        "role": "POR",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Falcone",
+        "role": "POR",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Vania",
+        "role": "POR",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Caprile",
+        "role": "POR",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Kalulu",
+        "role": "DC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Kulenovic",
+        "role": "PC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Vojvoda",
+        "role": "DD",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Pavlovic",
+        "role": "DC",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Doig",
+        "role": "DS",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Valeri",
+        "role": "DS",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Circati",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Smolcic",
+        "role": "DD",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Odgaard",
+        "role": "T",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Mazzitelli",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Loftus",
+        "role": "C",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Mkhitaryan",
+        "role": "C",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Lobotka",
+        "role": "M",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Zhegrova",
+        "role": "W",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Ederson",
+        "role": "M",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Casadei",
+        "role": "C",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Ondrejka",
+        "role": "W",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Baturina",
+        "role": "T",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Zapata",
+        "role": "PC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Simeone",
+        "role": "PC",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Soule",
+        "role": "A",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Yildiz",
+        "role": "A",
+        "cost": 9,
+        "oldRinnovo": 9
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 2,
+      "slot": 29,
+      "label": "Fascia 2"
+    }
+  },
+  {
+    "name": "Partizan Beijing",
+    "balance": -8,
+    "roster": [
+      {
+        "name": "Carnesecchi",
+        "role": "POR",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Rossi",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Sportiello",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Bella-Kotchap",
+        "role": "DC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Beukema",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Djimsiti",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Mancini",
+        "role": "DC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Pongracic",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Rrahmani",
+        "role": "DC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Di Lorenzo",
+        "role": "DD",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Holm",
+        "role": "DD",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Pedersen",
+        "role": "DD",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Martin",
+        "role": "DS",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Olivera",
+        "role": "DS",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Valle",
+        "role": "DS",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Coulibaly",
+        "role": "M",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Kone M.",
+        "role": "M",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Ricci",
+        "role": "M",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Barella",
+        "role": "C",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Pisilli",
+        "role": "C",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Boga",
+        "role": "W",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Isaksen",
+        "role": "W",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Rodriguez J.",
+        "role": "W",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Solomon",
+        "role": "W",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Adams",
+        "role": "A",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Esposito Se.",
+        "role": "A",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Castro",
+        "role": "PC",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Pellegrino",
+        "role": "PC",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 2,
+      "slot": 29,
+      "label": "Fascia 2"
+    }
+  },
+  {
+    "name": "Al Nanoh FC",
+    "balance": -25,
+    "roster": [
+      {
+        "name": "Furlanetto",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Motta",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Provedel",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Bastoni",
+        "role": "DC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Coco",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Ismajli",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Kabasele",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Vitik",
+        "role": "DC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Heggem",
+        "role": "DC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Gosens",
+        "role": "E",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Parisi",
+        "role": "E",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Zalewski",
+        "role": "E",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Zappacosta",
+        "role": "E",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Cataldi",
+        "role": "M",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Rovella",
+        "role": "C",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Lovric",
+        "role": "C",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Modric",
+        "role": "C",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Pellegrini",
+        "role": "C",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "A. Santos",
+        "role": "W",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Berardi",
+        "role": "A",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Nkunku",
+        "role": "A",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Bonny",
+        "role": "PC",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Thuram",
+        "role": "PC",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 2,
+      "slot": 29,
+      "label": "Fascia 2"
+    }
+  },
+  {
+    "name": "FC Aglientus",
+    "balance": -4,
+    "roster": [
+      {
+        "name": "Bijlow",
+        "role": "POR",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Skorupski",
+        "role": "POR",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Ravaglia",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Comuzzo",
+        "role": "DC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Hermoso",
+        "role": "DC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Ndicka",
+        "role": "DC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Ehizibue",
+        "role": "DD",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Kelly",
+        "role": "DC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Miranda",
+        "role": "DS",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "El Aynaoui",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Fofana",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "McKennie",
+        "role": "C",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Ferguson",
+        "role": "C",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Frattesi",
+        "role": "C",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Sucic",
+        "role": "C",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Gaetano",
+        "role": "T",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Pulisic",
+        "role": "T",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Davis",
+        "role": "PC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Pinamonti",
+        "role": "PC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Scamacca",
+        "role": "PC",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 2,
+      "slot": 29,
+      "label": "Fascia 2"
+    }
+  },
+  {
+    "name": "Error-Systema-104",
+    "balance": -15,
+    "roster": [
+      {
+        "name": "De Gea",
+        "role": "POR",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Suzuki",
+        "role": "POR",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Gabbia",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Marcandalli",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Marianucci",
+        "role": "DC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Ramon",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Scalvini",
+        "role": "DC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Britschgi",
+        "role": "DS",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Norton-Cuffy",
+        "role": "DD",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Terracciano",
+        "role": "DD",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Gutierrez",
+        "role": "DS",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Locatelli",
+        "role": "M",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Mandragora",
+        "role": "C",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "N. Caviglia",
+        "role": "C",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Perrone",
+        "role": "M",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Da Cunha",
+        "role": "C",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "MC Fratm",
+        "role": "C",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Baldanzi",
+        "role": "T",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Gudmundsson",
+        "role": "T",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Zaniolo",
+        "role": "T",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Conceicao",
+        "role": "W",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Diao",
+        "role": "W",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Volpato",
+        "role": "W",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Colombo",
+        "role": "PC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Krstovic",
+        "role": "PC",
+        "cost": 8,
+        "oldRinnovo": 8
+      },
+      {
+        "name": "Vaz",
+        "role": "PC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 2,
+      "slot": 29,
+      "label": "Fascia 2"
+    }
+  },
+  {
+    "name": "Dinamo Zafavria",
+    "balance": 95,
+    "roster": [
+      {
+        "name": "Di Gregorio",
+        "role": "POR",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Perin",
+        "role": "POR",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Celik",
+        "role": "B",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Akanji",
+        "role": "DC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Ghilardi",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Gaspar",
+        "role": "DC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Muharemovic",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Siebert",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Ahanor",
+        "role": "B",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Kolasinac",
+        "role": "B",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Angelino",
+        "role": "E",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Cambiaso",
+        "role": "E",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "L. Henrique",
+        "role": "E",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Saelemaekers",
+        "role": "E",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Dumfries",
+        "role": "E",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Adopo",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "N'Dour",
+        "role": "M",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Bernabè",
+        "role": "C",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Fazzini",
+        "role": "C",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Miretti",
+        "role": "C",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Maldini",
+        "role": "T",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Samardzic",
+        "role": "T",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Dybala",
+        "role": "A",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Giovane",
+        "role": "A",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Kean",
+        "role": "PC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Piccoli",
+        "role": "PC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Fullkrug",
+        "role": "PC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Orban",
+        "role": "PC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Camarda",
+        "role": "PC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Gimenez",
+        "role": "PC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 1,
+      "slot": 30,
+      "label": "Fascia 1"
+    }
+  },
+  {
+    "name": "PONTefice",
+    "balance": 31,
+    "roster": [
+      {
+        "name": "Maignan",
+        "role": "POR",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Terracciano",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Torriani",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Baschirotto",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Diego C.",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Kempf",
+        "role": "DC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Ostigard",
+        "role": "DC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Carlos A.",
+        "role": "B",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Bartesaghi",
+        "role": "DS",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Ranieri",
+        "role": "DC",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Dodo",
+        "role": "E",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Zambo",
+        "role": "M",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Ekkelenkamp",
+        "role": "C",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Fabbian",
+        "role": "C",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "KDB",
+        "role": "T",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Vlasic",
+        "role": "T",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Vergara",
+        "role": "W",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Cambiaghi",
+        "role": "A",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Leao",
+        "role": "A",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Hojlund",
+        "role": "PC",
+        "cost": 9,
+        "oldRinnovo": 9
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 1,
+      "slot": 30,
+      "label": "Fascia 1"
+    }
+  },
+  {
+    "name": "Cwtch Sporting",
+    "balance": 56,
+    "roster": [
+      {
+        "name": "Butez",
+        "role": "POR",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Prostatagaard",
+        "role": "POR",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Tomori",
+        "role": "DC",
+        "cost": 1,
+        "oldRinnovo": 1
+      },
+      {
+        "name": "Hien",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Rugani",
+        "role": "DC",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Vasquez",
+        "role": "DC",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Delprato",
+        "role": "B",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Rensch",
+        "role": "B",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Wesley",
+        "role": "E",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Zortea",
+        "role": "E",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Cristante",
+        "role": "C",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Brescianini",
+        "role": "C",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Pasalic",
+        "role": "C",
+        "cost": 5,
+        "oldRinnovo": 5
+      },
+      {
+        "name": "Taylor",
+        "role": "C",
+        "cost": 2,
+        "oldRinnovo": 2
+      },
+      {
+        "name": "Thorstvedt",
+        "role": "C",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "Politano",
+        "role": "W",
+        "cost": 6,
+        "oldRinnovo": 6
+      },
+      {
+        "name": "Raspadori",
+        "role": "A",
+        "cost": 3,
+        "oldRinnovo": 3
+      },
+      {
+        "name": "Lukaku",
+        "role": "PC",
+        "cost": 4,
+        "oldRinnovo": 4
+      },
+      {
+        "name": "Malen",
+        "role": "A",
+        "cost": 7,
+        "oldRinnovo": 7
+      },
+      {
+        "name": "GIOC. CEDUTO",
+        "role": "PFA (Prezzo Finale Asta)",
+        "cost": 0,
+        "oldRinnovo": 0
+      }
+    ],
+    "fpf": {
+      "fascia": 1,
+      "slot": 30,
+      "label": "Fascia 1"
+    }
+  }
+]

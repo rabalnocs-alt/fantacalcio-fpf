@@ -1,0 +1,18 @@
+{
+  "status": "WAITING",
+  "currentPlayer": {
+    "name": "lea",
+    "role": "C",
+    "quot": 15,
+    "stats": {
+      "fm": 6.5,
+      "gol": 3,
+      "ass": 4
+    },
+    "currentOwner": null,
+    "oldRinnovo": 0
+  },
+  "currentBid": 0,
+  "currentBidder": null,
+  "timerSeconds": 10
+}

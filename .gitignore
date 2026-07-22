@@ -1,0 +1,11 @@
+node_modules/
+backend/uploads/
+backend/serviceAccountKey.json
+backend/.env
+frontend/dist/
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.local
+frontend/.env
+mingit/
+mingit.zip
