@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 
 export default function LoginPage() {
@@ -10,8 +10,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   if (auth) {
-    navigate('/', { replace: true });
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const handleLogin = async (e) => {

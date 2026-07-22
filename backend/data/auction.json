@@ -1,19 +1,18 @@
 {
-  "status": "ASSIGNED",
+  "status": "WAITING",
   "currentPlayer": {
-    "name": "McTominay",
-    "role": "C;T",
-    "quot": 215,
+    "name": "Vlahovic",
+    "role": "Pc",
+    "quot": 100,
     "stats": {
-      "fm": 7.26,
-      "gol": 10,
-      "ass": 2
+      "fm": 7.31,
+      "gol": 7,
+      "ass": "-"
     },
-    "currentOwner": "Error-Systema-104",
+    "currentOwner": "Pertusio Club de Futbol",
     "oldRinnovo": 0
   },
   "currentBid": 0,
   "currentBidder": null,
-  "timerSeconds": 0,
-  "lastDecision": "UNSOLD"
+  "timerSeconds": 10
 }
