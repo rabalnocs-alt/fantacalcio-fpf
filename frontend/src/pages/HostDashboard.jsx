@@ -23,6 +23,33 @@ const playBeep = (freq, duration, vol) => {
   }
 };
 
+// Genera un suono di fiche da poker/click metallico in tempo reale
+const playDefaultBidSound = () => {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    
+    const playTone = (freq, delay) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.15, ctx.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.08);
+      osc.start(ctx.currentTime + delay);
+      osc.stop(ctx.currentTime + delay + 0.08);
+    };
+
+    playTone(1800, 0);
+    playTone(2200, 0.015);
+  } catch (e) {
+    console.error('AudioContext error', e);
+  }
+};
+
 const getMantraColor = (roleStr) => {
   if (!roleStr) return 'rgba(255,255,255,0.3)';
   const r = roleStr.toLowerCase();
@@ -63,7 +90,8 @@ export default function HostDashboard() {
 
        const bidAudio = new Audio(`/audio/rilancio/${encodeURIComponent(bidder)}.mp3`);
        bidAudio.play().catch(() => {
-          // Silently fail if custom audio not found, no default bid sound required
+          // Riproduce il suono fiches di default se non trova il file mp3 della squadra
+          playDefaultBidSound();
        });
 
        if (bidGifTimerRef.current) clearTimeout(bidGifTimerRef.current);
