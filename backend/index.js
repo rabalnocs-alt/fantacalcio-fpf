@@ -505,6 +505,21 @@ app.post('/api/upload-rosters', upload.single('file'), async (req, res) => {
 
     fs.unlinkSync(req.file.path);
     
+    // Reset transazioni e stato asta al reset delle rose
+    transactions = [];
+    await db.saveTransactions([]);
+    io.emit('transactions_update', []);
+
+    auctionState = {
+      status: 'IDLE',
+      currentPlayer: null,
+      currentBid: 0,
+      currentBidder: null,
+      timerSeconds: 0
+    };
+    await db.saveAuction(auctionState);
+    io.emit('auction_update', auctionState);
+
     await db.saveTeams(teams);
     io.emit('teams_update', teams);
     
