@@ -1,15 +1,15 @@
 {
   "status": "WAITING",
   "currentPlayer": {
-    "name": "Vlahovic",
-    "role": "Pc",
-    "quot": 100,
+    "name": "Leao",
+    "role": "A",
+    "quot": 80,
     "stats": {
-      "fm": 7.31,
-      "gol": 7,
-      "ass": "-"
+      "fm": 6.86,
+      "gol": 9,
+      "ass": 3
     },
-    "currentOwner": "Pertusio Club de Futbol",
+    "currentOwner": "PONTefice",
     "oldRinnovo": 0
   },
   "currentBid": 0,

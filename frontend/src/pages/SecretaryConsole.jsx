@@ -8,6 +8,7 @@ export default function SecretaryConsole() {
   const [players, setPlayers] = useState([]);
   const [auction, setAuction] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [manualBid, setManualBid] = useState('');
   const [bidder, setBidder] = useState('');
   const [teams, setTeams] = useState([]);
@@ -135,19 +136,68 @@ export default function SecretaryConsole() {
           <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '1rem 0' }} />
 
           <h2>2. Avvia Chiamata</h2>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <input 
-              type="text" 
-              list="players-list"
-              placeholder="Nome giocatore..." 
-              value={selectedPlayer}
-              onChange={(e) => setSelectedPlayer(e.target.value)}
-              style={{ flex: 1 }}
-            />
-            <datalist id="players-list">
-              {players.map((p, i) => <option key={i} value={p.Nome} />)}
-            </datalist>
-            <button onClick={handleStartAuction} style={{ background: 'var(--fpf-f1)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <div style={{ display: 'flex', gap: '1rem', position: 'relative' }}>
+            <div style={{ position: 'relative', flex: 1 }}>
+              <input 
+                type="text" 
+                placeholder="Nome giocatore..." 
+                value={selectedPlayer}
+                onChange={(e) => {
+                  setSelectedPlayer(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                style={{ width: '100%' }}
+              />
+              {showSuggestions && selectedPlayer && selectedPlayer.length >= 2 && (
+                <div style={{
+                  position: 'absolute', top: '100%', left: 0, right: 0,
+                  background: '#02144d', border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '12px', zIndex: 1000, maxHeight: '200px', overflowY: 'auto',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.8)', marginTop: '5px'
+                }}>
+                  {players
+                    .filter(p => p.Nome && p.Nome.toLowerCase().includes(selectedPlayer.toLowerCase()))
+                    .slice(0, 15)
+                    .map((p, idx) => (
+                      <div 
+                        key={idx}
+                        onClick={() => {
+                          setSelectedPlayer(p.Nome);
+                          setShowSuggestions(false);
+                        }}
+                        style={{
+                          padding: '10px', cursor: 'pointer', color: 'white',
+                          borderBottom: '1px solid rgba(255,255,255,0.05)',
+                          background: 'transparent', transition: 'background 0.2s',
+                          display: 'flex', justifyContent: 'space-between',
+                          textAlign: 'left'
+                        }}
+                        onMouseDown={() => {
+                          // Prevent input blur before onClick
+                          setSelectedPlayer(p.Nome);
+                          setShowSuggestions(false);
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
+                        <strong style={{ color: 'white' }}>{p.Nome}</strong>
+                        <span style={{ fontSize: '0.85rem', color: '#fbbf24', fontWeight: 'bold' }}>
+                          {p.Ruolo} - {p.Quotazione} cr
+                        </span>
+                      </div>
+                    ))
+                  }
+                  {players.filter(p => p.Nome && p.Nome.toLowerCase().includes(selectedPlayer.toLowerCase())).length === 0 && (
+                    <div style={{ padding: '10px', color: '#b3c6ff', fontSize: '0.9rem' }}>
+                      Nessun risultato
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            <button onClick={handleStartAuction} style={{ background: 'var(--fpf-f1)', display: 'flex', alignItems: 'center', gap: '5px', height: '42px', alignSelf: 'flex-start' }}>
               <Play size={18} /> Mostra a Schermo
             </button>
           </div>
