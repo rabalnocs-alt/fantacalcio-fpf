@@ -1,18 +1,19 @@
 {
-  "status": "WAITING",
+  "status": "ASSIGNED",
   "currentPlayer": {
-    "name": "lea",
-    "role": "C",
-    "quot": 15,
+    "name": "McTominay",
+    "role": "C;T",
+    "quot": 215,
     "stats": {
-      "fm": 6.5,
-      "gol": 3,
-      "ass": 4
+      "fm": 7.26,
+      "gol": 10,
+      "ass": 2
     },
-    "currentOwner": null,
+    "currentOwner": "Error-Systema-104",
     "oldRinnovo": 0
   },
   "currentBid": 0,
   "currentBidder": null,
-  "timerSeconds": 10
+  "timerSeconds": 0,
+  "lastDecision": "UNSOLD"
 }
