@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { Upload, Play, DollarSign, StopCircle } from 'lucide-react';
+import { Upload, Play, DollarSign, StopCircle, Download } from 'lucide-react';
 import { socket, BACKEND_URL } from '../utils/socket';
 
 export default function SecretaryConsole() {
