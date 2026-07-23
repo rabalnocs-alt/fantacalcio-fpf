@@ -39,9 +39,27 @@ async function loadData(collectionName, filename, fieldName, defaultValue) {
     try {
       const doc = await db.collection('data').doc(collectionName).get();
       if (doc.exists && doc.data()[fieldName]) {
-        return doc.data()[fieldName];
+        const val = doc.data()[fieldName];
+        if (Array.isArray(val) && val.length > 0) {
+          return val;
+        } else if (!Array.isArray(val) && val) {
+          return val;
+        }
       }
-      return defaultValue;
+      
+      // If Firestore is empty/missing, seed from local JSON file
+      let seedData = defaultValue;
+      try {
+        const localRaw = fs.readFileSync(getFilePath(filename), 'utf8');
+        seedData = JSON.parse(localRaw);
+        if (seedData) {
+          await db.collection('data').doc(collectionName).set({ [fieldName]: seedData }, { merge: true });
+          console.log(`Seeded ${collectionName} into Firestore from local ${filename}.`);
+        }
+      } catch (fileErr) {
+        console.log(`No local ${filename} to seed from.`);
+      }
+      return seedData;
     } catch (err) {
       console.error(`Error loading ${collectionName} from Firestore:`, err);
       return defaultValue;
@@ -155,9 +173,18 @@ async function loadConfig() {
   if (isFirebaseEnabled) {
     try {
       const doc = await db.collection('data').doc('config').get();
-      if (doc.exists) {
+      if (doc.exists && doc.data() && Object.keys(doc.data().pins || {}).length > 0) {
         return { ...defaultConfig, ...doc.data() };
       }
+      try {
+        const localRaw = fs.readFileSync(getFilePath('config.json'), 'utf8');
+        const localConfig = JSON.parse(localRaw);
+        if (localConfig) {
+          const merged = { ...defaultConfig, ...localConfig };
+          await db.collection('data').doc('config').set(merged);
+          return merged;
+        }
+      } catch (err) {}
       return defaultConfig;
     } catch (err) {
       console.error('Error loading config from Firestore:', err);
