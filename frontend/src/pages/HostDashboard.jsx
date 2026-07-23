@@ -83,6 +83,7 @@ export default function HostDashboard() {
   const bidGifTimerRef = useRef(null);
 
   useEffect(() => {
+    if (!auction) return;
     if (auction.status === 'ACTIVE' && auction.currentBid > prevBidRef.current && auction.currentBidder) {
        const bidder = auction.currentBidder;
        setBidGifUrl(`/img/gif/${encodeURIComponent(bidder)}.gif`);
@@ -100,7 +101,7 @@ export default function HostDashboard() {
        }, 2500); 
     }
     prevBidRef.current = auction.currentBid;
-  }, [auction.currentBid, auction.currentBidder, auction.status]);
+  }, [auction?.currentBid, auction?.currentBidder, auction?.status]);
 
   useEffect(() => {
     socket.on('teams_update', (data) => setTeams(data));
@@ -120,6 +121,7 @@ export default function HostDashboard() {
   }, [auction]);
 
   useEffect(() => {
+    if (!auction) return;
     // 1. Tick during ACTIVE countdown
     if (auction.status === 'ACTIVE' && auction.timerSeconds > 0 && prevTimerRef.current !== auction.timerSeconds) {
       if (auction.timerSeconds <= 3) {
