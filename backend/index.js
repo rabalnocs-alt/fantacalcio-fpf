@@ -191,7 +191,7 @@ io.on('connection', (socket) => {
 
   socket.on('start_initial_timer', async () => {
     if (auctionState.status === 'WAITING') {
-      startTimer(10);
+      startTimer(30);
       io.emit('auction_update', auctionState);
     }
   });
