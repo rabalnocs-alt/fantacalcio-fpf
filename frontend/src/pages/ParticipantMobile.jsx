@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DollarSign, Shield, ArrowRight, LogOut } from 'lucide-react';
-import { socket } from '../utils/socket';
+import { socket, BACKEND_URL } from '../utils/socket';
 import { useAuth } from '../components/AuthContext';
 import MiniDashboard from '../components/MiniDashboard';
 
@@ -18,25 +18,26 @@ const playDefaultBidSound = () => {
       osc.type = 'triangle';
       osc.frequency.value = freq;
       gain.gain.setValueAtTime(0.15, ctx.currentTime + delay);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.12);
       osc.start(ctx.currentTime + delay);
-      osc.stop(ctx.currentTime + delay + 0.08);
+      osc.stop(ctx.currentTime + delay + 0.12);
     };
 
     playTone(1800, 0);
-    playTone(2200, 0.015);
-  } catch (e) {
-    console.error("Audio error:", e);
+    playTone(2400, 0.06);
+  } catch (err) {
+    console.error('Audio play error:', err);
   }
 };
 
 export default function ParticipantMobile() {
   const { auth, logout } = useAuth();
-  const [teams, setTeams] = useState([]);
-  const [auction, setAuction] = useState(null);
   const [myTeamName, setMyTeamName] = useState('');
-  const [bidAmount, setBidAmount] = useState('');
+  const [teams, setTeams] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [auction, setAuction] = useState(null);
+  const [activeTab, setActiveTab] = useState('live'); // 'live', 'rosa', 'squadre', 'movimenti'
+  const [bidAmount, setBidAmount] = useState('');
   const prevBidRef = useRef(0);
 
   useEffect(() => {
@@ -46,6 +47,16 @@ export default function ParticipantMobile() {
   }, [auth]);
 
   useEffect(() => {
+    fetch(`${BACKEND_URL}/api/teams`)
+      .then(res => res.json())
+      .then(data => setTeams(data))
+      .catch(err => console.error(err));
+
+    fetch(`${BACKEND_URL}/api/transactions`)
+      .then(res => res.json())
+      .then(data => setTransactions(data))
+      .catch(err => console.error(err));
+
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('transactions_update', (data) => setTransactions(data));
     socket.on('auction_update', (data) => {
@@ -73,7 +84,11 @@ export default function ParticipantMobile() {
     }
   }, [auction?.currentBid, auction?.status]);
 
-  const myTeam = teams.find(t => t.name === myTeamName);
+  const myTeam = teams.find(t => 
+    t.name === myTeamName || 
+    t.name.toLowerCase().trim() === (myTeamName || '').toLowerCase().trim() ||
+    t.name.toLowerCase().replace(/[^a-z0-9]/g, '') === (myTeamName || '').toLowerCase().replace(/[^a-z0-9]/g, '')
+  );
   
   const myTransactions = transactions.filter(tx => tx.oldOwner === myTeamName || tx.newOwner === myTeamName);
 
@@ -95,7 +110,6 @@ export default function ParticipantMobile() {
     socket.emit('bivio_decision', { option });
   };
 
-  const [activeTab, setActiveTab] = useState('live'); // 'live' | 'roster' | 'formazione' | 'note'
   const [notes, setNotes] = useState(() => localStorage.getItem(`notes_${myTeamName}`) || '');
   
   const [selectedModule, setSelectedModule] = useState(() => localStorage.getItem(`module_${myTeamName}`) || '4-3-3');
@@ -250,8 +264,17 @@ export default function ParticipantMobile() {
   
   if (!myTeam) {
     return (
-      <div className="page-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', color: 'white' }}>
-        <h2>Caricamento dati squadra...</h2>
+      <div className="page-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', color: 'white', textAlign: 'center', padding: '2rem' }}>
+        <h2 style={{ marginBottom: '1rem' }}>Caricamento dati squadra...</h2>
+        <p style={{ color: '#aaa', fontSize: '0.9rem', marginBottom: '2rem' }}>
+          {teams.length === 0 ? 'Connessione al server in corso...' : `Recupero rosa e dati della squadra "${myTeamName}"...`}
+        </p>
+        <button 
+          onClick={logout} 
+          style={{ padding: '0.8rem 1.5rem', background: '#e60000', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
+        >
+          Esci e Riavvia Accesso
+        </button>
       </div>
     );
   }
