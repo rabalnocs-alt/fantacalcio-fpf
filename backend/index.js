@@ -271,6 +271,13 @@ io.on('connection', (socket) => {
     io.emit('auction_update', auctionState);
   });
 
+  socket.on('trigger_force_reload', (pin) => {
+    if (pin === '211287') {
+      console.log('Master triggered force reload for all screens');
+      io.emit('force_reload');
+    }
+  });
+
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });
@@ -439,7 +446,11 @@ app.post('/api/upload-rosters', upload.single('file'), async (req, res) => {
       if (!sheet) return;
 
       // Find matching team in our DB
-      let team = teams.find(t => t.name.toLowerCase() === sheetName.trim().toLowerCase());
+      let team = teams.find(t => {
+        const dbNameNorm = t.name.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+        const sheetNameNorm = sheetName.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+        return dbNameNorm === sheetNameNorm || dbNameNorm.includes(sheetNameNorm) || sheetNameNorm.includes(dbNameNorm);
+      });
       if (!team) {
         console.log(`Squadra ${sheetName} ignorata perché non presente nel DB originale.`);
         return; // Skip sheets that are not actual teams
@@ -466,9 +477,9 @@ app.post('/api/upload-rosters', upload.single('file'), async (req, res) => {
         
         // --- Normalizzazione fissa per risolvere incongruenza Thuram ---
         if (pNameTrim.toUpperCase().includes('THURAM')) {
-          if (team.name.toLowerCase() === 'pertusio') {
+          if (team.name.toLowerCase().includes('pertusio')) {
             pNameTrim = 'Thuram K.';
-          } else if (team.name.toLowerCase() === 'al nanoh') {
+          } else if (team.name.toLowerCase().includes('al nanoh')) {
             pNameTrim = 'Thuram';
           }
         }

@@ -17,10 +17,15 @@ export default function SecretaryConsole() {
     socket.on('auction_update', (data) => setAuction(data));
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('players_list', (data) => setPlayers(data));
+    socket.on('force_reload', () => {
+      console.log('Master requested a forced reload');
+      window.location.reload();
+    });
     return () => {
       socket.off('auction_update');
       socket.off('teams_update');
       socket.off('players_list');
+      socket.off('force_reload');
     };
   }, []);
 

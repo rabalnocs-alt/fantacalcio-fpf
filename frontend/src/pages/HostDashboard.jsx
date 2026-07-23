@@ -108,10 +108,15 @@ export default function HostDashboard() {
     socket.on('auction_update', (data) => {
       setAuction(data);
     });
+    socket.on('force_reload', () => {
+      console.log('Master requested a forced reload');
+      window.location.reload();
+    });
 
     return () => {
       socket.off('teams_update');
       socket.off('auction_update');
+      socket.off('force_reload');
     };
   }, []);
 

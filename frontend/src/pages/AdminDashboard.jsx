@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Upload, Download, RefreshCw, Database, Copy, Share2 } from 'lucide-react';
-import { BACKEND_URL } from '../utils/socket';
+import { BACKEND_URL, socket } from '../utils/socket';
 import { useAuth } from '../components/AuthContext';
 
 export default function AdminDashboard() {
@@ -9,6 +9,13 @@ export default function AdminDashboard() {
   const [networkIps, setNetworkIps] = useState([]);
   const [pins, setPins] = useState([]);
   const { auth, logout } = useAuth();
+
+  const handleForceReload = () => {
+    if (confirm("Vuoi forzare il ricaricamento di tutti i dispositivi dei partecipanti?")) {
+      socket.emit('trigger_force_reload', '211287');
+      alert("Comando di ricaricamento inviato con successo!");
+    }
+  };
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/network-info`)
@@ -92,9 +99,17 @@ export default function AdminDashboard() {
         <h1 style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>
           <Database size={32} /> Setup Iniziale (Admin)
         </h1>
-        <button onClick={logout} style={{ background: '#e60000', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
-          Esci
-        </button>
+        <div style={{ display: 'flex', gap: '15px' }}>
+          <button 
+            onClick={handleForceReload}
+            style={{ background: '#fbbf24', color: '#00154d', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}
+          >
+            <RefreshCw size={18} /> Forza Refresh Schermi
+          </button>
+          <button onClick={logout} style={{ background: '#e60000', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            Esci
+          </button>
+        </div>
       </div>
 
       <div style={{ background: 'rgba(34, 197, 94, 0.2)', border: '2px solid #22c55e', padding: '1.5rem', borderRadius: '10px', marginBottom: '2rem' }}>

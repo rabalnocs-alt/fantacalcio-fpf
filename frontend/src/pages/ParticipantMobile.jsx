@@ -26,9 +26,15 @@ export default function ParticipantMobile() {
       setAuction(data);
       if (data && data.status !== 'ACTIVE') setBidAmount('');
     });
+    socket.on('force_reload', () => {
+      console.log('Master requested a forced reload');
+      window.location.reload();
+    });
     return () => {
       socket.off('teams_update');
+      socket.off('transactions_update');
       socket.off('auction_update');
+      socket.off('force_reload');
     };
   }, []);
 

@@ -6,10 +6,19 @@ import AdminDashboard from './pages/AdminDashboard';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider, useAuth } from './components/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import { socket } from './utils/socket';
+import { RefreshCw } from 'lucide-react';
 import './index.css';
 
 function Home() {
   const { auth, logout } = useAuth();
+
+  const handleForceReload = () => {
+    if (confirm("Vuoi forzare il ricaricamento di tutti i dispositivi dei partecipanti?")) {
+      socket.emit('trigger_force_reload', '211287');
+      alert("Comando di ricaricamento inviato con successo!");
+    }
+  };
 
   if (!auth) {
     return <Navigate to="/login" replace />;
@@ -23,9 +32,17 @@ function Home() {
     <div className="home-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 className="main-title">Fantacalcio FPF Master</h1>
-        <button onClick={logout} style={{ background: '#e60000', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
-          Esci
-        </button>
+        <div style={{ display: 'flex', gap: '15px' }}>
+          <button 
+            onClick={handleForceReload}
+            style={{ background: '#fbbf24', color: '#00154d', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}
+          >
+            <RefreshCw size={18} /> Forza Refresh Schermi
+          </button>
+          <button onClick={logout} style={{ background: '#e60000', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            Esci
+          </button>
+        </div>
       </div>
       <div className="nav-cards">
         <Link to="/dashboard" className="nav-card">
