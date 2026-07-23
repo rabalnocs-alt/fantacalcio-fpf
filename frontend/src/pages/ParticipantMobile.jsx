@@ -1,9 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import React, { useState, useEffect, useRef } from 'react';
 import { DollarSign, Shield, ArrowRight, LogOut } from 'lucide-react';
 import { socket } from '../utils/socket';
 import { useAuth } from '../components/AuthContext';
 import MiniDashboard from '../components/MiniDashboard';
+
+const playDefaultBidSound = () => {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    
+    const playTone = (freq, delay) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.15, ctx.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.08);
+      osc.start(ctx.currentTime + delay);
+      osc.stop(ctx.currentTime + delay + 0.08);
+    };
+
+    playTone(1800, 0);
+    playTone(2200, 0.015);
+  } catch (e) {
+    console.error("Audio error:", e);
+  }
+};
 
 export default function ParticipantMobile() {
   const { auth, logout } = useAuth();
@@ -12,6 +37,7 @@ export default function ParticipantMobile() {
   const [myTeamName, setMyTeamName] = useState('');
   const [bidAmount, setBidAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
+  const prevBidRef = useRef(0);
 
   useEffect(() => {
     if (auth?.role === 'participant' && auth.teamName) {
@@ -38,14 +64,26 @@ export default function ParticipantMobile() {
     };
   }, []);
 
+  useEffect(() => {
+    if (auction && auction.status === 'ACTIVE' && auction.currentBid > prevBidRef.current && auction.currentBidder) {
+      playDefaultBidSound();
+    }
+    if (auction) {
+      prevBidRef.current = auction.currentBid;
+    }
+  }, [auction?.currentBid, auction?.status]);
+
   const myTeam = teams.find(t => t.name === myTeamName);
   
   const myTransactions = transactions.filter(tx => tx.oldOwner === myTeamName || tx.newOwner === myTeamName);
 
   const handleBid = () => {
     if (!myTeamName) return alert("Seleziona prima la tua squadra!");
-    const parsedBid = parseInt(bidAmount);
-    if (!parsedBid || parsedBid <= auction.currentBid) {
+    let parsedBid = parseInt(bidAmount);
+    if (!bidAmount || isNaN(parsedBid)) {
+      parsedBid = auction.currentBid + 1;
+    }
+    if (parsedBid <= auction.currentBid) {
       alert(`L'offerta deve essere maggiore di ${auction.currentBid} cr!`);
       return;
     }
@@ -313,10 +351,19 @@ export default function ParticipantMobile() {
                       <button 
                         className="btn-bid" 
                         onClick={handleBid}
-                        disabled={auction.currentBidder === myTeamName || !bidAmount || parseInt(bidAmount) <= auction.currentBid}
+                        disabled={auction.currentBidder === myTeamName || (bidAmount !== '' && parseInt(bidAmount) <= auction.currentBid)}
+                        style={{
+                          background: auction.currentBidder === myTeamName ? 'rgba(34, 197, 94, 0.2)' : bidAmount ? 'linear-gradient(135deg, #fbbf24, #d97706)' : 'linear-gradient(135deg, #10b981, #059669)',
+                          color: 'white',
+                          border: auction.currentBidder === myTeamName ? '2px solid #22c55e' : 'none'
+                        }}
                       >
                         <DollarSign size={24} style={{ marginRight: '10px' }} />
-                        {auction.currentBidder === myTeamName ? 'SEI IN VANTAGGIO' : 'RILANCIA'}
+                        {auction.currentBidder === myTeamName 
+                          ? 'SEI IN VANTAGGIO' 
+                          : bidAmount 
+                            ? `RILANCIA A ${bidAmount} cr` 
+                            : `RILANCIA +1 cr (${auction.currentBid + 1} cr)`}
                       </button>
 
                       <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(59, 130, 246, 0.1)', border: '2px solid #3b82f6', borderRadius: '10px' }}>
