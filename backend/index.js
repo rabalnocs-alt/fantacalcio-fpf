@@ -214,7 +214,7 @@ io.on('connection', (socket) => {
     if (amount > auctionState.currentBid) {
       auctionState.currentBid = amount;
       auctionState.currentBidder = teamName;
-      startTimer(10); // Restart 10s timer
+      startTimer(15); // Restart 15s timer
       await db.saveAuction(auctionState);
       io.emit('auction_update', auctionState);
     }
