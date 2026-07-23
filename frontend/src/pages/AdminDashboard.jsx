@@ -59,6 +59,33 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleResetAll = async () => {
+    const enteredPin = prompt("Inserisci la password (PIN Master) per confermare il reset completo:");
+    if (!enteredPin) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/reset-all`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pin: enteredPin })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert('Reset completato con successo! Le rose sono ora vuote.');
+      } else {
+        alert('Errore: ' + (data.error || 'PIN non valido'));
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Errore di connessione al server.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto', color: 'white' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -163,6 +190,22 @@ export default function AdminDashboard() {
           style={{ background: '#4CAF50', display: 'flex', alignItems: 'center', gap: '10px', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
         >
           <Download size={20} /> Scarica Excel Asta Finita
+        </button>
+      </div>
+
+      {/* Reset di Emergenza */}
+      <div className="fpf-panel" style={{ background: 'rgba(230,0,0,0.1)', border: '2px dashed #e60000', padding: '2rem', borderRadius: '15px', marginTop: '2rem' }}>
+        <h2 style={{ color: '#e60000', margin: '0 0 10px 0' }}>🚨 Reset Totale delle Rose</h2>
+        <p style={{ color: '#ccc', marginBottom: '1.5rem' }}>
+          Questo comando svuota interamente le rose di tutti i partecipanti, azzera tutti i movimenti registrati, e ripristina lo stato dell'asta a inattivo. 
+          <br/><strong>Nota:</strong> Questa operazione non tocca il listone dei giocatori né le statistiche di rendimento.
+        </p>
+        <button 
+          onClick={handleResetAll}
+          disabled={loading}
+          style={{ background: '#e60000', display: 'flex', alignItems: 'center', gap: '10px', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
+        >
+          <RefreshCw size={20} /> Azzera Rose e Movimenti
         </button>
       </div>
 

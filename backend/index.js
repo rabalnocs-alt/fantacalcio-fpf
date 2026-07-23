@@ -530,6 +530,44 @@ app.post('/api/upload-rosters', upload.single('file'), async (req, res) => {
   }
 });
 
+app.post('/api/reset-all', async (req, res) => {
+  try {
+    const { pin } = req.body;
+    if (pin !== '211287') {
+      return res.status(401).json({ success: false, error: 'PIN master non valido' });
+    }
+
+    // Reset rose e budget di tutte le squadre
+    teams.forEach(t => {
+      t.roster = [];
+      t.balance = 500; // Valore di default
+      t.fpf = fpf.getFpfTierInfo(500);
+    });
+    await db.saveTeams(teams);
+    io.emit('teams_update', teams);
+
+    // Reset transazioni e stato asta
+    transactions = [];
+    await db.saveTransactions([]);
+    io.emit('transactions_update', []);
+
+    auctionState = {
+      status: 'IDLE',
+      currentPlayer: null,
+      currentBid: 0,
+      currentBidder: null,
+      timerSeconds: 0
+    };
+    await db.saveAuction(auctionState);
+    io.emit('auction_update', auctionState);
+
+    res.json({ success: true, message: 'Reset completato con successo' });
+  } catch (error) {
+    console.error('Error during reset-all:', error);
+    res.status(500).json({ success: false, error: 'Errore durante il reset' });
+  }
+});
+
 app.get('/api/export', (req, res) => {
   try {
     const wb = xlsx.utils.book_new();
