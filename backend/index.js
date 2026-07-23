@@ -707,6 +707,30 @@ async function init() {
       }
     });
 
+    const defaultLogos = {
+      "Salassuolo": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14951654_03387686.png",
+      "Pertusio Club de Futbol": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14959577_01975842.png",
+      "Partizan Beijing": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14952058_009386557.png",
+      "Al Nanoh FC": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14953682_03890613.png",
+      "FC Aglientus": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14954190_02390271.png",
+      "Error-Systema-104": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14952987_01952661.png",
+      "Dinamo Zafavria": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14951989_0826998.png",
+      "PONTefice": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14952818_007149065.png",
+      "Cwtch Sporting": "https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2025/14953197_02288477.png"
+    };
+
+    let teamsUpdated = false;
+    for (const team of teams) {
+      if (defaultLogos[team.name] && team.logoUrl !== defaultLogos[team.name]) {
+        team.logoUrl = defaultLogos[team.name];
+        teamsUpdated = true;
+      }
+    }
+    if (teamsUpdated) {
+      await db.saveTeams(teams);
+      console.log('Restored team logoUrls in DB.');
+    }
+
     if (pinsUpdated || true) { // Always force save once on startup to sync Firestore
       await db.saveConfig(config);
       console.log('Restored default team PINs and saved config.');
