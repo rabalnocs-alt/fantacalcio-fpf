@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Shield, DollarSign, AlertTriangle } from 'lucide-react';
+import { Shield, DollarSign, AlertTriangle, Users } from 'lucide-react';
 import { socket } from '../utils/socket';
 
 // Helper per i beep del timer (ansia)
