@@ -117,7 +117,7 @@ export default function SecretaryConsole() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
         
         {/* Setup Panel */}
-        <div className="fpf-panel">
+        <div className="fpf-panel" style={{ minHeight: '620px', overflow: 'visible' }}>
           <h2>1. Importa Listone & Statistiche</h2>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
             <div style={{flex: 1}}>
@@ -141,7 +141,7 @@ export default function SecretaryConsole() {
           <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '1rem 0' }} />
 
           <h2>2. Avvia Chiamata</h2>
-          <div style={{ display: 'flex', gap: '1rem', position: 'relative' }}>
+          <div style={{ display: 'flex', gap: '1rem', position: 'relative', alignItems: 'center' }}>
             <div style={{ position: 'relative', flex: 1 }}>
               <input 
                 type="text" 
@@ -153,13 +153,13 @@ export default function SecretaryConsole() {
                 }}
                 onFocus={() => setShowSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                style={{ width: '100%' }}
+                style={{ width: '100%', padding: '12px 16px', fontSize: '1.2rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.3)', color: 'white', boxSizing: 'border-box' }}
               />
               {showSuggestions && selectedPlayer && selectedPlayer.length >= 2 && (
                 <div style={{
                   position: 'absolute', top: '100%', left: 0, right: 0,
                   background: '#02144d', border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '12px', zIndex: 1000, maxHeight: '200px', overflowY: 'auto',
+                  borderRadius: '12px', zIndex: 1000, maxHeight: '300px', overflowY: 'auto',
                   boxShadow: '0 10px 25px rgba(0,0,0,0.8)', marginTop: '5px'
                 }}>
                   {players
@@ -173,7 +173,7 @@ export default function SecretaryConsole() {
                           setShowSuggestions(false);
                         }}
                         style={{
-                          padding: '10px', cursor: 'pointer', color: 'white',
+                          padding: '12px', cursor: 'pointer', color: 'white',
                           borderBottom: '1px solid rgba(255,255,255,0.05)',
                           background: 'transparent', transition: 'background 0.2s',
                           display: 'flex', justifyContent: 'space-between',
@@ -187,29 +187,29 @@ export default function SecretaryConsole() {
                         onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
                         onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
-                        <strong style={{ color: 'white' }}>{p.Nome}</strong>
-                        <span style={{ fontSize: '0.85rem', color: '#fbbf24', fontWeight: 'bold' }}>
+                        <strong style={{ color: 'white', fontSize: '1.05rem' }}>{p.Nome}</strong>
+                        <span style={{ fontSize: '0.9rem', color: '#fbbf24', fontWeight: 'bold' }}>
                           {p.Ruolo} - {p.Quotazione} cr
                         </span>
                       </div>
                     ))
                   }
                   {players.filter(p => p.Nome && p.Nome.toLowerCase().includes(selectedPlayer.toLowerCase())).length === 0 && (
-                    <div style={{ padding: '10px', color: '#b3c6ff', fontSize: '0.9rem' }}>
+                    <div style={{ padding: '12px', color: '#b3c6ff', fontSize: '0.95rem' }}>
                       Nessun risultato
                     </div>
                   )}
                 </div>
               )}
             </div>
-            <button onClick={handleStartAuction} style={{ background: 'var(--fpf-f1)', display: 'flex', alignItems: 'center', gap: '5px', height: '42px', alignSelf: 'flex-start' }}>
+            <button onClick={handleStartAuction} style={{ background: 'var(--fpf-f1)', display: 'flex', alignItems: 'center', gap: '5px', height: '48px', padding: '0 25px', fontSize: '1.1rem', alignSelf: 'center', border: 'none', borderRadius: '8px', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>
               <Play size={18} /> Mostra a Schermo
             </button>
           </div>
         </div>
-
+ 
         {/* Live Auction Control */}
-        <div className="fpf-panel" style={{ border: '2px solid var(--accent-blue)' }}>
+        <div className="fpf-panel" style={{ border: '2px solid var(--accent-blue)', minHeight: '620px' }}>
           <h2>Gestione Asta Live</h2>
           
           {auction?.status === 'IDLE' && <p>Nessuna asta attiva.</p>}
@@ -221,30 +221,30 @@ export default function SecretaryConsole() {
               <p>Stato: {auction.status} | Timer: {auction.timerSeconds}s</p>
               
               {auction.status !== 'ASSIGNED' && auction.status !== 'BIVIO' && (
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                  <select value={bidder} onChange={(e) => setBidder(e.target.value)}>
+                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', alignItems: 'center' }}>
+                  <select value={bidder} onChange={(e) => setBidder(e.target.value)} style={{ padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: '#00144d', color: 'white', fontSize: '1rem', flex: 1, height: '42px', cursor: 'pointer' }}>
                     <option value="">Seleziona Squadra...</option>
                     {teams.map(t => <option key={t.name} value={t.name}>{t.name}</option>)}
                   </select>
                   <input 
                     type="number" 
-                    placeholder="Cifra rilancio" 
+                    placeholder="Cifra" 
                     value={manualBid}
                     onChange={(e) => setManualBid(e.target.value)}
-                    style={{ width: '120px' }}
+                    style={{ width: '100px', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.3)', color: 'white', fontSize: '1rem', height: '42px', boxSizing: 'border-box' }}
                   />
-                  <button onClick={handlePlaceBid} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <DollarSign size={18} /> Rilancia (7s)
+                  <button onClick={handlePlaceBid} style={{ display: 'flex', alignItems: 'center', gap: '5px', height: '42px', padding: '0 15px', borderRadius: '8px', border: 'none', background: '#3b82f6', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>
+                    <DollarSign size={18} /> Rilancia
                   </button>
                 </div>
               )}
 
               {auction.status === 'WAITING' && (
                 <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(59, 130, 246, 0.2)', borderRadius: '0.5rem', border: '1px solid #3b82f6' }}>
-                  Giocatore in attesa. Avvia i primi 10 secondi per aprire le offerte!
+                  Giocatore in attesa. Avvia i primi 30 secondi per aprire le offerte!
                   <div style={{ marginTop: '1rem' }}>
-                    <button onClick={() => socket.emit('start_initial_timer')} style={{ background: '#3b82f6', color: 'white', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                      <Play size={18} /> Avvia Conto alla Rovescia (10s)
+                    <button onClick={() => socket.emit('start_initial_timer')} style={{ background: '#3b82f6', color: 'white', display: 'flex', alignItems: 'center', gap: '5px', padding: '10px 15px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>
+                      <Play size={18} /> Avvia Conto alla Rovescia (30s)
                     </button>
                   </div>
                 </div>
