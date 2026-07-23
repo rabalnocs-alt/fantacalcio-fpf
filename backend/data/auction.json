@@ -1,17 +1,6 @@
 {
-  "status": "WAITING",
-  "currentPlayer": {
-    "name": "Leao",
-    "role": "A",
-    "quot": 80,
-    "stats": {
-      "fm": 6.86,
-      "gol": 9,
-      "ass": 3
-    },
-    "currentOwner": "PONTefice",
-    "oldRinnovo": 0
-  },
+  "status": "IDLE",
+  "currentPlayer": null,
   "currentBid": 0,
   "currentBidder": null,
   "timerSeconds": 10
