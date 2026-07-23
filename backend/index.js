@@ -673,25 +673,43 @@ async function init() {
     auctionState = await db.loadAuction();
     config = await db.loadConfig();
 
-    // Ensure config.pins object exists
+    const defaultPins = {
+      "Salassuolo": "1264",
+      "Pertusio Club de Futbol": "5826",
+      "Wormerhampton FFC": "2048",
+      "Partizan Beijing": "3279",
+      "Al Nanoh FC": "6967",
+      "FC Aglientus": "4593",
+      "Error-Systema-104": "2842",
+      "Dinamo Zafavria": "9550",
+      "PONTefice": "3832",
+      "Cwtch Sporting": "8672"
+    };
+
     if (!config.pins) {
       config.pins = {};
     }
 
-    // Auto-generate PINs for any team that doesn't have one
     let pinsUpdated = false;
     for (const team of teams) {
-      if (!config.pins[team.name]) {
-        // Generate random 4-digit PIN
-        const pin = Math.floor(1000 + Math.random() * 9000).toString();
-        config.pins[team.name] = pin;
+      const targetPin = defaultPins[team.name] || config.pins[team.name] || Math.floor(1000 + Math.random() * 9000).toString();
+      if (config.pins[team.name] !== targetPin) {
+        config.pins[team.name] = targetPin;
         pinsUpdated = true;
       }
     }
     
-    if (pinsUpdated) {
+    // Also ensure all default pins are in config.pins
+    Object.keys(defaultPins).forEach(teamName => {
+      if (config.pins[teamName] !== defaultPins[teamName]) {
+        config.pins[teamName] = defaultPins[teamName];
+        pinsUpdated = true;
+      }
+    });
+
+    if (pinsUpdated || true) { // Always force save once on startup to sync Firestore
       await db.saveConfig(config);
-      console.log('Auto-generated new team PINs and saved config.');
+      console.log('Restored default team PINs and saved config.');
     }
 
     const PORT = process.env.PORT || 3000;
