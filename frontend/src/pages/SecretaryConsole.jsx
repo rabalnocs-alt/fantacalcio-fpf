@@ -250,6 +250,17 @@ export default function SecretaryConsole() {
                 </div>
               )}
 
+              {(auction.status === 'ACTIVE' || auction.status === 'WAITING') && (
+                <div style={{ marginTop: '1rem' }}>
+                  <button 
+                    onClick={() => socket.emit('force_end_timer')} 
+                    style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)', color: 'white', display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 18px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', width: '100%', justifyContent: 'center', fontSize: '0.95rem', boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)' }}
+                  >
+                    <StopCircle size={20} /> Termina Timer e Aggiudica Ora
+                  </button>
+                </div>
+              )}
+
               {auction.status === 'BIVIO' && (
                 <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(245, 158, 11, 0.2)', borderRadius: '0.5rem', border: '1px solid #f59e0b' }}>
                   Asta chiusa a {auction.currentBid} cr. 

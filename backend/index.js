@@ -228,6 +228,13 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('force_end_timer', async () => {
+    if (auctionState.status === 'ACTIVE' || auctionState.status === 'WAITING') {
+      stopTimer();
+      await resolveAuction();
+    }
+  });
+
   socket.on('bivio_decision', async ({ option }) => {
     // option: 'PROTEGGI' or 'VENDI'
     if (auctionState.status !== 'BIVIO') return;
