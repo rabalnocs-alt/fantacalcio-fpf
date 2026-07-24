@@ -269,12 +269,9 @@ export default function HostDashboard() {
     if (!name) return '';
     let normalized = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
     
-    // Fantacalcio ora usa esattamente il nome del listone in MAIUSCOLO
-    // con gli spazi sostituiti da trattini e senza punti.
-    
-    // Rarissime eccezioni in cui Fantacalcio ha tagliato il nome
-    if (normalized === 'ADAMS C.') return 'ADAMS';
-    if (normalized === 'ESPOSITO F.P.') return 'ESPOSITOFP'; // Testato, Esposito FP è spesso problematico
+    if (normalized.includes('PAZ N') || normalized.includes('NICO PAZ') || normalized === 'PAZ') return 'PAZ';
+    if (normalized === 'ADAMS C.' || normalized === 'ADAMS C') return 'ADAMS';
+    if (normalized === 'ESPOSITO F.P.' || normalized === 'ESPOSITO F P') return 'ESPOSITOFP';
     
     return normalized
       .replace(/\./g, '')
@@ -377,7 +374,20 @@ export default function HostDashboard() {
                 referrerPolicy="no-referrer"
                 className="campioncino-img"
                 style={{ width: '250px', height: '250px', margin: '0 auto', filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.8))' }}
-                onError={(e) => { e.target.style.display = 'none'; }}
+                onError={(e) => {
+                  const currentSrc = e.target.src;
+                  if (currentSrc.includes('-N.png') || currentSrc.includes('-C.png') || currentSrc.includes('-FP.png')) {
+                    e.target.src = currentSrc.replace(/-[A-Z]+\.png$/, '.png');
+                  } else if (currentSrc.includes('-') && !e.target.dataset.triedFallback) {
+                    e.target.dataset.triedFallback = 'true';
+                    const parts = currentSrc.split('/');
+                    const filename = parts.pop();
+                    const firstWord = filename.split('-')[0] + '.png';
+                    e.target.src = parts.join('/') + '/' + firstWord;
+                  } else {
+                    e.target.style.display = 'none';
+                  }
+                }}
               />
               <div className="player-name skysport-text-glow" style={{ fontSize: '4.5rem', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>{auction.currentPlayer.name}</div>
               {auction.currentPlayer.currentOwner && (

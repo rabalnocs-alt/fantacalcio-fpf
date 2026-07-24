@@ -4,8 +4,9 @@ import { Users } from 'lucide-react';
 const formatPlayerNameForUrl = (name) => {
   if (!name) return '';
   let normalized = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
-  if (normalized === 'ADAMS C.') return 'ADAMS';
-  if (normalized === 'ESPOSITO F.P.') return 'ESPOSITOFP';
+  if (normalized.includes('PAZ N') || normalized.includes('NICO PAZ') || normalized === 'PAZ') return 'PAZ';
+  if (normalized === 'ADAMS C.' || normalized === 'ADAMS C') return 'ADAMS';
+  if (normalized === 'ESPOSITO F.P.' || normalized === 'ESPOSITO F P') return 'ESPOSITOFP';
   return normalized.replace(/\./g, '').replace(/['\s]+/g, '-').replace(/[^A-Z0-9-]/g, '');
 };
 
@@ -54,7 +55,20 @@ export default function MiniDashboard({ auction }) {
           alt={currentPlayer.name} 
           referrerPolicy="no-referrer"
           style={{ width: '80px', height: '80px', filter: 'drop-shadow(0 5px 10px rgba(0,0,0,0.5))' }}
-          onError={(e) => { e.target.style.display = 'none'; }}
+          onError={(e) => {
+            const currentSrc = e.target.src;
+            if (currentSrc.includes('-N.png') || currentSrc.includes('-C.png') || currentSrc.includes('-FP.png')) {
+              e.target.src = currentSrc.replace(/-[A-Z]+\.png$/, '.png');
+            } else if (currentSrc.includes('-') && !e.target.dataset.triedFallback) {
+              e.target.dataset.triedFallback = 'true';
+              const parts = currentSrc.split('/');
+              const filename = parts.pop();
+              const firstWord = filename.split('-')[0] + '.png';
+              e.target.src = parts.join('/') + '/' + firstWord;
+            } else {
+              e.target.style.display = 'none';
+            }
+          }}
         />
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
