@@ -580,6 +580,171 @@ export default function ParticipantMobile() {
           </div>
         )}
 
+      {/* 6. TAB LISTONE SVINCOLATI & MERCATO */}
+      {activeTab === 'listone' && (
+        <div style={{ paddingBottom: '70px' }}>
+          {/* Sub-Header Pills */}
+          <div style={{ display: 'flex', gap: '6px', marginBottom: '1rem', background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '12px' }}>
+            <button 
+              onClick={() => { setListoneFilterType('svincolati'); setListoneVisibleCount(40); }}
+              style={{ flex: 1, padding: '8px 4px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'svincolati' ? 'var(--fpf-f1)' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer' }}
+            >
+              🟢 Svincolati ({countsInfo.svincolatiCount})
+            </button>
+            <button 
+              onClick={() => { setListoneFilterType('altre'); setListoneVisibleCount(40); }}
+              style={{ flex: 1, padding: '8px 4px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'altre' ? '#3b82f6' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer' }}
+            >
+              📌 In Altre Rose ({countsInfo.assignedCount})
+            </button>
+            <button 
+              onClick={() => { setListoneFilterType('tutti'); setListoneVisibleCount(40); }}
+              style={{ flex: 1, padding: '8px 4px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'tutti' ? '#8b5cf6' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer' }}
+            >
+              🌐 Tutti ({countsInfo.totalCount})
+            </button>
+          </div>
+
+          {/* Search Input */}
+          <div style={{ position: 'relative', marginBottom: '1rem' }}>
+            <input 
+              type="text" 
+              placeholder="🔍 Cerca calciatore per nome..." 
+              value={listoneSearch}
+              onChange={(e) => { setListoneSearch(e.target.value); setListoneVisibleCount(40); }}
+              style={{ width: '100%', padding: '12px 15px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.4)', color: 'white', fontSize: '1rem', boxSizing: 'border-box' }}
+            />
+          </div>
+
+          {/* Filters Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px', marginBottom: '1rem' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.7rem', color: '#aaa', marginBottom: '4px' }}>Ruolo Mantra</label>
+              <select 
+                value={listoneRoleFilter}
+                onChange={(e) => { setListoneRoleFilter(e.target.value); setListoneVisibleCount(40); }}
+                style={{ width: '100%', padding: '8px 4px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: '#00154d', color: 'white', fontSize: '0.8rem' }}
+              >
+                <option value="TUTTI">Tutti i ruoli</option>
+                <option value="POR">Portieri (POR)</option>
+                <option value="DEF">Difensori (DEF)</option>
+                <option value="MED">Mediana (MED)</option>
+                <option value="FAN">Fantasisti (FAN)</option>
+                <option value="ATT">Attaccanti (ATT)</option>
+                <option value="Pc">Pc (Punta)</option>
+                <option value="Dc">Dc (Centrale)</option>
+                <option value="M">M (Mediano)</option>
+                <option value="C">C (Centrocampista)</option>
+                <option value="T">T (Trequartista)</option>
+                <option value="A">A (Ala/Attaccante)</option>
+                <option value="E">E (Esterno)</option>
+                <option value="W">W (Wing)</option>
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.7rem', color: '#aaa', marginBottom: '4px' }}>Squadra Serie A</label>
+              <select 
+                value={listoneTeamFilter}
+                onChange={(e) => { setListoneTeamFilter(e.target.value); setListoneVisibleCount(40); }}
+                style={{ width: '100%', padding: '8px 4px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: '#00154d', color: 'white', fontSize: '0.8rem' }}
+              >
+                <option value="TUTTE">Tutte le squadre</option>
+                {serieATeams.map(sq => (
+                  <option key={sq} value={sq}>{sq}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.7rem', color: '#aaa', marginBottom: '4px' }}>Ordina per</label>
+              <select 
+                value={listoneSortBy}
+                onChange={(e) => setListoneSortBy(e.target.value)}
+                style={{ width: '100%', padding: '8px 4px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: '#00154d', color: 'white', fontSize: '0.8rem' }}
+              >
+                <option value="qtA">Qt.A (Decrescente)</option>
+                <option value="fvm">FVM (Decrescente)</option>
+                <option value="nome">Nome (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Counter info */}
+          <div style={{ fontSize: '0.8rem', color: '#aaa', marginBottom: '0.8rem', textAlign: 'right' }}>
+            Risultati: <strong style={{ color: 'white' }}>{filteredListone.length}</strong> calciatori
+          </div>
+
+          {/* Cards List */}
+          {filteredListone.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#aaa' }}>
+              Nessun calciatore trovato con i filtri selezionati.
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {filteredListone.slice(0, listoneVisibleCount).map((p, idx) => {
+                const cleanName = (p.Nome || '').trim().toLowerCase();
+                const assignedInfo = assignedMap[cleanName];
+
+                return (
+                  <div key={idx} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '10px', padding: '10px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderLeft: `4px solid ${getMantraColor(p.Ruolo)}` }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <img 
+                        src={`https://content.fantacalcio.it/web/campioncini/small/${formatPlayerNameForUrl(p.Nome)}.png`}
+                        alt={p.Nome}
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                        style={{ width: '38px', height: '38px', objectFit: 'contain', borderRadius: '4px', background: 'rgba(0,0,0,0.2)' }}
+                      />
+                      <div>
+                        <div style={{ fontWeight: 'bold', fontSize: '0.95rem', color: 'white' }}>
+                          {p.Nome}
+                        </div>
+                        <div style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '4px' }}>
+                          <span style={{ fontSize: '0.7rem', background: getMantraColor(p.Ruolo), color: 'white', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
+                            {p.Ruolo}
+                          </span>
+                          {p.Squadra && (
+                            <span style={{ fontSize: '0.75rem', color: '#aaa' }}>
+                              {p.Squadra}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+                      {assignedInfo ? (
+                        <span style={{ fontSize: '0.75rem', background: 'rgba(251, 191, 36, 0.2)', color: '#fbbf24', border: '1px solid #fbbf24', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold' }}>
+                          📌 {assignedInfo.owner} ({assignedInfo.cost} cr)
+                        </span>
+                      ) : (
+                        <span style={{ fontSize: '0.75rem', background: 'rgba(34, 197, 94, 0.2)', color: '#22c55e', border: '1px solid #22c55e', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold' }}>
+                          🟢 Svincolato
+                        </span>
+                      )}
+
+                      <div style={{ fontSize: '0.75rem', color: '#aaa', marginTop: '2px' }}>
+                        Qt.A: <strong style={{ color: '#fbbf24' }}>{p.Quotazione || 1} cr</strong>
+                        {p.FVM > 0 && <span> | FVM: <strong style={{ color: '#3b82f6' }}>{p.FVM}</strong></span>}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {filteredListone.length > listoneVisibleCount && (
+                <button 
+                  onClick={() => setListoneVisibleCount(prev => prev + 50)}
+                  style={{ marginTop: '1rem', width: '100%', padding: '12px', background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer' }}
+                >
+                  Mostra altri 50 calciatori ({filteredListone.length - listoneVisibleCount} rimanenti)
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Formazione Tab */}
       {activeTab === 'formazione' && (
         <div className="tab-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
