@@ -371,6 +371,8 @@ app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
 
     let idIdx = headers.indexOf('id');
     let sqIdx = headers.indexOf('squadra');
+    if (sqIdx === -1) sqIdx = headers.findIndex(h => h.includes('squadra') || h.includes('team'));
+    
     let qtIdx = headers.indexOf('qt. a');
     if (qtIdx === -1) qtIdx = headers.indexOf('quotazione');
     if (qtIdx === -1) qtIdx = headers.findIndex(h => h.includes('qt') || h.includes('quotazione'));
@@ -398,6 +400,18 @@ app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
   } catch (error) {
     console.error('Error parsing Listone:', error);
     res.status(500).json({ success: false, error: 'File parsing error' });
+  }
+});
+
+app.post('/api/reset-listone', async (req, res) => {
+  try {
+    listonePlayers = [];
+    await db.saveListone([]);
+    io.emit('players_list', []);
+    res.json({ success: true, message: 'Listone resettato con successo' });
+  } catch (err) {
+    console.error('Error resetting listone:', err);
+    res.status(500).json({ success: false, error: 'Reset listone error' });
   }
 });
 

@@ -46,6 +46,7 @@ export default function ParticipantMobile() {
   const [listoneSearch, setListoneSearch] = useState('');
   const [listoneRoleFilter, setListoneRoleFilter] = useState('TUTTI');
   const [listoneTeamFilter, setListoneTeamFilter] = useState('TUTTE');
+  const [listoneFantaTeamFilter, setListoneFantaTeamFilter] = useState('TUTTE');
   const [listoneSortBy, setListoneSortBy] = useState('qtA'); // 'qtA' | 'fvm' | 'nome'
   const [listoneVisibleCount, setListoneVisibleCount] = useState(40);
 
@@ -103,12 +104,24 @@ export default function ParticipantMobile() {
   }, [teams]);
 
   const serieATeams = React.useMemo(() => {
-    const setSq = new Set();
+    const defaultSerieA = [
+      'Atalanta', 'Bologna', 'Cagliari', 'Como', 'Empoli', 'Fiorentina', 
+      'Genoa', 'Inter', 'Juventus', 'Lazio', 'Lecce', 'Milan', 
+      'Monza', 'Napoli', 'Parma', 'Roma', 'Torino', 'Udinese', 'Venezia', 'Verona'
+    ];
+    const setSq = new Set(defaultSerieA);
     listone.forEach(p => {
-      if (p.Squadra) setSq.add(p.Squadra);
+      const sq = p.Squadra || p.squadra;
+      if (sq && typeof sq === 'string') {
+        setSq.add(sq.trim());
+      }
     });
     return Array.from(setSq).sort();
   }, [listone]);
+
+  const fantaTeamsList = React.useMemo(() => {
+    return teams.map(t => t.name).sort();
+  }, [teams]);
 
   const countsInfo = React.useMemo(() => {
     let svincolatiCount = 0;
@@ -129,20 +142,31 @@ export default function ParticipantMobile() {
       if (listoneFilterType === 'svincolati' && assignedInfo) return false;
       if (listoneFilterType === 'altre' && !assignedInfo) return false;
 
+      // Filter by Fanta Squadra (e.g. Salassuolo, Pertusio, etc.)
+      if (listoneFantaTeamFilter && listoneFantaTeamFilter !== 'TUTTE') {
+        if (!assignedInfo || assignedInfo.owner !== listoneFantaTeamFilter) return false;
+      }
+
       if (listoneSearch && !cleanName.includes(listoneSearch.toLowerCase().trim())) return false;
 
       if (listoneRoleFilter && listoneRoleFilter !== 'TUTTI') {
-        const pRole = (p.Ruolo || '').toUpperCase();
-        if (listoneRoleFilter === 'POR' && !pRole.includes('POR')) return false;
-        if (listoneRoleFilter === 'DEF' && !(pRole.includes('DC') || pRole.includes('DD') || pRole.includes('DS') || pRole.includes('E') || pRole.includes('B'))) return false;
-        if (listoneRoleFilter === 'MED' && !(pRole.includes('M') || pRole.includes('C'))) return false;
-        if (listoneRoleFilter === 'FAN' && !(pRole.includes('W') || pRole.includes('T') || pRole.includes('A'))) return false;
-        if (listoneRoleFilter === 'ATT' && !pRole.includes('PC')) return false;
-        if (!['POR','DEF','MED','FAN','ATT'].includes(listoneRoleFilter) && !pRole.includes(listoneRoleFilter)) return false;
+        const pRoleUpper = (p.Ruolo || p.role || '').toUpperCase();
+        const filterUpper = listoneRoleFilter.toUpperCase();
+
+        if (filterUpper === 'POR' && !pRoleUpper.includes('POR')) return false;
+        if (filterUpper === 'DEF' && !(pRoleUpper.includes('DC') || pRoleUpper.includes('DD') || pRoleUpper.includes('DS') || pRoleUpper.includes('E') || pRoleUpper.includes('B') || pRoleUpper.includes('D'))) return false;
+        if (filterUpper === 'MED' && !(pRoleUpper.includes('M') || pRoleUpper.includes('C'))) return false;
+        if (filterUpper === 'FAN' && !(pRoleUpper.includes('W') || pRoleUpper.includes('T') || pRoleUpper.includes('A'))) return false;
+        if (filterUpper === 'ATT' && !(pRoleUpper.includes('PC') || pRoleUpper.includes('A'))) return false;
+
+        if (!['POR','DEF','MED','FAN','ATT'].includes(filterUpper)) {
+          if (!pRoleUpper.includes(filterUpper)) return false;
+        }
       }
 
       if (listoneTeamFilter && listoneTeamFilter !== 'TUTTE') {
-        if ((p.Squadra || '').toLowerCase() !== listoneTeamFilter.toLowerCase()) return false;
+        const playerSq = (p.Squadra || p.squadra || '').toLowerCase();
+        if (playerSq !== listoneTeamFilter.toLowerCase()) return false;
       }
 
       return true;
@@ -152,7 +176,7 @@ export default function ParticipantMobile() {
       if (listoneSortBy === 'nome') return a.Nome.localeCompare(b.Nome);
       return 0;
     });
-  }, [listone, assignedMap, listoneFilterType, listoneSearch, listoneRoleFilter, listoneTeamFilter, listoneSortBy]);
+  }, [listone, assignedMap, listoneFilterType, listoneFantaTeamFilter, listoneSearch, listoneRoleFilter, listoneTeamFilter, listoneSortBy]);
 
   const formatPlayerNameForUrl = (name) => {
     if (!name) return '';
@@ -616,8 +640,8 @@ export default function ParticipantMobile() {
             />
           </div>
 
-          {/* Filters Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px', marginBottom: '1rem' }}>
+          {/* Filters Grid (2x2 Layout) */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '1rem' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.7rem', color: '#aaa', marginBottom: '4px' }}>Ruolo Mantra</label>
               <select 
@@ -631,28 +655,16 @@ export default function ParticipantMobile() {
                 <option value="MED">Mediana (MED)</option>
                 <option value="FAN">Fantasisti (FAN)</option>
                 <option value="ATT">Attaccanti (ATT)</option>
-                <option value="Pc">Pc (Punta)</option>
-                <option value="Dc">Dc (Centrale)</option>
+                <option value="Pc">Pc (Punta centrale)</option>
+                <option value="Dc">Dc (Difensore centrale)</option>
+                <option value="Dd">Dd (Terzino destro)</option>
+                <option value="Ds">Ds (Terzino sinistro)</option>
+                <option value="E">E (Esterno)</option>
                 <option value="M">M (Mediano)</option>
                 <option value="C">C (Centrocampista)</option>
                 <option value="T">T (Trequartista)</option>
-                <option value="A">A (Ala/Attaccante)</option>
-                <option value="E">E (Esterno)</option>
-                <option value="W">W (Wing)</option>
-              </select>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.7rem', color: '#aaa', marginBottom: '4px' }}>Squadra Serie A</label>
-              <select 
-                value={listoneTeamFilter}
-                onChange={(e) => { setListoneTeamFilter(e.target.value); setListoneVisibleCount(40); }}
-                style={{ width: '100%', padding: '8px 4px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: '#00154d', color: 'white', fontSize: '0.8rem' }}
-              >
-                <option value="TUTTE">Tutte le squadre</option>
-                {serieATeams.map(sq => (
-                  <option key={sq} value={sq}>{sq}</option>
-                ))}
+                <option value="W">W (Wing/Ala)</option>
+                <option value="A">A (Attaccante angolare)</option>
               </select>
             </div>
 
@@ -666,6 +678,34 @@ export default function ParticipantMobile() {
                 <option value="qtA">Qt.A (Decrescente)</option>
                 <option value="fvm">FVM (Decrescente)</option>
                 <option value="nome">Nome (A-Z)</option>
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.7rem', color: '#aaa', marginBottom: '4px' }}>Squadra Serie A</label>
+              <select 
+                value={listoneTeamFilter}
+                onChange={(e) => { setListoneTeamFilter(e.target.value); setListoneVisibleCount(40); }}
+                style={{ width: '100%', padding: '8px 4px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: '#00154d', color: 'white', fontSize: '0.8rem' }}
+              >
+                <option value="TUTTE">Tutte le squadre Serie A</option>
+                {serieATeams.map(sq => (
+                  <option key={sq} value={sq}>{sq}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.7rem', color: '#fbbf24', marginBottom: '4px' }}>Fanta Squadra (Partecipanti)</label>
+              <select 
+                value={listoneFantaTeamFilter}
+                onChange={(e) => { setListoneFantaTeamFilter(e.target.value); setListoneVisibleCount(40); }}
+                style={{ width: '100%', padding: '8px 4px', borderRadius: '8px', border: '1px solid #fbbf24', background: '#00154d', color: 'white', fontSize: '0.8rem', fontWeight: 'bold' }}
+              >
+                <option value="TUTTE">Tutte le Fanta Squadre</option>
+                {fantaTeamsList.map(sq => (
+                  <option key={sq} value={sq}>📌 {sq}</option>
+                ))}
               </select>
             </div>
           </div>

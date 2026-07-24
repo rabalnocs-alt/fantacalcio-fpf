@@ -87,6 +87,20 @@ export default function SecretaryConsole() {
     }
   };
 
+  const handleResetListone = async () => {
+    if (!window.confirm("Sei sicuro di voler svuotare il Listone? Tutti i calciatori nel listone verranno azzerati per consentirti di ricaricare un file pulito.")) return;
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/reset-listone`, { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        alert("Listone svuotato con successo! Ora puoi ricaricare il nuovo file Excel.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Errore durante il reset del listone");
+    }
+  };
+
   const handleUploadStats = async (statsFile) => {
     if (!statsFile) return;
     const formData = new FormData();
@@ -126,6 +140,9 @@ export default function SecretaryConsole() {
             </div>
             <button onClick={handleUpload} style={{ display: 'flex', alignItems: 'center', gap: '5px', alignSelf: 'flex-end' }}>
               <Upload size={18} /> Carica
+            </button>
+            <button onClick={handleResetListone} style={{ display: 'flex', alignItems: 'center', gap: '5px', alignSelf: 'flex-end', background: '#dc2626', color: 'white', border: 'none', padding: '10px 14px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+              🗑️ Reset Listone
             </button>
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
