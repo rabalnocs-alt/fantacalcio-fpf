@@ -129,7 +129,7 @@ export default function SecretaryConsole() {
       const res = await fetch(`${BACKEND_URL}/api/import-listone-preset`, { method: 'POST' });
       const data = await res.json();
       if (data.success) {
-        alert(`⚡ Fatto! Database FantaLab 2025/26 attivato con successo (${data.count} calciatori)!`);
+        alert(`⚡ Fatto! Database FantaLab 2026/27 attivato con successo (${data.count} calciatori)!`);
       } else {
         alert(data.error || "Errore durante il caricamento del preset FantaLab");
       }
@@ -191,7 +191,7 @@ export default function SecretaryConsole() {
           {listoneSourceMode === 'fantalab' ? (
             <div style={{ background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.3)', padding: '12px', borderRadius: '10px', marginBottom: '1rem' }}>
               <div style={{ fontWeight: 'bold', color: '#c4b5fd', marginBottom: '6px', fontSize: '0.9rem' }}>
-                🟣 Fonte FantaLab (Aggiornato con Ruoli Mantra 2025/26)
+                🟣 Fonte FantaLab (Aggiornato con Ruoli Mantra 2026/27)
               </div>
               <p style={{ fontSize: '0.8rem', color: '#ddd', margin: '0 0 10px 0' }}>
                 FantaLab non rilascia file Excel. Puoi attivare il database FantaLab con 1 Click oppure incollare il testo copiato da <code>app.fantalab.it/listone</code>.
@@ -199,7 +199,7 @@ export default function SecretaryConsole() {
               
               <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
                 <button onClick={handleImportPreset} style={{ flex: 1, padding: '10px', background: '#8b5cf6', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                  ⚡ Attiva Listone FantaLab 2025/26 (1-Click)
+                  ⚡ Attiva Listone FantaLab 2026/27 (1-Click)
                 </button>
                 <button onClick={handleResetListone} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '10px 12px', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer' }}>
                   🗑️ Reset

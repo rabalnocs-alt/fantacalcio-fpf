@@ -484,7 +484,7 @@ app.post('/api/import-listone-preset', async (req, res) => {
       listonePlayers = localData;
       await db.saveListone(listonePlayers);
       io.emit('players_list', listonePlayers);
-      return res.json({ success: true, count: listonePlayers.length, message: 'Database FantaLab 2025/26 attivato con successo!' });
+      return res.json({ success: true, count: listonePlayers.length, message: 'Database FantaLab 2026/27 attivato con successo!' });
     }
     res.status(400).json({ success: false, error: 'Nessun listone pre-caricato trovato' });
   } catch (err) {
