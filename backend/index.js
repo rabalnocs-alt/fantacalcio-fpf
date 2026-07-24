@@ -15,9 +15,14 @@ const fs = require('fs');
 const app = express();
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*' 
-    ? process.env.CORS_ORIGIN.split(',') 
-    : true,
+  origin: function (origin, callback) {
+    const allowedOrigins = process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*' ? process.env.CORS_ORIGIN.split(',') : [];
+    if (!origin || origin.includes('vercel.app') || origin.includes('netlify.app') || origin.includes('localhost') || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST'],
   credentials: true
 };
