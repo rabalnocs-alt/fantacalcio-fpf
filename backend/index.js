@@ -485,6 +485,10 @@ async function applyNewListone(newPlayers, sourceName) {
 
 app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'Seleziona prima un file Excel (.xlsx o .xls) da caricare!' });
+    }
+
     const workbook = xlsx.readFile(req.file.path);
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
