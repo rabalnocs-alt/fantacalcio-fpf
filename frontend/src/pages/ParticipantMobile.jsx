@@ -75,6 +75,9 @@ export default function ParticipantMobile() {
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('transactions_update', (data) => setTransactions(data));
     socket.on('players_list', (data) => setListone(data));
+    socket.on('bid_error', ({ message }) => {
+      alert(message || 'Offerta non valida!');
+    });
     socket.on('auction_update', (data) => {
       setAuction(data);
       if (data && data.status !== 'ACTIVE') setBidAmount('');
@@ -88,6 +91,7 @@ export default function ParticipantMobile() {
       socket.off('transactions_update');
       socket.off('players_list');
       socket.off('auction_update');
+      socket.off('bid_error');
       socket.off('force_reload');
     };
   }, []);

@@ -159,6 +159,21 @@ export default function SecretaryConsole() {
       alert("Errore di connessione");
     }
   };
+  const handleUndoLastAuction = async () => {
+    if (!window.confirm("Sei sicuro di voler annullare l'ultima aggiudicazione e ripristinare il bilancio e la rosa al momento precedente?")) return;
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/undo-last-auction`, { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        alert("↩️ Ultima asta annullata con successo! Bilanci e rose ripristinati.");
+      } else {
+        alert(data.error || "Errore durante l'annullamento dell'asta.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Errore di connessione");
+    }
+  };
 
   return (
     <div className="page-container">
@@ -382,9 +397,12 @@ export default function SecretaryConsole() {
                 </div>
               )}
 
-              <div style={{ marginTop: '2rem' }}>
-                <button onClick={() => socket.emit('reset_auction')} style={{ background: 'var(--fpf-f6)', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <StopCircle size={18} /> Annulla/Resetta Asta
+              <div style={{ marginTop: '2rem', display: 'flex', gap: '10px' }}>
+                <button onClick={() => socket.emit('reset_auction')} style={{ flex: 1, background: 'var(--fpf-f6)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', border: 'none', borderRadius: '8px', padding: '10px', cursor: 'pointer', color: 'white', fontWeight: 'bold' }}>
+                  <StopCircle size={18} /> Resetta Asta Corrente
+                </button>
+                <button onClick={handleUndoLastAuction} style={{ flex: 1, background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: 'white', border: 'none', borderRadius: '8px', padding: '10px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', cursor: 'pointer' }}>
+                  ↩️ Annulla Ultima Asta
                 </button>
               </div>
 

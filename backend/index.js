@@ -95,10 +95,21 @@ function startTimer(seconds, newStatus = 'ACTIVE') {
   }, 1000);
 }
 
+let lastAssignmentSnapshot = null;
+
+function saveSnapshotBeforeAssignment() {
+  lastAssignmentSnapshot = {
+    teams: JSON.parse(JSON.stringify(teams)),
+    transactions: JSON.parse(JSON.stringify(transactions)),
+    auctionState: JSON.parse(JSON.stringify(auctionState))
+  };
+}
+
 async function resolveAuction() {
   const isFreeAgent = !auctionState.currentPlayer.currentOwner;
   if (isFreeAgent) {
     if (auctionState.currentBidder) {
+      saveSnapshotBeforeAssignment();
       auctionState.status = 'ASSIGNED';
       auctionState.lastDecision = 'ACQUISTO';
       assignPlayerToWinner(auctionState.currentBidder, auctionState.currentBid);
@@ -156,7 +167,6 @@ io.on('connection', (socket) => {
 
   socket.on('start_auction', async (player) => {
     if (!player || !player.name) return; // Previene crash
-    // Cerca se il giocatore appartiene già a qualcuno (per il bivio)
     let foundOwner = null;
     let foundCost = 0;
     teams.forEach(t => {
@@ -202,13 +212,41 @@ io.on('connection', (socket) => {
 
     // Owner cannot bid on their own player
     if (auctionState.currentPlayer?.currentOwner === teamName) {
+      socket.emit('bid_error', { message: 'Non puoi fare un\'offerta per un tuo calciatore!' });
       return;
     }
 
-    // Check slots: prevent bidding if roster is full
-    const maxSlots = biddingTeam.fpf?.slot || 25;
-    if (biddingTeam.roster.length >= maxSlots) {
-      return; // Block bid
+    const currentRosterCount = biddingTeam.roster ? biddingTeam.roster.length : 0;
+    const newBalance = biddingTeam.balance - amount;
+
+    // FPF Rule Check 1: Cannot drop below -600 (Fallimento)
+    if (newBalance < -600) {
+      socket.emit('bid_error', { 
+        message: `Offerta di ${amount} cr rifiutata! Supereresti la soglia massima di debito FPF (-600 crediti).` 
+      });
+      return;
+    }
+
+    const newFpf = fpf.getFpfTierInfo(newBalance);
+    const newMaxSlots = newFpf.slot;
+
+    // FPF Rule Check 2: If bid drops tier such that newMaxSlots < (currentRosterCount + 1), BLOCK BID!
+    if ((currentRosterCount + 1) > newMaxSlots) {
+      socket.emit('bid_error', { 
+        message: `Offerta non consentita da FPF! Offrendo ${amount} cr scenderesti a bilancio ${newBalance} (${newFpf.label}), dov'è consentito un massimo di ${newMaxSlots} slot, ma avresti ${currentRosterCount + 1} giocatori in rosa.` 
+      });
+      return;
+    }
+
+    // FPF Rule Check 3: Minimum reserve budget for remaining slots
+    const remainingSlots = Math.max(0, newMaxSlots - (currentRosterCount + 1));
+    const finalBalance = newBalance - remainingSlots;
+    const finalFpf = fpf.getFpfTierInfo(finalBalance);
+    if ((currentRosterCount + 1) > finalFpf.slot) {
+      socket.emit('bid_error', { 
+        message: `Offerta non consentita da FPF! Con questa offerta non ti rimarrebbero abbastanza crediti per completare i ${remainingSlots} slot della rosa senza retrocedere di fascia.` 
+      });
+      return;
     }
 
     if (amount > auctionState.currentBid) {
@@ -236,9 +274,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('bivio_decision', async ({ option }) => {
-    // option: 'PROTEGGI' or 'VENDI'
     if (auctionState.status !== 'BIVIO') return;
     stopTimer();
+
+    saveSnapshotBeforeAssignment();
 
     const ownerTeam = teams.find(t => t.name === auctionState.currentPlayer.currentOwner);
     
@@ -276,6 +315,33 @@ io.on('connection', (socket) => {
     auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0 };
     await db.saveAuction(auctionState);
     io.emit('auction_update', auctionState);
+  });
+
+  socket.on('undo_last_auction', async () => {
+    if (!lastAssignmentSnapshot) {
+      socket.emit('undo_error', { message: 'Nessuna asta precedente da annullare.' });
+      return;
+    }
+
+    try {
+      teams = JSON.parse(JSON.stringify(lastAssignmentSnapshot.teams));
+      transactions = JSON.parse(JSON.stringify(lastAssignmentSnapshot.transactions));
+      auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0 };
+
+      stopTimer();
+      await db.saveTeams(teams);
+      await db.saveTransactions(transactions);
+      await db.saveAuction(auctionState);
+
+      io.emit('teams_update', teams);
+      io.emit('transactions_update', transactions);
+      io.emit('auction_update', auctionState);
+
+      lastAssignmentSnapshot = null;
+      console.log('Ultima asta annullata con successo!');
+    } catch (err) {
+      console.error('Error undoing last auction:', err);
+    }
   });
 
   socket.on('trigger_force_reload', (pin) => {
@@ -412,6 +478,33 @@ app.post('/api/reset-listone', async (req, res) => {
   } catch (err) {
     console.error('Error resetting listone:', err);
     res.status(500).json({ success: false, error: 'Reset listone error' });
+  }
+});
+
+app.post('/api/undo-last-auction', async (req, res) => {
+  if (!lastAssignmentSnapshot) {
+    return res.status(400).json({ success: false, error: 'Nessuna asta precedente da annullare.' });
+  }
+
+  try {
+    teams = JSON.parse(JSON.stringify(lastAssignmentSnapshot.teams));
+    transactions = JSON.parse(JSON.stringify(lastAssignmentSnapshot.transactions));
+    auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0 };
+
+    stopTimer();
+    await db.saveTeams(teams);
+    await db.saveTransactions(transactions);
+    await db.saveAuction(auctionState);
+
+    io.emit('teams_update', teams);
+    io.emit('transactions_update', transactions);
+    io.emit('auction_update', auctionState);
+
+    lastAssignmentSnapshot = null;
+    res.json({ success: true, message: 'Ultima asta annullata e ripristinata con successo!' });
+  } catch (err) {
+    console.error('Error undoing last auction:', err);
+    res.status(500).json({ success: false, error: 'Errore durante l\'annullamento dell\'asta' });
   }
 });
 
