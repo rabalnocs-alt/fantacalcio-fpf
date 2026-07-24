@@ -415,6 +415,84 @@ app.post('/api/reset-listone', async (req, res) => {
   }
 });
 
+app.post('/api/import-listone-json', async (req, res) => {
+  try {
+    const { players, rawText, source } = req.body;
+    let newPlayers = [];
+
+    if (Array.isArray(players) && players.length > 0) {
+      newPlayers = players.map((p, idx) => ({
+        Id: p.Id || p.id || (idx + 1),
+        Nome: (p.Nome || p.nome || p.name || '').trim(),
+        Ruolo: (p.Ruolo || p.ruolo || p.role || '').trim(),
+        Squadra: (p.Squadra || p.squadra || p.team || '').trim(),
+        Quotazione: parseInt(p.Quotazione || p.quotazione || p.qt || p.cost) || 1,
+        FVM: parseInt(p.FVM || p.fvm) || 0
+      })).filter(p => p.Nome !== '');
+    } else if (rawText && typeof rawText === 'string') {
+      const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      const knownSerieA = [
+        'Atalanta', 'Bologna', 'Cagliari', 'Como', 'Empoli', 'Fiorentina', 
+        'Genoa', 'Inter', 'Juventus', 'Lazio', 'Lecce', 'Milan', 
+        'Monza', 'Napoli', 'Parma', 'Roma', 'Torino', 'Udinese', 'Venezia', 'Verona'
+      ];
+
+      lines.forEach((line, idx) => {
+        const parts = line.split(/[\t,;]+/).map(p => p.trim()).filter(p => p !== '');
+        if (parts.length >= 2) {
+          if (parts[0].toUpperCase() === 'NOME' || parts[1].toUpperCase() === 'NOME') return;
+
+          let name = parts[0];
+          let role = parts[1] || '';
+          let team = parts[2] || '';
+          let quot = parseInt(parts[3]) || 1;
+          let fvm = parseInt(parts[4]) || 0;
+
+          const teamFound = parts.find(p => knownSerieA.some(k => k.toLowerCase() === p.toLowerCase()));
+          if (teamFound) team = teamFound;
+
+          newPlayers.push({
+            Id: idx + 1,
+            Nome: name,
+            Ruolo: role,
+            Squadra: team,
+            Quotazione: quot,
+            FVM: fvm
+          });
+        }
+      });
+    }
+
+    if (newPlayers.length === 0) {
+      return res.status(400).json({ success: false, error: 'Nessun calciatore valido trovato nel testo o JSON fornito.' });
+    }
+
+    listonePlayers = newPlayers;
+    await db.saveListone(listonePlayers);
+    io.emit('players_list', listonePlayers);
+    res.json({ success: true, count: listonePlayers.length, source: source || 'fantalab' });
+  } catch (err) {
+    console.error('Error importing listone json/text:', err);
+    res.status(500).json({ success: false, error: 'Errore durante l\'importazione' });
+  }
+});
+
+app.post('/api/import-listone-preset', async (req, res) => {
+  try {
+    const localData = await db.loadListone();
+    if (localData && localData.length > 0) {
+      listonePlayers = localData;
+      await db.saveListone(listonePlayers);
+      io.emit('players_list', listonePlayers);
+      return res.json({ success: true, count: listonePlayers.length, message: 'Database FantaLab 2025/26 attivato con successo!' });
+    }
+    res.status(400).json({ success: false, error: 'Nessun listone pre-caricato trovato' });
+  } catch (err) {
+    console.error('Error loading preset:', err);
+    res.status(500).json({ success: false, error: 'Errore durante il caricamento del preset' });
+  }
+});
+
 app.post('/api/upload-stats', upload.single('file'), async (req, res) => {
   try {
     const workbook = xlsx.readFile(req.file.path);

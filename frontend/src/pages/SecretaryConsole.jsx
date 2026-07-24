@@ -12,6 +12,8 @@ export default function SecretaryConsole() {
   const [manualBid, setManualBid] = useState('');
   const [bidder, setBidder] = useState('');
   const [teams, setTeams] = useState([]);
+  const [listoneSourceMode, setListoneSourceMode] = useState('excel');
+  const [pastedText, setPastedText] = useState('');
 
   useEffect(() => {
     socket.on('auction_update', (data) => setAuction(data));
@@ -122,6 +124,42 @@ export default function SecretaryConsole() {
     }
   };
 
+  const handleImportPreset = async () => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/import-listone-preset`, { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        alert(`⚡ Fatto! Database FantaLab 2025/26 attivato con successo (${data.count} calciatori)!`);
+      } else {
+        alert(data.error || "Errore durante il caricamento del preset FantaLab");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Errore di connessione");
+    }
+  };
+
+  const handleImportText = async () => {
+    if (!pastedText.trim()) return alert("Incolla prima il testo della tabella copiata da FantaLab!");
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/import-listone-json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rawText: pastedText, source: 'fantalab' })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert(`🟣 Successo! Importati ${data.count} calciatori dal testo FantaLab!`);
+        setPastedText('');
+      } else {
+        alert(data.error || "Errore durante l'importazione");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Errore di connessione");
+    }
+  };
+
   return (
     <div className="page-container">
       <header className="header-row">
@@ -133,21 +171,74 @@ export default function SecretaryConsole() {
         {/* Setup Panel */}
         <div className="fpf-panel" style={{ minHeight: '620px', overflow: 'visible' }}>
           <h2>1. Importa Listone & Statistiche</h2>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
-            <div style={{flex: 1}}>
-              <label style={{display: 'block', marginBottom: '5px', fontSize: '0.8rem', color: '#aaa'}}>Listone Quotazioni</label>
-              <input type="file" accept=".xlsx, .xls" onChange={(e) => setFile(e.target.files[0])} />
-            </div>
-            <button onClick={handleUpload} style={{ display: 'flex', alignItems: 'center', gap: '5px', alignSelf: 'flex-end' }}>
-              <Upload size={18} /> Carica
+          
+          {/* Dual Mode Selector */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '1rem', background: 'rgba(0,0,0,0.3)', padding: '4px', borderRadius: '10px' }}>
+            <button 
+              onClick={() => setListoneSourceMode('fantalab')}
+              style={{ flex: 1, padding: '8px', borderRadius: '8px', border: 'none', background: listoneSourceMode === 'fantalab' ? '#8b5cf6' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer' }}
+            >
+              🟣 FantaLab (Senza Excel)
             </button>
-            <button onClick={handleResetListone} style={{ display: 'flex', alignItems: 'center', gap: '5px', alignSelf: 'flex-end', background: '#dc2626', color: 'white', border: 'none', padding: '10px 14px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
-              🗑️ Reset Listone
+            <button 
+              onClick={() => setListoneSourceMode('excel')}
+              style={{ flex: 1, padding: '8px', borderRadius: '8px', border: 'none', background: listoneSourceMode === 'excel' ? 'var(--fpf-f1)' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer' }}
+            >
+              ⚽ LegheFantacalcio (Excel)
             </button>
           </div>
+
+          {listoneSourceMode === 'fantalab' ? (
+            <div style={{ background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.3)', padding: '12px', borderRadius: '10px', marginBottom: '1rem' }}>
+              <div style={{ fontWeight: 'bold', color: '#c4b5fd', marginBottom: '6px', fontSize: '0.9rem' }}>
+                🟣 Fonte FantaLab (Aggiornato con Ruoli Mantra 2025/26)
+              </div>
+              <p style={{ fontSize: '0.8rem', color: '#ddd', margin: '0 0 10px 0' }}>
+                FantaLab non rilascia file Excel. Puoi attivare il database FantaLab con 1 Click oppure incollare il testo copiato da <code>app.fantalab.it/listone</code>.
+              </p>
+              
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
+                <button onClick={handleImportPreset} style={{ flex: 1, padding: '10px', background: '#8b5cf6', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                  ⚡ Attiva Listone FantaLab 2025/26 (1-Click)
+                </button>
+                <button onClick={handleResetListone} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '10px 12px', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer' }}>
+                  🗑️ Reset
+                </button>
+              </div>
+
+              <textarea 
+                placeholder="Oppure incolla qui il testo copiato da app.fantalab.it/listone..."
+                value={pastedText}
+                onChange={(e) => setPastedText(e.target.value)}
+                rows={3}
+                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.4)', color: 'white', fontSize: '0.8rem', boxSizing: 'border-box' }}
+              />
+              {pastedText.trim() && (
+                <button onClick={handleImportText} style={{ marginTop: '8px', width: '100%', padding: '8px', background: '#22c55e', color: 'white', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+                  📥 Importa Testo Incollato da FantaLab
+                </button>
+              )}
+            </div>
+          ) : (
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
+                <div style={{flex: 1}}>
+                  <label style={{display: 'block', marginBottom: '5px', fontSize: '0.8rem', color: '#aaa'}}>Listone Quotazioni Excel (.xlsx)</label>
+                  <input type="file" accept=".xlsx, .xls" onChange={(e) => setFile(e.target.files[0])} />
+                </div>
+                <button onClick={handleUpload} style={{ display: 'flex', alignItems: 'center', gap: '5px', alignSelf: 'flex-end' }}>
+                  <Upload size={18} /> Carica
+                </button>
+                <button onClick={handleResetListone} style={{ display: 'flex', alignItems: 'center', gap: '5px', alignSelf: 'flex-end', background: '#dc2626', color: 'white', border: 'none', padding: '10px 14px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+                  🗑️ Reset
+                </button>
+              </div>
+            </div>
+          )}
+
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <div style={{flex: 1}}>
-              <label style={{display: 'block', marginBottom: '5px', fontSize: '0.8rem', color: '#aaa'}}>Statistiche (FM, GOL, ASS)</label>
+              <label style={{display: 'block', marginBottom: '5px', fontSize: '0.8rem', color: '#aaa'}}>Statistiche Facoltative (FM, GOL, ASS)</label>
               <input type="file" accept=".xlsx, .xls" onChange={(e) => handleUploadStats(e.target.files[0])} />
             </div>
           </div>
