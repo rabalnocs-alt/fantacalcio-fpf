@@ -107,6 +107,17 @@ export default function ParticipantMobile() {
     return map;
   }, [teams]);
 
+  const auctionedSet = React.useMemo(() => {
+    const set = new Set();
+    (transactions || []).forEach(tx => {
+      const pName = (tx.player || tx.name || '').trim().toLowerCase();
+      if (pName && ['ACQUISTO', 'VENDUTO', 'TENUTO'].includes(tx.type)) {
+        set.add(pName);
+      }
+    });
+    return set;
+  }, [transactions]);
+
   const serieATeams = React.useMemo(() => {
     const defaultSerieA = [
       'Atalanta', 'Bologna', 'Cagliari', 'Como', 'Empoli', 'Fiorentina', 
@@ -757,13 +768,13 @@ export default function ParticipantMobile() {
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-                      {assignedInfo ? (
-                        <span style={{ fontSize: '0.75rem', background: 'rgba(251, 191, 36, 0.2)', color: '#fbbf24', border: '1px solid #fbbf24', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold' }}>
-                          📌 {assignedInfo.owner} ({assignedInfo.cost} cr)
+                      {assignedInfo || auctionedSet.has(cleanName) ? (
+                        <span style={{ fontSize: '0.75rem', background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444', border: '1px solid #ef4444', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          🔴 Non Astabile {assignedInfo ? `— ${assignedInfo.owner}` : ''}
                         </span>
                       ) : (
-                        <span style={{ fontSize: '0.75rem', background: 'rgba(34, 197, 94, 0.2)', color: '#22c55e', border: '1px solid #22c55e', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold' }}>
-                          🟢 Svincolato
+                        <span style={{ fontSize: '0.75rem', background: 'rgba(34, 197, 94, 0.2)', color: '#22c55e', border: '1px solid #22c55e', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          🟢 Svincolato (Astabile)
                         </span>
                       )}
 

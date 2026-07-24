@@ -167,14 +167,28 @@ io.on('connection', (socket) => {
 
   socket.on('start_auction', async (player) => {
     if (!player || !player.name) return; // Previene crash
+    const pNameNorm = String(player.name).toLowerCase().trim();
+
+    // Check if player has already had an auction movement (ACQUISTO, VENDUTO, TENUTO)
+    const hasBeenAuctioned = transactions.some(tx => {
+      const pName = String(tx.player || tx.name || '').toLowerCase().trim();
+      return pName === pNameNorm && ['ACQUISTO', 'VENDUTO', 'TENUTO'].includes(tx.type);
+    });
+
+    if (hasBeenAuctioned) {
+      socket.emit('start_auction_error', { 
+        message: `🔴 IMPOSSIBILE! Il calciatore "${player.name}" è già stato aggiudicato in questa asta e non può più essere chiamato!` 
+      });
+      return;
+    }
+
     let foundOwner = null;
     let foundCost = 0;
     teams.forEach(t => {
-      const p = t.roster.find(r => {
+      const p = (t.roster || []).find(r => {
         if (!r.name) return false;
         const rName = String(r.name).toLowerCase().trim();
-        const pName = String(player.name).toLowerCase().trim();
-        return rName === pName;
+        return rName === pNameNorm;
       });
       if (p) {
         foundOwner = t.name;

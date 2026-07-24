@@ -14,11 +14,19 @@ export default function SecretaryConsole() {
   const [teams, setTeams] = useState([]);
   const [listoneSourceMode, setListoneSourceMode] = useState('excel');
   const [pastedText, setPastedText] = useState('');
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
+    fetch(`${BACKEND_URL}/api/transactions`)
+      .then(res => res.json())
+      .then(data => setTransactions(data))
+      .catch(err => console.error(err));
+
     socket.on('auction_update', (data) => setAuction(data));
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('players_list', (data) => setPlayers(data));
+    socket.on('transactions_update', (data) => setTransactions(data));
+    socket.on('start_auction_error', ({ message }) => alert(message || 'Calciatore non chiamabile!'));
     socket.on('force_reload', () => {
       console.log('Master requested a forced reload');
       window.location.reload();
@@ -27,9 +35,22 @@ export default function SecretaryConsole() {
       socket.off('auction_update');
       socket.off('teams_update');
       socket.off('players_list');
+      socket.off('transactions_update');
+      socket.off('start_auction_error');
       socket.off('force_reload');
     };
   }, []);
+
+  const auctionedSet = React.useMemo(() => {
+    const set = new Set();
+    (transactions || []).forEach(tx => {
+      const pName = (tx.player || tx.name || '').trim().toLowerCase();
+      if (pName && ['ACQUISTO', 'VENDUTO', 'TENUTO'].includes(tx.type)) {
+        set.add(pName);
+      }
+    });
+    return set;
+  }, [transactions]);
 
   const handleUpload = async () => {
     if (!file) return;
@@ -54,8 +75,13 @@ export default function SecretaryConsole() {
 
   const handleStartAuction = () => {
     if (!selectedPlayer) return;
-    // For now, let's create a mock player object based on name if no CSV loaded
-    // If CSV is loaded, find the player
+    const cleanName = selectedPlayer.trim().toLowerCase();
+
+    if (auctionedSet.has(cleanName)) {
+      alert(`🔴 IMPOSSIBILE! Il calciatore "${selectedPlayer}" è già stato aggiudicato in questa asta e non può più essere chiamato!`);
+      return;
+    }
+
     let p = players.find(x => x.Nome === selectedPlayer);
     
     // Fallback if not using CSV yet
@@ -289,34 +315,44 @@ export default function SecretaryConsole() {
                   {players
                     .filter(p => p.Nome && p.Nome.toLowerCase().includes(selectedPlayer.toLowerCase()))
                     .slice(0, 15)
-                    .map((p, idx) => (
-                      <div 
-                        key={idx}
-                        onClick={() => {
-                          setSelectedPlayer(p.Nome);
-                          setShowSuggestions(false);
-                        }}
-                        style={{
-                          padding: '12px', cursor: 'pointer', color: 'white',
-                          borderBottom: '1px solid rgba(255,255,255,0.05)',
-                          background: 'transparent', transition: 'background 0.2s',
-                          display: 'flex', justifyContent: 'space-between',
-                          textAlign: 'left'
-                        }}
-                        onMouseDown={() => {
-                          // Prevent input blur before onClick
-                          setSelectedPlayer(p.Nome);
-                          setShowSuggestions(false);
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                      >
-                        <strong style={{ color: 'white', fontSize: '1.05rem' }}>{p.Nome}</strong>
-                        <span style={{ fontSize: '0.9rem', color: '#fbbf24', fontWeight: 'bold' }}>
-                          {p.Ruolo} - {p.Quotazione} cr
-                        </span>
-                      </div>
-                    ))
+                    .map((p, idx) => {
+                      const isAuctioned = auctionedSet.has((p.Nome || '').trim().toLowerCase());
+                      return (
+                        <div 
+                          key={idx}
+                          onClick={() => {
+                            setSelectedPlayer(p.Nome);
+                            setShowSuggestions(false);
+                          }}
+                          style={{
+                            padding: '12px', cursor: 'pointer', color: 'white',
+                            borderBottom: '1px solid rgba(255,255,255,0.05)',
+                            background: 'transparent', transition: 'background 0.2s',
+                            display: 'flex', justifyContent: 'space-between',
+                            alignItems: 'center', textAlign: 'left',
+                            opacity: isAuctioned ? 0.6 : 1
+                          }}
+                          onMouseDown={() => {
+                            setSelectedPlayer(p.Nome);
+                            setShowSuggestions(false);
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+                          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                        >
+                          <div>
+                            <strong style={{ color: 'white', fontSize: '1.05rem' }}>{p.Nome}</strong>
+                            {isAuctioned && (
+                              <span style={{ marginLeft: '8px', fontSize: '0.75rem', color: '#ef4444', background: 'rgba(239, 68, 68, 0.2)', padding: '2px 6px', borderRadius: '4px', border: '1px solid #ef4444', fontWeight: 'bold' }}>
+                                🔴 GIÀ AGGIUDICATO
+                              </span>
+                            )}
+                          </div>
+                          <span style={{ fontSize: '0.9rem', color: isAuctioned ? '#ef4444' : '#fbbf24', fontWeight: 'bold' }}>
+                            {p.Ruolo} - {p.Quotazione} cr
+                          </span>
+                        </div>
+                      );
+                    })
                   }
                   {players.filter(p => p.Nome && p.Nome.toLowerCase().includes(selectedPlayer.toLowerCase())).length === 0 && (
                     <div style={{ padding: '12px', color: '#b3c6ff', fontSize: '0.95rem' }}>
