@@ -1,11 +1,6 @@
 [build]
-  base = "frontend"
-  command = "npm ci && npm run build"
-  publish = "dist"
-
-[build.environment]
-  NODE_VERSION = "20"
-  NETLIFY_SKIP_CACHE = "true"
+  command = ""
+  publish = "frontend/dist"
 
 [[redirects]]
   from = "/*"
