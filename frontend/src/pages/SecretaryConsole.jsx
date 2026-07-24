@@ -41,16 +41,25 @@ export default function SecretaryConsole() {
     };
   }, []);
 
+  const getPlayerName = React.useCallback((item) => {
+    if (!item) return '';
+    if (typeof item === 'string') return item.trim();
+    if (typeof item === 'object') {
+      return (item.name || item.Nome || item.player || '').toString().trim();
+    }
+    return String(item).trim();
+  }, []);
+
   const auctionedSet = React.useMemo(() => {
     const set = new Set();
     (transactions || []).forEach(tx => {
-      const pName = (tx.player || tx.name || '').trim().toLowerCase();
-      if (pName && ['ACQUISTO', 'VENDUTO', 'TENUTO'].includes(tx.type)) {
-        set.add(pName);
+      const txName = getPlayerName(tx.player || tx.name || tx).toLowerCase();
+      if (txName && ['ACQUISTO', 'VENDUTO', 'TENUTO'].includes(tx.type)) {
+        set.add(txName);
       }
     });
     return set;
-  }, [transactions]);
+  }, [transactions, getPlayerName]);
 
   const handleUpload = async () => {
     if (!file) return;

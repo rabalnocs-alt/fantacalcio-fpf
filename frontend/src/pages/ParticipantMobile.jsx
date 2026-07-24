@@ -96,27 +96,38 @@ export default function ParticipantMobile() {
     };
   }, []);
 
+  const getPlayerName = React.useCallback((item) => {
+    if (!item) return '';
+    if (typeof item === 'string') return item.trim();
+    if (typeof item === 'object') {
+      return (item.name || item.Nome || item.player || '').toString().trim();
+    }
+    return String(item).trim();
+  }, []);
+
   const assignedMap = React.useMemo(() => {
     const map = {};
     teams.forEach(t => {
       (t.roster || []).forEach(p => {
-        const cleanName = (p.name || '').trim().toLowerCase();
-        map[cleanName] = { owner: t.name, cost: p.cost, role: p.role };
+        const cleanName = getPlayerName(p).toLowerCase();
+        if (cleanName) {
+          map[cleanName] = { owner: t.name, cost: p.cost, role: p.role };
+        }
       });
     });
     return map;
-  }, [teams]);
+  }, [teams, getPlayerName]);
 
   const auctionedSet = React.useMemo(() => {
     const set = new Set();
     (transactions || []).forEach(tx => {
-      const pName = (tx.player || tx.name || '').trim().toLowerCase();
-      if (pName && ['ACQUISTO', 'VENDUTO', 'TENUTO'].includes(tx.type)) {
-        set.add(pName);
+      const txName = getPlayerName(tx.player || tx.name || tx).toLowerCase();
+      if (txName && ['ACQUISTO', 'VENDUTO', 'TENUTO'].includes(tx.type)) {
+        set.add(txName);
       }
     });
     return set;
-  }, [transactions]);
+  }, [transactions, getPlayerName]);
 
   const serieATeams = React.useMemo(() => {
     const defaultSerieA = [
