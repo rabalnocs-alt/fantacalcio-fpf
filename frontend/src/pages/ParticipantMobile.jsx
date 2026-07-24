@@ -453,6 +453,13 @@ export default function ParticipantMobile() {
                 {(myTeam.name.toLowerCase() === 'pertusio' || myTeam.name.toLowerCase().includes('pertusio')) && (
                   <img src="/coppa.svg" alt="Coppa" style={{ height: '24px', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }} />
                 )}
+                <button 
+                  onClick={() => window.location.reload(true)} 
+                  title="Forza Ricarica" 
+                  style={{ background: 'rgba(59, 130, 246, 0.2)', border: '1px solid #3b82f6', color: '#60a5fa', borderRadius: '6px', cursor: 'pointer', padding: '4px 8px', fontSize: '0.75rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}
+                >
+                  🔄 Aggiorna App
+                </button>
                 <button onClick={logout} style={{ background: 'transparent', border: 'none', color: '#e60000', cursor: 'pointer', padding: '4px' }}><LogOut size={20} /></button>
               </div>
             </div>
@@ -640,24 +647,30 @@ export default function ParticipantMobile() {
       {activeTab === 'listone' && (
         <div style={{ paddingBottom: '70px' }}>
           {/* Sub-Header Pills */}
-          <div style={{ display: 'flex', gap: '6px', marginBottom: '1rem', background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '12px' }}>
+          <div style={{ display: 'flex', gap: '4px', marginBottom: '1rem', background: 'rgba(0,0,0,0.4)', padding: '4px', borderRadius: '12px' }}>
             <button 
               onClick={() => { setListoneFilterType('svincolati'); setListoneVisibleCount(40); }}
-              style={{ flex: 1, padding: '8px 4px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'svincolati' ? 'var(--fpf-f1)' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer' }}
+              style={{ flex: 1, padding: '8px 2px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'svincolati' && !onlyAstabiliInAltreRose ? 'var(--fpf-f1)' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.75rem', cursor: 'pointer' }}
             >
-              🟢 Svincolati ({countsInfo.svincolatiCount})
+              🟢 Svincolati
             </button>
             <button 
               onClick={() => { setListoneFilterType('altre'); setListoneVisibleCount(40); }}
-              style={{ flex: 1, padding: '8px 4px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'altre' ? '#3b82f6' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer' }}
+              style={{ flex: 1, padding: '8px 2px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'altre' && !onlyAstabiliInAltreRose ? '#3b82f6' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.75rem', cursor: 'pointer' }}
             >
-              📌 In Altre Rose ({countsInfo.assignedCount})
+              📌 Altre Rose
+            </button>
+            <button 
+              onClick={() => { setOnlyAstabiliInAltreRose(prev => !prev); setListoneVisibleCount(40); }}
+              style={{ flex: 1, padding: '8px 2px', borderRadius: '8px', border: onlyAstabiliInAltreRose ? '2px solid #22c55e' : 'none', background: onlyAstabiliInAltreRose ? '#22c55e' : 'rgba(34, 197, 94, 0.2)', color: 'white', fontWeight: 'bold', fontSize: '0.75rem', cursor: 'pointer' }}
+            >
+              {onlyAstabiliInAltreRose ? '🟢 Solo Astabili: ON' : '⚡ Solo Astabili'}
             </button>
             <button 
               onClick={() => { setListoneFilterType('tutti'); setListoneVisibleCount(40); }}
-              style={{ flex: 1, padding: '8px 4px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'tutti' ? '#8b5cf6' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer' }}
+              style={{ flex: 1, padding: '8px 2px', borderRadius: '8px', border: 'none', background: listoneFilterType === 'tutti' && !onlyAstabiliInAltreRose ? '#8b5cf6' : 'transparent', color: 'white', fontWeight: 'bold', fontSize: '0.75rem', cursor: 'pointer' }}
             >
-              🌐 Tutti ({countsInfo.totalCount})
+              🌐 Tutti
             </button>
           </div>
 
