@@ -770,38 +770,44 @@ export default function ParticipantMobile() {
         background: 'var(--bg-dark)', 
         display: 'flex', 
         borderTop: '1px solid rgba(255,255,255,0.1)',
-        padding: '0.5rem',
+        padding: '0.4rem 0.2rem',
         zIndex: 1000
       }}>
         <button 
           onClick={() => setActiveTab('live')}
-          style={{ flex: 1, padding: '0.5rem', background: activeTab === 'live' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '10px', fontWeight: 'bold', fontSize: '0.9rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'live' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
         >
-          Asta Live
+          ⚡ Asta
         </button>
         <button 
           onClick={() => setActiveTab('roster')}
-          style={{ flex: 1, padding: '0.5rem', background: activeTab === 'roster' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '10px', fontWeight: 'bold', fontSize: '0.9rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'roster' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
         >
-          Rosa
+          📋 Rosa
+        </button>
+        <button 
+          onClick={() => setActiveTab('listone')}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'listone' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
+        >
+          🔍 Listone
         </button>
         <button 
           onClick={() => setActiveTab('formazione')}
-          style={{ flex: 1, padding: '0.5rem', background: activeTab === 'formazione' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '10px', fontWeight: 'bold', fontSize: '0.9rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'formazione' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
         >
-          Modulo
+          ⚽ Campo
         </button>
         <button 
           onClick={() => setActiveTab('note')}
-          style={{ flex: 1, padding: '0.5rem', background: activeTab === 'note' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '10px', fontWeight: 'bold', fontSize: '0.9rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'note' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
         >
-          Note
+          📝 Note
         </button>
         <button 
           onClick={() => setActiveTab('movimenti')}
-          style={{ flex: 1, padding: '0.5rem', background: activeTab === 'movimenti' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '10px', fontWeight: 'bold', fontSize: '0.9rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'movimenti' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
         >
-          Movimenti
+          📜 Storico
         </button>
       </div>
 
