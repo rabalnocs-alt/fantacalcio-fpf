@@ -269,7 +269,7 @@ export default function HostDashboard() {
     if (!name) return '';
     let normalized = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
     
-    if (normalized.includes('PAZ N') || normalized.includes('NICO PAZ') || normalized === 'PAZ') return 'PAZ';
+    if (normalized.includes('PAZ N') || normalized.includes('NICO PAZ') || normalized === 'PAZ') return 'PAZ-N';
     if (normalized === 'ADAMS C.' || normalized === 'ADAMS C') return 'ADAMS';
     if (normalized === 'ESPOSITO F.P.' || normalized === 'ESPOSITO F P') return 'ESPOSITOFP';
     
