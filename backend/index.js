@@ -437,98 +437,115 @@ app.post('/api/pins', async (req, res) => {
   }
 });
 
+async function applyNewListone(newPlayers, sourceName) {
+  listonePlayers = newPlayers;
+  await db.saveListone(listonePlayers);
+
+  const listoneMap = new Map();
+  listonePlayers.forEach(p => {
+    const cleanName = getPlayerName(p).toLowerCase();
+    if (cleanName) listoneMap.set(cleanName, p);
+  });
+
+  let teamsModified = false;
+  teams.forEach(t => {
+    (t.roster || []).forEach(r => {
+      const cleanName = getPlayerName(r).toLowerCase();
+      const matched = listoneMap.get(cleanName);
+      if (matched) {
+        if (matched.Ruolo && r.role !== matched.Ruolo) {
+          r.role = matched.Ruolo;
+          teamsModified = true;
+        }
+        if (matched.Squadra && r.squadra !== matched.Squadra) {
+          r.squadra = matched.Squadra;
+          teamsModified = true;
+        }
+      }
+    });
+  });
+
+  if (teamsModified) {
+    await db.saveTeams(teams);
+  }
+
+  if (auctionState.status !== 'IDLE') {
+    stopTimer();
+    auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0 };
+    await db.saveAuction(auctionState);
+  }
+
+  io.emit('players_list', listonePlayers);
+  io.emit('teams_update', teams);
+  io.emit('auction_update', auctionState);
+  io.emit('force_reload');
+
+  console.log(`[Listone Switch] Applied clean listone (${newPlayers.length} players) from ${sourceName}. Emitted force_reload.`);
+}
+
 app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
   try {
     const workbook = xlsx.readFile(req.file.path);
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     
-    // Skip header rows if necessary. Fantacalcio listone usually has 1 header row.
     const rawData = xlsx.utils.sheet_to_json(sheet, { header: 1 });
     
-    // Find header row (the one containing 'Nome')
-    let headerIdx = rawData.findIndex(row => row && row.some(cell => typeof cell === 'string' && cell.trim().toUpperCase() === 'NOME'));
+    let headerIdx = rawData.findIndex(row => row && row.some(cell => {
+      const s = typeof cell === 'string' ? cell.trim().toUpperCase() : '';
+      return s === 'NOME' || s === 'GIOCATORE' || s === 'PLAYER';
+    }));
     if (headerIdx === -1) headerIdx = 0;
     
     let headers = rawData[headerIdx].map(h => typeof h === 'string' ? h.toLowerCase().trim() : '');
-    let nomeIdx = headers.indexOf('nome');
-    if (nomeIdx === -1) nomeIdx = headers.findIndex(h => h.includes('nome'));
-    
-    let ruolIdx = headers.indexOf('rm');
-    if (ruolIdx === -1) ruolIdx = headers.indexOf('ruolo mantra');
-    if (ruolIdx === -1) ruolIdx = headers.indexOf('r'); // classic fallback
-    if (ruolIdx === -1) ruolIdx = headers.findIndex(h => h.includes('ruolo'));
+    let nomeIdx = headers.findIndex(h => h === 'nome' || h === 'giocatore' || h.includes('nome') || h.includes('player'));
+    if (nomeIdx === -1) nomeIdx = 1;
 
+    let ruolIdx = headers.findIndex(h => h === 'rm' || h === 'r. mantra' || h === 'ruolo mantra' || h === 'rmantra' || h.includes('ruolo') || h === 'r');
+    if (ruolIdx === -1) ruolIdx = 2;
+
+    let sqIdx = headers.findIndex(h => h === 'squadra' || h === 'team' || h === 'club' || h.includes('squadra'));
+    if (sqIdx === -1) sqIdx = 3;
+    
     let idIdx = headers.indexOf('id');
-    let sqIdx = headers.indexOf('squadra');
-    if (sqIdx === -1) sqIdx = headers.findIndex(h => h.includes('squadra') || h.includes('team'));
-    
-    let qtIdx = headers.indexOf('qt. a');
-    if (qtIdx === -1) qtIdx = headers.indexOf('quotazione');
-    if (qtIdx === -1) qtIdx = headers.findIndex(h => h.includes('qt') || h.includes('quotazione'));
 
-    let fvmIdx = headers.indexOf('fvm');
-    if (fvmIdx === -1) fvmIdx = headers.indexOf('fvm m');
+    let qtIdx = headers.findIndex(h => h === 'qt. a' || h === 'quotazione' || h === 'qt' || h === 'q' || h.includes('quot'));
+    if (qtIdx === -1) qtIdx = 4;
+
+    let fvmIdx = headers.findIndex(h => h === 'fvm' || h === 'fvm m' || h === 'fvm mantra' || h.includes('fvm'));
 
     const results = rawData.slice(headerIdx + 1)
       .filter(row => row && row[nomeIdx] && String(row[nomeIdx]).trim() !== '' && String(row[nomeIdx]).trim().toUpperCase() !== 'NOME')
-      .map(row => ({
-        Id: idIdx !== -1 && row[idIdx] ? parseInt(row[idIdx]) || null : null,
+      .map((row, idx) => ({
+        Id: idIdx !== -1 && row[idIdx] ? parseInt(row[idIdx]) || (idx + 1) : (idx + 1),
         Nome: String(row[nomeIdx]).trim(),
         Ruolo: ruolIdx !== -1 && row[ruolIdx] ? String(row[ruolIdx]).trim() : '',
         Squadra: sqIdx !== -1 && row[sqIdx] ? String(row[sqIdx]).trim() : '',
-        Quotazione: parseInt(row[qtIdx]) || 1,
+        Quotazione: qtIdx !== -1 && row[qtIdx] ? parseInt(row[qtIdx]) || 1 : 1,
         FVM: fvmIdx !== -1 && row[fvmIdx] ? parseInt(row[fvmIdx]) || 0 : 0
       }));
 
     fs.unlinkSync(req.file.path);
     
-    listonePlayers = results;
-    await db.saveListone(listonePlayers);
-    io.emit('players_list', listonePlayers);
+    if (results.length === 0) {
+      return res.status(400).json({ success: false, error: 'Nessun calciatore valido trovato nel file Excel.' });
+    }
+
+    await applyNewListone(results, 'Excel Upload');
     res.json({ success: true, count: results.length });
   } catch (error) {
     console.error('Error parsing Listone:', error);
-    res.status(500).json({ success: false, error: 'File parsing error' });
+    res.status(500).json({ success: false, error: 'File parsing error: ' + error.message });
   }
 });
 
 app.post('/api/reset-listone', async (req, res) => {
   try {
-    listonePlayers = [];
-    await db.saveListone([]);
-    io.emit('players_list', []);
+    await applyNewListone([], 'Reset');
     res.json({ success: true, message: 'Listone resettato con successo' });
   } catch (err) {
     console.error('Error resetting listone:', err);
     res.status(500).json({ success: false, error: 'Reset listone error' });
-  }
-});
-
-app.post('/api/undo-last-auction', async (req, res) => {
-  if (!lastAssignmentSnapshot) {
-    return res.status(400).json({ success: false, error: 'Nessuna asta precedente da annullare.' });
-  }
-
-  try {
-    teams = JSON.parse(JSON.stringify(lastAssignmentSnapshot.teams));
-    transactions = JSON.parse(JSON.stringify(lastAssignmentSnapshot.transactions));
-    auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0 };
-
-    stopTimer();
-    await db.saveTeams(teams);
-    await db.saveTransactions(transactions);
-    await db.saveAuction(auctionState);
-
-    io.emit('teams_update', teams);
-    io.emit('transactions_update', transactions);
-    io.emit('auction_update', auctionState);
-
-    lastAssignmentSnapshot = null;
-    res.json({ success: true, message: 'Ultima asta annullata e ripristinata con successo!' });
-  } catch (err) {
-    console.error('Error undoing last auction:', err);
-    res.status(500).json({ success: false, error: 'Errore durante l\'annullamento dell\'asta' });
   }
 });
 
@@ -572,11 +589,6 @@ app.post('/api/import-listone-json', async (req, res) => {
           let quot = 1;
           let fvm = 0;
 
-          const knownSerieA = [
-            'Atalanta', 'Bologna', 'Cagliari', 'Como', 'Empoli', 'Fiorentina', 
-            'Genoa', 'Inter', 'Juventus', 'Lazio', 'Lecce', 'Milan', 
-            'Monza', 'Napoli', 'Parma', 'Roma', 'Torino', 'Udinese', 'Venezia', 'Verona'
-          ];
           const teamFoundIdx = tokens.findIndex(t => knownSerieA.some(k => k.toLowerCase() === t.toLowerCase()));
           if (teamFoundIdx !== -1) {
             team = knownSerieA.find(k => k.toLowerCase() === tokens[teamFoundIdx].toLowerCase()) || tokens[teamFoundIdx];
@@ -615,10 +627,8 @@ app.post('/api/import-listone-json', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Nessun calciatore valido trovato nel testo o JSON fornito.' });
     }
 
-    listonePlayers = newPlayers;
-    await db.saveListone(listonePlayers);
-    io.emit('players_list', listonePlayers);
-    res.json({ success: true, count: listonePlayers.length, source: source || 'fantalab' });
+    await applyNewListone(newPlayers, source || 'fantalab');
+    res.json({ success: true, count: newPlayers.length, source: source || 'fantalab' });
   } catch (err) {
     console.error('Error importing listone json/text:', err);
     res.status(500).json({ success: false, error: 'Errore durante l\'importazione' });
@@ -637,10 +647,8 @@ app.post('/api/import-listone-preset', async (req, res) => {
       presetData = await db.loadListone();
     }
     if (presetData && presetData.length > 0) {
-      listonePlayers = presetData;
-      await db.saveListone(listonePlayers);
-      io.emit('players_list', listonePlayers);
-      return res.json({ success: true, count: listonePlayers.length, message: 'Database FantaLab 2026/27 attivato con successo!' });
+      await applyNewListone(presetData, 'Preset FantaLab 2026/27');
+      return res.json({ success: true, count: presetData.length, message: 'Database FantaLab 2026/27 attivato con successo!' });
     }
     res.status(400).json({ success: false, error: 'Nessun listone pre-caricato trovato nel sistema.' });
   } catch (err) {
