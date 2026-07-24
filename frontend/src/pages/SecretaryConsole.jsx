@@ -189,35 +189,36 @@ export default function SecretaryConsole() {
           </div>
 
           {listoneSourceMode === 'fantalab' ? (
-            <div style={{ background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.3)', padding: '12px', borderRadius: '10px', marginBottom: '1rem' }}>
-              <div style={{ fontWeight: 'bold', color: '#c4b5fd', marginBottom: '6px', fontSize: '0.9rem' }}>
-                🟣 Fonte FantaLab (Aggiornato con Ruoli Mantra 2026/27)
+            <div style={{ background: 'rgba(139, 92, 246, 0.15)', border: '1px solid rgba(139, 92, 246, 0.4)', padding: '14px', borderRadius: '12px', marginBottom: '1rem' }}>
+              <div style={{ fontWeight: 'bold', color: '#c4b5fd', marginBottom: '6px', fontSize: '1rem' }}>
+                🟣 Importazione Diretta da FantaLab (Mantra 2026/27)
               </div>
-              <p style={{ fontSize: '0.8rem', color: '#ddd', margin: '0 0 10px 0' }}>
-                FantaLab non rilascia file Excel. Puoi attivare il database FantaLab con 1 Click oppure incollare il testo copiato da <code>app.fantalab.it/listone</code>.
+              <p style={{ fontSize: '0.82rem', color: '#ddd', margin: '0 0 10px 0', lineHeight: '1.4' }}>
+                Poiché FantaLab non rilascia file scaricabili, puoi **selezionare e copiare la tabella** da <code>app.fantalab.it/listone</code> ed **incollarla** nel box qui sotto:
               </p>
               
-              <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
-                <button onClick={handleImportPreset} style={{ flex: 1, padding: '10px', background: '#8b5cf6', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                  ⚡ Attiva Listone FantaLab 2026/27 (1-Click)
-                </button>
-                <button onClick={handleResetListone} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '10px 12px', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer' }}>
+              <textarea 
+                placeholder="Incolla qui il testo copiato da app.fantalab.it/listone (es. Turati POR Monza 12...)"
+                value={pastedText}
+                onChange={(e) => setPastedText(e.target.value)}
+                rows={5}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.25)', background: 'rgba(0,0,0,0.5)', color: 'white', fontSize: '0.85rem', boxSizing: 'border-box', fontFamily: 'monospace' }}
+              />
+              
+              <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                {pastedText.trim() ? (
+                  <button onClick={handleImportText} style={{ flex: 1, padding: '12px', background: '#22c55e', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.9rem', cursor: 'pointer' }}>
+                    📥 Importa {pastedText.split('\n').filter(l => l.trim()).length} Giocatori Incollati da FantaLab
+                  </button>
+                ) : (
+                  <button onClick={handleImportPreset} style={{ flex: 1, padding: '12px', background: '#8b5cf6', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer' }}>
+                    ⚡ Carica Preset FantaLab 2026/27
+                  </button>
+                )}
+                <button onClick={handleResetListone} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '12px 16px', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer' }}>
                   🗑️ Reset
                 </button>
               </div>
-
-              <textarea 
-                placeholder="Oppure incolla qui il testo copiato da app.fantalab.it/listone..."
-                value={pastedText}
-                onChange={(e) => setPastedText(e.target.value)}
-                rows={3}
-                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.4)', color: 'white', fontSize: '0.8rem', boxSizing: 'border-box' }}
-              />
-              {pastedText.trim() && (
-                <button onClick={handleImportText} style={{ marginTop: '8px', width: '100%', padding: '8px', background: '#22c55e', color: 'white', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
-                  📥 Importa Testo Incollato da FantaLab
-                </button>
-              )}
             </div>
           ) : (
             <div style={{ marginBottom: '1rem' }}>

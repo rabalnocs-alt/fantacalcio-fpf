@@ -438,27 +438,58 @@ app.post('/api/import-listone-json', async (req, res) => {
       ];
 
       lines.forEach((line, idx) => {
-        const parts = line.split(/[\t,;]+/).map(p => p.trim()).filter(p => p !== '');
-        if (parts.length >= 2) {
-          if (parts[0].toUpperCase() === 'NOME' || parts[1].toUpperCase() === 'NOME') return;
+        let tokens = line.split(/[\t,;]+/).map(p => p.trim()).filter(p => p !== '');
+        if (tokens.length <= 1) {
+          tokens = line.split(/\s{2,}/).map(p => p.trim()).filter(p => p !== '');
+          if (tokens.length <= 1) {
+            tokens = line.split(/\s+/).map(p => p.trim()).filter(p => p !== '');
+          }
+        }
 
-          let name = parts[0];
-          let role = parts[1] || '';
-          let team = parts[2] || '';
-          let quot = parseInt(parts[3]) || 1;
-          let fvm = parseInt(parts[4]) || 0;
+        if (tokens.length >= 2) {
+          if (tokens.some(t => t.toUpperCase() === 'NOME' || t.toUpperCase() === 'RUOLO')) return;
 
-          const teamFound = parts.find(p => knownSerieA.some(k => k.toLowerCase() === p.toLowerCase()));
-          if (teamFound) team = teamFound;
+          let name = '';
+          let role = '';
+          let team = '';
+          let quot = 1;
+          let fvm = 0;
 
-          newPlayers.push({
-            Id: idx + 1,
-            Nome: name,
-            Ruolo: role,
-            Squadra: team,
-            Quotazione: quot,
-            FVM: fvm
-          });
+          const knownSerieA = [
+            'Atalanta', 'Bologna', 'Cagliari', 'Como', 'Empoli', 'Fiorentina', 
+            'Genoa', 'Inter', 'Juventus', 'Lazio', 'Lecce', 'Milan', 
+            'Monza', 'Napoli', 'Parma', 'Roma', 'Torino', 'Udinese', 'Venezia', 'Verona'
+          ];
+          const teamFoundIdx = tokens.findIndex(t => knownSerieA.some(k => k.toLowerCase() === t.toLowerCase()));
+          if (teamFoundIdx !== -1) {
+            team = knownSerieA.find(k => k.toLowerCase() === tokens[teamFoundIdx].toLowerCase()) || tokens[teamFoundIdx];
+          }
+
+          const mantraPattern = /^(POR|DC|DD|DS|E|M|C|T|W|A|PC|B)(;[A-Z;]+)?$/i;
+          const roleFoundIdx = tokens.findIndex(t => mantraPattern.test(t));
+          if (roleFoundIdx !== -1) {
+            role = tokens[roleFoundIdx];
+          }
+
+          const numbers = tokens.filter(t => /^\d+$/.test(t)).map(t => parseInt(t));
+          if (numbers.length >= 1) quot = numbers[0];
+          if (numbers.length >= 2) fvm = numbers[1];
+
+          const nameTokens = tokens.filter((t, i) => i !== teamFoundIdx && i !== roleFoundIdx && !/^\d+$/.test(t));
+          if (nameTokens.length > 0) {
+            name = nameTokens.join(' ');
+          }
+
+          if (name) {
+            newPlayers.push({
+              Id: idx + 1,
+              Nome: name,
+              Ruolo: role || 'C',
+              Squadra: team || 'Serie A',
+              Quotazione: quot || 1,
+              FVM: fvm || 0
+            });
+          }
         }
       });
     }
