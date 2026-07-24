@@ -174,8 +174,8 @@ export default function ParticipantMobile() {
         if (!assignedInfo || assignedInfo.owner !== listoneFantaTeamFilter) return false;
       }
 
-      // Filter: Solo Astabili in Altre Rose
-      if (onlyAstabiliInAltreRose && (listoneFilterType === 'altre' || listoneFantaTeamFilter !== 'TUTTE')) {
+      // Filter: Solo Astabili (nasconde già astati)
+      if (onlyAstabiliInAltreRose) {
         if (auctionedSet.has(cleanName)) return false;
       }
 
@@ -742,49 +742,63 @@ export default function ParticipantMobile() {
             </div>
           </div>
 
-          {/* Toggle Solo Astabili per In Altre Rose / Fanta Squadre */}
-          {(listoneFilterType === 'altre' || listoneFantaTeamFilter !== 'TUTTE') && (
-            <div style={{
-              margin: '0.5rem 0 1rem 0', padding: '10px 14px',
-              background: onlyAstabiliInAltreRose ? 'rgba(34, 197, 94, 0.15)' : 'rgba(255,255,255,0.05)',
-              border: `1px solid ${onlyAstabiliInAltreRose ? '#22c55e' : 'rgba(255,255,255,0.2)'}`,
-              borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '1.2rem' }}>{onlyAstabiliInAltreRose ? '🟢' : '📋'}</span>
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'white' }}>
-                    {onlyAstabiliInAltreRose ? 'Filtro: Solo Astabili' : 'Filtro: Tutta la Rosa'}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: '#aaa' }}>
-                    {onlyAstabiliInAltreRose ? 'Nasconde i calciatori già astati' : 'Vedi sia astabili che già aggiudicati'}
-                  </div>
+          {/* Toggle Switch: Solo Calciatori Astabili */}
+          <div 
+            onClick={() => {
+              setOnlyAstabiliInAltreRose(prev => !prev);
+              setListoneVisibleCount(40);
+            }}
+            style={{
+              margin: '0.5rem 0 1rem 0', 
+              padding: '10px 14px',
+              background: onlyAstabiliInAltreRose 
+                ? 'linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1))' 
+                : 'rgba(255,255,255,0.05)',
+              border: `1.5px solid ${onlyAstabiliInAltreRose ? '#22c55e' : 'rgba(255,255,255,0.15)'}`,
+              borderRadius: '12px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+              boxShadow: onlyAstabiliInAltreRose ? '0 4px 12px rgba(34, 197, 94, 0.25)' : 'none',
+              transition: 'all 0.2s'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '1.3rem' }}>{onlyAstabiliInAltreRose ? '🟢' : '📋'}</span>
+              <div>
+                <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: onlyAstabiliInAltreRose ? '#22c55e' : 'white' }}>
+                  {onlyAstabiliInAltreRose ? '🟢 Solo Astabili (Chiamabili)' : '📋 Tutti i Calciatori'}
+                </div>
+                <div style={{ fontSize: '0.7rem', color: '#b3c6ff' }}>
+                  {onlyAstabiliInAltreRose 
+                    ? 'Nasconde i calciatori già aggiudicati' 
+                    : 'Tocca qui per nascondere i calciatori già astati'}
                 </div>
               </div>
-
-              <button
-                onClick={() => {
-                  setOnlyAstabiliInAltreRose(prev => !prev);
-                  setListoneVisibleCount(40);
-                }}
-                style={{
-                  padding: '6px 14px',
-                  borderRadius: '20px',
-                  border: 'none',
-                  background: onlyAstabiliInAltreRose ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'rgba(255,255,255,0.2)',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  fontSize: '0.8rem',
-                  cursor: 'pointer',
-                  boxShadow: onlyAstabiliInAltreRose ? '0 2px 8px rgba(34, 197, 94, 0.4)' : 'none',
-                  transition: 'all 0.2s'
-                }}
-              >
-                {onlyAstabiliInAltreRose ? '🟢 SOLO ASTABILI' : '📋 TUTTI'}
-              </button>
             </div>
-          )}
+
+            <div style={{
+              width: '44px',
+              height: '24px',
+              borderRadius: '12px',
+              background: onlyAstabiliInAltreRose ? '#22c55e' : 'rgba(255,255,255,0.2)',
+              position: 'relative',
+              transition: 'background 0.3s'
+            }}>
+              <div style={{
+                width: '18px',
+                height: '18px',
+                borderRadius: '50%',
+                background: 'white',
+                position: 'absolute',
+                top: '3px',
+                left: onlyAstabiliInAltreRose ? '23px' : '3px',
+                transition: 'left 0.2s',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.4)'
+              }} />
+            </div>
+          </div>
 
           {/* Counter info */}
           <div style={{ fontSize: '0.8rem', color: '#aaa', marginBottom: '0.8rem', textAlign: 'right' }}>
