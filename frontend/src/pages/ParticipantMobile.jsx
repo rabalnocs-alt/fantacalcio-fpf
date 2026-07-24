@@ -47,6 +47,7 @@ export default function ParticipantMobile() {
   const [listoneRoleFilter, setListoneRoleFilter] = useState('TUTTI');
   const [listoneTeamFilter, setListoneTeamFilter] = useState('TUTTE');
   const [listoneFantaTeamFilter, setListoneFantaTeamFilter] = useState('TUTTE');
+  const [onlyAstabiliInAltreRose, setOnlyAstabiliInAltreRose] = useState(false);
   const [listoneSortBy, setListoneSortBy] = useState('qtA'); // 'qtA' | 'fvm' | 'nome'
   const [listoneVisibleCount, setListoneVisibleCount] = useState(40);
 
@@ -173,6 +174,11 @@ export default function ParticipantMobile() {
         if (!assignedInfo || assignedInfo.owner !== listoneFantaTeamFilter) return false;
       }
 
+      // Filter: Solo Astabili in Altre Rose
+      if (onlyAstabiliInAltreRose && (listoneFilterType === 'altre' || listoneFantaTeamFilter !== 'TUTTE')) {
+        if (auctionedSet.has(cleanName)) return false;
+      }
+
       if (listoneSearch && !cleanName.includes(listoneSearch.toLowerCase().trim())) return false;
 
       if (listoneRoleFilter && listoneRoleFilter !== 'TUTTI') {
@@ -202,7 +208,7 @@ export default function ParticipantMobile() {
       if (listoneSortBy === 'nome') return a.Nome.localeCompare(b.Nome);
       return 0;
     });
-  }, [listone, assignedMap, listoneFilterType, listoneFantaTeamFilter, listoneSearch, listoneRoleFilter, listoneTeamFilter, listoneSortBy]);
+  }, [listone, assignedMap, auctionedSet, listoneFilterType, listoneFantaTeamFilter, onlyAstabiliInAltreRose, listoneSearch, listoneRoleFilter, listoneTeamFilter, listoneSortBy]);
 
   const formatPlayerNameForUrl = (name) => {
     if (!name) return '';
@@ -735,6 +741,50 @@ export default function ParticipantMobile() {
               </select>
             </div>
           </div>
+
+          {/* Toggle Solo Astabili per In Altre Rose / Fanta Squadre */}
+          {(listoneFilterType === 'altre' || listoneFantaTeamFilter !== 'TUTTE') && (
+            <div style={{
+              margin: '0.5rem 0 1rem 0', padding: '10px 14px',
+              background: onlyAstabiliInAltreRose ? 'rgba(34, 197, 94, 0.15)' : 'rgba(255,255,255,0.05)',
+              border: `1px solid ${onlyAstabiliInAltreRose ? '#22c55e' : 'rgba(255,255,255,0.2)'}`,
+              borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              transition: 'all 0.3s'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '1.2rem' }}>{onlyAstabiliInAltreRose ? '🟢' : '📋'}</span>
+                <div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'white' }}>
+                    {onlyAstabiliInAltreRose ? 'Filtro: Solo Astabili' : 'Filtro: Tutta la Rosa'}
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: '#aaa' }}>
+                    {onlyAstabiliInAltreRose ? 'Nasconde i calciatori già astati' : 'Vedi sia astabili che già aggiudicati'}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setOnlyAstabiliInAltreRose(prev => !prev);
+                  setListoneVisibleCount(40);
+                }}
+                style={{
+                  padding: '6px 14px',
+                  borderRadius: '20px',
+                  border: 'none',
+                  background: onlyAstabiliInAltreRose ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'rgba(255,255,255,0.2)',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: '0.8rem',
+                  cursor: 'pointer',
+                  boxShadow: onlyAstabiliInAltreRose ? '0 2px 8px rgba(34, 197, 94, 0.4)' : 'none',
+                  transition: 'all 0.2s'
+                }}
+              >
+                {onlyAstabiliInAltreRose ? '🟢 SOLO ASTABILI' : '📋 TUTTI'}
+              </button>
+            </div>
+          )}
 
           {/* Counter info */}
           <div style={{ fontSize: '0.8rem', color: '#aaa', marginBottom: '0.8rem', textAlign: 'right' }}>
