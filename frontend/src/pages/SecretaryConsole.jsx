@@ -18,9 +18,18 @@ export default function SecretaryConsole() {
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/transactions`)
-      .then(res => res.json())
-      .then(data => setTransactions(data))
-      .catch(err => console.error(err));
+      .then(res => {
+        if (!res.ok) return [];
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          return res.json();
+        }
+        return [];
+      })
+      .then(data => {
+        if (Array.isArray(data)) setTransactions(data);
+      })
+      .catch(err => console.error('Error fetching transactions:', err));
 
     socket.on('auction_update', (data) => setAuction(data));
     socket.on('teams_update', (data) => setTeams(data));

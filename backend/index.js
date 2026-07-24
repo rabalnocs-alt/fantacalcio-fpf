@@ -421,6 +421,27 @@ app.post('/api/login', (req, res) => {
   return res.json({ success: false, error: 'PIN non valido' });
 });
 
+// Data GET APIs
+app.get('/api/teams', (req, res) => {
+  res.json(teams || []);
+});
+
+app.get('/api/transactions', (req, res) => {
+  res.json(transactions || []);
+});
+
+app.get('/api/players', (req, res) => {
+  res.json(listonePlayers || []);
+});
+
+app.get('/api/listone', (req, res) => {
+  res.json(listonePlayers || []);
+});
+
+app.get('/api/auction', (req, res) => {
+  res.json(auctionState || {});
+});
+
 // PINs management APIs
 app.get('/api/pins', (req, res) => {
   res.json({ pins: config.pins || {} });

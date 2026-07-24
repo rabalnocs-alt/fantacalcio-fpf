@@ -59,19 +59,19 @@ export default function ParticipantMobile() {
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/teams`)
-      .then(res => res.json())
-      .then(data => setTeams(data))
-      .catch(err => console.error(err));
+      .then(res => res.ok ? res.json() : [])
+      .then(data => { if (Array.isArray(data)) setTeams(data); })
+      .catch(err => console.error('teams fetch error:', err));
 
     fetch(`${BACKEND_URL}/api/transactions`)
-      .then(res => res.json())
-      .then(data => setTransactions(data))
-      .catch(err => console.error(err));
+      .then(res => res.ok ? res.json() : [])
+      .then(data => { if (Array.isArray(data)) setTransactions(data); })
+      .catch(err => console.error('transactions fetch error:', err));
 
     fetch(`${BACKEND_URL}/api/listone`)
-      .then(res => res.json())
-      .then(data => setListone(data))
-      .catch(err => console.error(err));
+      .then(res => res.ok ? res.json() : [])
+      .then(data => { if (Array.isArray(data)) setListone(data); })
+      .catch(err => console.error('listone fetch error:', err));
 
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('transactions_update', (data) => setTransactions(data));
