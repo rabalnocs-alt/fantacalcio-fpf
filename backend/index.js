@@ -479,14 +479,22 @@ app.post('/api/import-listone-json', async (req, res) => {
 
 app.post('/api/import-listone-preset', async (req, res) => {
   try {
-    const localData = await db.loadListone();
-    if (localData && localData.length > 0) {
-      listonePlayers = localData;
+    const filePath = path.join(__dirname, 'data', 'listone.json');
+    let presetData = [];
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf8');
+      presetData = JSON.parse(raw);
+    }
+    if (!presetData || presetData.length === 0) {
+      presetData = await db.loadListone();
+    }
+    if (presetData && presetData.length > 0) {
+      listonePlayers = presetData;
       await db.saveListone(listonePlayers);
       io.emit('players_list', listonePlayers);
       return res.json({ success: true, count: listonePlayers.length, message: 'Database FantaLab 2026/27 attivato con successo!' });
     }
-    res.status(400).json({ success: false, error: 'Nessun listone pre-caricato trovato' });
+    res.status(400).json({ success: false, error: 'Nessun listone pre-caricato trovato nel sistema.' });
   } catch (err) {
     console.error('Error loading preset:', err);
     res.status(500).json({ success: false, error: 'Errore durante il caricamento del preset' });
