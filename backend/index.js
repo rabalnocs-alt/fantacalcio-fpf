@@ -516,53 +516,58 @@ app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
     }
 
     const workbook = xlsx.readFile(req.file.path);
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
+    let allResults = [];
     
-    const rawData = xlsx.utils.sheet_to_json(sheet, { header: 1 });
-    
-    let headerIdx = rawData.findIndex(row => row && row.some(cell => {
-      const s = typeof cell === 'string' ? cell.trim().toUpperCase() : '';
-      return s === 'NOME' || s === 'GIOCATORE' || s === 'PLAYER';
-    }));
-    if (headerIdx === -1) headerIdx = 0;
-    
-    let headers = rawData[headerIdx].map(h => typeof h === 'string' ? h.toLowerCase().trim() : '');
-    let nomeIdx = headers.findIndex(h => h === 'nome' || h === 'giocatore' || h.includes('nome') || h.includes('player'));
-    if (nomeIdx === -1) nomeIdx = 1;
-
-    let ruolIdx = headers.findIndex(h => h === 'rm' || h === 'r. mantra' || h === 'ruolo mantra' || h === 'rmantra' || h.includes('ruolo') || h === 'r');
-    if (ruolIdx === -1) ruolIdx = 2;
-
-    let sqIdx = headers.findIndex(h => h === 'squadra' || h === 'team' || h === 'club' || h.includes('squadra'));
-    if (sqIdx === -1) sqIdx = 3;
-    
-    let idIdx = headers.indexOf('id');
-
-    let qtIdx = headers.findIndex(h => h === 'qt. a' || h === 'quotazione' || h === 'qt' || h === 'q' || h.includes('quot'));
-    if (qtIdx === -1) qtIdx = 4;
-
-    let fvmIdx = headers.findIndex(h => h === 'fvm' || h === 'fvm m' || h === 'fvm mantra' || h.includes('fvm'));
-
-    const results = rawData.slice(headerIdx + 1)
-      .filter(row => row && row[nomeIdx] && String(row[nomeIdx]).trim() !== '' && String(row[nomeIdx]).trim().toUpperCase() !== 'NOME')
-      .map((row, idx) => ({
-        Id: idIdx !== -1 && row[idIdx] ? parseInt(row[idIdx]) || (idx + 1) : (idx + 1),
-        Nome: String(row[nomeIdx]).trim(),
-        Ruolo: ruolIdx !== -1 && row[ruolIdx] ? String(row[ruolIdx]).trim() : '',
-        Squadra: sqIdx !== -1 && row[sqIdx] ? String(row[sqIdx]).trim() : '',
-        Quotazione: qtIdx !== -1 && row[qtIdx] ? parseInt(row[qtIdx]) || 1 : 1,
-        FVM: fvmIdx !== -1 && row[fvmIdx] ? parseInt(row[fvmIdx]) || 0 : 0
+    for (const sheetName of workbook.SheetNames) {
+      const sheet = workbook.Sheets[sheetName];
+      const rawData = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+      if (!rawData || rawData.length === 0) continue;
+      
+      let headerIdx = rawData.findIndex(row => row && Array.isArray(row) && row.some(cell => {
+        const s = typeof cell === 'string' ? cell.trim().toUpperCase() : '';
+        return s === 'NOME' || s === 'GIOCATORE' || s === 'PLAYER';
       }));
+      if (headerIdx === -1) headerIdx = 0;
+      
+      let headers = rawData[headerIdx].map(h => typeof h === 'string' ? h.toLowerCase().trim() : '');
+      let nomeIdx = headers.findIndex(h => h === 'nome' || h === 'giocatore' || h.includes('nome') || h.includes('player'));
+      if (nomeIdx === -1) nomeIdx = 1;
+
+      let ruolIdx = headers.findIndex(h => h === 'rm' || h === 'r. mantra' || h === 'ruolo mantra' || h === 'rmantra' || h.includes('ruolo') || h === 'r');
+      if (ruolIdx === -1) ruolIdx = 2;
+
+      let sqIdx = headers.findIndex(h => h === 'squadra' || h === 'team' || h === 'club' || h.includes('squadra'));
+      if (sqIdx === -1) sqIdx = 3;
+      
+      let idIdx = headers.indexOf('id');
+
+      let qtIdx = headers.findIndex(h => h === 'qt. a' || h === 'quotazione' || h === 'qt' || h === 'q' || h.includes('quot'));
+      if (qtIdx === -1) qtIdx = 4;
+
+      let fvmIdx = headers.findIndex(h => h === 'fvm' || h === 'fvm m' || h === 'fvm mantra' || h.includes('fvm'));
+
+      const results = rawData.slice(headerIdx + 1)
+        .filter(row => row && row[nomeIdx] && String(row[nomeIdx]).trim() !== '' && String(row[nomeIdx]).trim().toUpperCase() !== 'NOME')
+        .map((row, idx) => ({
+          Id: idIdx !== -1 && row[idIdx] ? parseInt(row[idIdx]) || (allResults.length + idx + 1) : (allResults.length + idx + 1),
+          Nome: String(row[nomeIdx]).trim(),
+          Ruolo: ruolIdx !== -1 && row[ruolIdx] ? String(row[ruolIdx]).trim() : '',
+          Squadra: sqIdx !== -1 && row[sqIdx] ? String(row[sqIdx]).trim() : '',
+          Quotazione: qtIdx !== -1 && row[qtIdx] ? parseInt(row[qtIdx]) || 1 : 1,
+          FVM: fvmIdx !== -1 && row[fvmIdx] ? parseInt(row[fvmIdx]) || 0 : 0
+        }));
+
+      allResults = allResults.concat(results);
+    }
 
     fs.unlinkSync(req.file.path);
     
-    if (results.length === 0) {
+    if (allResults.length === 0) {
       return res.status(400).json({ success: false, error: 'Nessun calciatore valido trovato nel file Excel.' });
     }
 
-    await applyNewListone(results, 'Excel Upload');
-    res.json({ success: true, count: results.length });
+    await applyNewListone(allResults, 'Excel Upload');
+    res.json({ success: true, count: allResults.length });
   } catch (error) {
     console.error('Error parsing Listone:', error);
     res.status(500).json({ success: false, error: 'File parsing error: ' + error.message });
