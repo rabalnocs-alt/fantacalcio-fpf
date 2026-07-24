@@ -369,17 +369,24 @@ app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
     if (ruolIdx === -1) ruolIdx = headers.indexOf('r'); // classic fallback
     if (ruolIdx === -1) ruolIdx = headers.findIndex(h => h.includes('ruolo'));
 
+    let idIdx = headers.indexOf('id');
+    let sqIdx = headers.indexOf('squadra');
     let qtIdx = headers.indexOf('qt. a');
     if (qtIdx === -1) qtIdx = headers.indexOf('quotazione');
-    if (qtIdx === -1) qtIdx = headers.indexOf('fvm');
-    if (qtIdx === -1) qtIdx = headers.findIndex(h => h.includes('qt') || h.includes('quotazione') || h.includes('fvm'));
+    if (qtIdx === -1) qtIdx = headers.findIndex(h => h.includes('qt') || h.includes('quotazione'));
+
+    let fvmIdx = headers.indexOf('fvm');
+    if (fvmIdx === -1) fvmIdx = headers.indexOf('fvm m');
 
     const results = rawData.slice(headerIdx + 1)
       .filter(row => row && row[nomeIdx] && String(row[nomeIdx]).trim() !== '' && String(row[nomeIdx]).trim().toUpperCase() !== 'NOME')
       .map(row => ({
+        Id: idIdx !== -1 && row[idIdx] ? parseInt(row[idIdx]) || null : null,
         Nome: String(row[nomeIdx]).trim(),
         Ruolo: ruolIdx !== -1 && row[ruolIdx] ? String(row[ruolIdx]).trim() : '',
-        Quotazione: parseInt(row[qtIdx]) || 1
+        Squadra: sqIdx !== -1 && row[sqIdx] ? String(row[sqIdx]).trim() : '',
+        Quotazione: parseInt(row[qtIdx]) || 1,
+        FVM: fvmIdx !== -1 && row[fvmIdx] ? parseInt(row[fvmIdx]) || 0 : 0
       }));
 
     fs.unlinkSync(req.file.path);

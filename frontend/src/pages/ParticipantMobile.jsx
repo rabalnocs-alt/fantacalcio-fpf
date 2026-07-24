@@ -36,9 +36,18 @@ export default function ParticipantMobile() {
   const [teams, setTeams] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [auction, setAuction] = useState(null);
-  const [activeTab, setActiveTab] = useState('live'); // 'live', 'rosa', 'squadre', 'movimenti'
+  const [activeTab, setActiveTab] = useState('live'); // 'live', 'roster', 'listone', 'formazione', 'note', 'movimenti'
   const [bidAmount, setBidAmount] = useState('');
   const prevBidRef = useRef(0);
+
+  // Listone Tab States
+  const [listone, setListone] = useState([]);
+  const [listoneFilterType, setListoneFilterType] = useState('svincolati'); // 'svincolati' | 'altre' | 'tutti'
+  const [listoneSearch, setListoneSearch] = useState('');
+  const [listoneRoleFilter, setListoneRoleFilter] = useState('TUTTI');
+  const [listoneTeamFilter, setListoneTeamFilter] = useState('TUTTE');
+  const [listoneSortBy, setListoneSortBy] = useState('qtA'); // 'qtA' | 'fvm' | 'nome'
+  const [listoneVisibleCount, setListoneVisibleCount] = useState(40);
 
   useEffect(() => {
     if (auth?.role === 'participant' && auth.teamName) {
@@ -57,8 +66,14 @@ export default function ParticipantMobile() {
       .then(data => setTransactions(data))
       .catch(err => console.error(err));
 
+    fetch(`${BACKEND_URL}/api/listone`)
+      .then(res => res.json())
+      .then(data => setListone(data))
+      .catch(err => console.error(err));
+
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('transactions_update', (data) => setTransactions(data));
+    socket.on('players_list', (data) => setListone(data));
     socket.on('auction_update', (data) => {
       setAuction(data);
       if (data && data.status !== 'ACTIVE') setBidAmount('');
@@ -70,10 +85,82 @@ export default function ParticipantMobile() {
     return () => {
       socket.off('teams_update');
       socket.off('transactions_update');
+      socket.off('players_list');
       socket.off('auction_update');
       socket.off('force_reload');
     };
   }, []);
+
+  const assignedMap = React.useMemo(() => {
+    const map = {};
+    teams.forEach(t => {
+      (t.roster || []).forEach(p => {
+        const cleanName = (p.name || '').trim().toLowerCase();
+        map[cleanName] = { owner: t.name, cost: p.cost, role: p.role };
+      });
+    });
+    return map;
+  }, [teams]);
+
+  const serieATeams = React.useMemo(() => {
+    const setSq = new Set();
+    listone.forEach(p => {
+      if (p.Squadra) setSq.add(p.Squadra);
+    });
+    return Array.from(setSq).sort();
+  }, [listone]);
+
+  const countsInfo = React.useMemo(() => {
+    let svincolatiCount = 0;
+    let assignedCount = 0;
+    listone.forEach(p => {
+      const cleanName = (p.Nome || '').trim().toLowerCase();
+      if (assignedMap[cleanName]) assignedCount++;
+      else svincolatiCount++;
+    });
+    return { svincolatiCount, assignedCount, totalCount: listone.length };
+  }, [listone, assignedMap]);
+
+  const filteredListone = React.useMemo(() => {
+    return listone.filter(p => {
+      const cleanName = (p.Nome || '').trim().toLowerCase();
+      const assignedInfo = assignedMap[cleanName];
+
+      if (listoneFilterType === 'svincolati' && assignedInfo) return false;
+      if (listoneFilterType === 'altre' && !assignedInfo) return false;
+
+      if (listoneSearch && !cleanName.includes(listoneSearch.toLowerCase().trim())) return false;
+
+      if (listoneRoleFilter && listoneRoleFilter !== 'TUTTI') {
+        const pRole = (p.Ruolo || '').toUpperCase();
+        if (listoneRoleFilter === 'POR' && !pRole.includes('POR')) return false;
+        if (listoneRoleFilter === 'DEF' && !(pRole.includes('DC') || pRole.includes('DD') || pRole.includes('DS') || pRole.includes('E') || pRole.includes('B'))) return false;
+        if (listoneRoleFilter === 'MED' && !(pRole.includes('M') || pRole.includes('C'))) return false;
+        if (listoneRoleFilter === 'FAN' && !(pRole.includes('W') || pRole.includes('T') || pRole.includes('A'))) return false;
+        if (listoneRoleFilter === 'ATT' && !pRole.includes('PC')) return false;
+        if (!['POR','DEF','MED','FAN','ATT'].includes(listoneRoleFilter) && !pRole.includes(listoneRoleFilter)) return false;
+      }
+
+      if (listoneTeamFilter && listoneTeamFilter !== 'TUTTE') {
+        if ((p.Squadra || '').toLowerCase() !== listoneTeamFilter.toLowerCase()) return false;
+      }
+
+      return true;
+    }).sort((a, b) => {
+      if (listoneSortBy === 'qtA') return (b.Quotazione || 0) - (a.Quotazione || 0);
+      if (listoneSortBy === 'fvm') return (b.FVM || 0) - (a.FVM || 0);
+      if (listoneSortBy === 'nome') return a.Nome.localeCompare(b.Nome);
+      return 0;
+    });
+  }, [listone, assignedMap, listoneFilterType, listoneSearch, listoneRoleFilter, listoneTeamFilter, listoneSortBy]);
+
+  const formatPlayerNameForUrl = (name) => {
+    if (!name) return '';
+    let normalized = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
+    if (normalized === 'ADAMS C.') return 'ADAMS';
+    if (normalized === 'ESPOSITO F.P.') return 'ESPOSITOFP';
+    return normalized.replace(/\./g, '').replace(/['\s]+/g, '-').replace(/[^A-Z0-9-]/g, '');
+  };
 
   useEffect(() => {
     if (auction && auction.status === 'ACTIVE' && auction.currentBid > prevBidRef.current && auction.currentBidder) {
