@@ -464,9 +464,25 @@ app.post('/api/pins', async (req, res) => {
 });
 
 async function applyNewListone(newPlayers, sourceName) {
-  listonePlayers = newPlayers;
-  await db.saveListone(listonePlayers);
+  const teamMapping = {
+    'ATA': 'Atalanta', 'BOL': 'Bologna', 'CAG': 'Cagliari', 'COM': 'Como', 
+    'EMP': 'Empoli', 'FIO': 'Fiorentina', 'GEN': 'Genoa', 'INT': 'Inter', 
+    'JUV': 'Juventus', 'LAZ': 'Lazio', 'LEC': 'Lecce', 'MIL': 'Milan', 
+    'MON': 'Monza', 'NAP': 'Napoli', 'PAR': 'Parma', 'ROM': 'Roma', 
+    'TOR': 'Torino', 'UDI': 'Udinese', 'VEN': 'Venezia', 'VER': 'Verona',
+    'SAS': 'Sassuolo', 'SAL': 'Salernitana', 'FRO': 'Frosinone', 
+    'SAM': 'Sampdoria', 'SPE': 'Spezia', 'CRE': 'Cremonese'
+  };
 
+  listonePlayers = newPlayers.map(p => {
+    let s = p.Squadra ? p.Squadra.trim() : '';
+    if (s.length === 3 && teamMapping[s.toUpperCase()]) {
+      s = teamMapping[s.toUpperCase()];
+    }
+    return { ...p, Squadra: s };
+  });
+
+  await db.saveListone(listonePlayers);
   const listoneMap = new Map();
   listonePlayers.forEach(p => {
     const cleanName = getPlayerName(p).toLowerCase();
