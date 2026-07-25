@@ -852,6 +852,15 @@ export default function ParticipantMobile() {
                             </span>
                           )}
                         </div>
+                        {(p.Titolarita > 0 || p.MV > 0 || p.Presenze > 0) && (
+                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '6px', flexWrap: 'wrap', background: 'rgba(0,0,0,0.2)', padding: '2px 6px', borderRadius: '4px' }}>
+                            {p.Titolarita > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🎯 Tit: <strong>{p.Titolarita}</strong></span>}
+                            {p.Affidabilita > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🛡️ Aff: <strong>{p.Affidabilita}</strong></span>}
+                            {p.Integrita > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🩹 Int: <strong>{p.Integrita}</strong></span>}
+                            {p.Presenze > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🏃 Pres: <strong>{p.Presenze}</strong></span>}
+                            {p.MV > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>📊 MV: <strong>{p.MV}</strong></span>}
+                          </div>
+                        )}
                       </div>
                     </div>
 

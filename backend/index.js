@@ -568,10 +568,15 @@ app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
       
       let idIdx = headers.indexOf('id');
 
-      let qtIdx = headers.findIndex(h => h === 'qt. a' || h === 'quotazione' || h === 'qt' || h === 'q' || h.includes('quot'));
+      let qtIdx = headers.findIndex(h => h === 'qt. a' || h === 'quotazione' || h === 'qt' || h === 'q' || h === 'quo' || h.includes('quot'));
       if (qtIdx === -1) qtIdx = 4;
 
       let fvmIdx = headers.findIndex(h => h === 'fvm' || h === 'fvm m' || h === 'fvm mantra' || h.includes('fvm'));
+      let titIdx = headers.findIndex(h => h === 'titolarità' || h === 'titolarita' || h === 'tit');
+      let affIdx = headers.findIndex(h => h === 'affidabilità' || h === 'affidabilita' || h === 'aff');
+      let intIdx = headers.findIndex(h => h === 'integrità' || h === 'integrita' || h === 'int');
+      let mvIdx = headers.findIndex(h => h === 'mv');
+      let presIdx = headers.findIndex(h => h === 'presenze' || h === 'pres');
 
       const results = rawData.slice(headerIdx + 1)
         .filter(row => row && row[nomeIdx] && String(row[nomeIdx]).trim() !== '' && String(row[nomeIdx]).trim().toUpperCase() !== 'NOME')
@@ -581,7 +586,12 @@ app.post('/api/upload-listone', upload.single('file'), async (req, res) => {
           Ruolo: ruolIdx !== -1 && row[ruolIdx] ? String(row[ruolIdx]).trim() : '',
           Squadra: sqIdx !== -1 && row[sqIdx] ? String(row[sqIdx]).trim() : '',
           Quotazione: qtIdx !== -1 && row[qtIdx] ? parseInt(row[qtIdx]) || 1 : 1,
-          FVM: fvmIdx !== -1 && row[fvmIdx] ? parseInt(row[fvmIdx]) || 0 : 0
+          FVM: fvmIdx !== -1 && row[fvmIdx] ? parseInt(row[fvmIdx]) || 0 : 0,
+          Titolarita: titIdx !== -1 && row[titIdx] ? parseInt(row[titIdx]) || 0 : 0,
+          Affidabilita: affIdx !== -1 && row[affIdx] ? parseInt(row[affIdx]) || 0 : 0,
+          Integrita: intIdx !== -1 && row[intIdx] ? parseInt(row[intIdx]) || 0 : 0,
+          MV: mvIdx !== -1 && row[mvIdx] ? parseFloat(String(row[mvIdx]).replace(',', '.')) || 0 : 0,
+          Presenze: presIdx !== -1 && row[presIdx] ? parseInt(row[presIdx]) || 0 : 0
         }));
 
       allResults = allResults.concat(results);

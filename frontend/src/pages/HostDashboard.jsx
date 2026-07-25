@@ -398,22 +398,47 @@ export default function HostDashboard() {
 
               <div className="player-stats-grid" style={{ marginTop: '2rem', gap: '2rem' }}>
                 <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <span className="stat-label">FM</span>
-                  <span className="stat-val">{auction.currentPlayer.stats?.fm || '-'}</span>
+                  <span className="stat-label">Quot. Attuale</span>
+                  <span className="stat-val" style={{ color: '#fbbf24' }}>{auction.currentPlayer.Quotazione || '-'}</span>
                 </div>
                 <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <span className="stat-label">Gol</span>
-                  <span className="stat-val">{auction.currentPlayer.stats?.gol || '-'}</span>
+                  <span className="stat-label">FVM</span>
+                  <span className="stat-val" style={{ color: '#3b82f6' }}>{auction.currentPlayer.FVM || '-'}</span>
                 </div>
                 <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <span className="stat-label">Ass</span>
-                  <span className="stat-val">{auction.currentPlayer.stats?.ass || '-'}</span>
+                  <span className="stat-label">MV</span>
+                  <span className="stat-val">{auction.currentPlayer.MV || '-'}</span>
                 </div>
                 <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <span className="stat-label">Quot</span>
-                  <span className="stat-val" style={{ color: '#3b82f6' }}>{auction.currentPlayer.quot || '-'}</span>
+                  <span className="stat-label">Presenze</span>
+                  <span className="stat-val">{auction.currentPlayer.Presenze || '-'}</span>
                 </div>
               </div>
+
+              {/* FantaLab Stats Progress Bars */}
+              {(auction.currentPlayer.Titolarita > 0 || auction.currentPlayer.Affidabilita > 0) && (
+                <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '15px', width: '85%', margin: '1.5rem auto 0 auto', background: 'rgba(0,0,0,0.4)', padding: '20px', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  {[
+                    { label: 'Titolarità', value: auction.currentPlayer.Titolarita, color: '#3b82f6', icon: '🎯' },
+                    { label: 'Affidabilità', value: auction.currentPlayer.Affidabilita, color: '#22c55e', icon: '🛡️' },
+                    { label: 'Integrità', value: auction.currentPlayer.Integrita, color: '#fbbf24', icon: '🩹' }
+                  ].map(stat => (
+                    <div key={stat.label} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                      <div style={{ width: '130px', textAlign: 'right', fontSize: '1.1rem', color: '#ddd', fontWeight: 'bold' }}>{stat.icon} {stat.label}</div>
+                      <div style={{ flex: 1, background: 'rgba(255,255,255,0.1)', height: '16px', borderRadius: '8px', overflow: 'hidden', position: 'relative' }}>
+                        <div style={{ 
+                          position: 'absolute', top: 0, left: 0, height: '100%', 
+                          width: `${(stat.value / 5) * 100}%`, 
+                          background: stat.color, 
+                          boxShadow: `0 0 15px ${stat.color}`,
+                          transition: 'width 1s ease-out'
+                        }}></div>
+                      </div>
+                      <div style={{ width: '40px', fontWeight: '900', fontSize: '1.3rem', color: stat.color, textShadow: '1px 1px 2px black' }}>{stat.value}/5</div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <div className="player-tv-card" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5 }}>
