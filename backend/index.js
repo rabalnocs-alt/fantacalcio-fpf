@@ -362,7 +362,8 @@ io.on('connection', (socket) => {
 
     const playerToRelease = team.roster[pIndex];
     team.roster.splice(pIndex, 1);
-    team.fpf += (refundAmount || 0);
+    team.balance += (refundAmount || 0);
+    team.fpf = fpf.getFpfTierInfo(team.balance);
 
     await db.saveTeams(teams);
     io.emit('teams_update', teams);
