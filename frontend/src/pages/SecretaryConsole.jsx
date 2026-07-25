@@ -564,12 +564,16 @@ export default function SecretaryConsole() {
                       </div>
                       <button 
                         onClick={() => {
-                          if (window.confirm(`Vuoi svincolare ${pName} da ${team.name} rimborsando la Quotazione (${qtA} cr)?\n\nUsa questa funzione per giocatori ritirati o andati all'estero.`)) {
-                            socket.emit('release_player', { playerName: pName, teamName: team.name, refundAmount: qtA });
+                          const input = window.prompt(`Svincolo di ${pName} da ${team.name}.\n\nInserisci il valore in crediti da rimborsare (default: Quotazione attuale se trovata, altrimenti Costo di acquisto):`, qtA);
+                          if (input !== null) {
+                            const finalRefund = parseInt(input) || 0;
+                            if (window.confirm(`Confermi lo svincolo di ${pName} da ${team.name} con un rimborso di ${finalRefund} cr?`)) {
+                              socket.emit('release_player', { playerName: pName, teamName: team.name, refundAmount: finalRefund });
+                            }
                           }
                         }}
                         style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 'bold' }}
-                        title={`Svincola e rimborsa ${qtA} cr`}
+                        title={`Svincola e scegli rimborso (default ${qtA} cr)`}
                       >
                         Svincola e Rimborsa ({qtA}cr)
                       </button>

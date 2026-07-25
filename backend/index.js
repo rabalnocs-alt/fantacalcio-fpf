@@ -893,7 +893,8 @@ app.post('/api/upload-rosters', upload.single('file'), async (req, res) => {
       currentPlayer: null,
       currentBid: 0,
       currentBidder: null,
-      timerSeconds: 0
+      timerSeconds: 0,
+      allowFreeRelease: false
     };
     await db.saveAuction(auctionState);
     io.emit('auction_update', auctionState);
@@ -934,7 +935,8 @@ app.post('/api/reset-all', async (req, res) => {
       currentPlayer: null,
       currentBid: 0,
       currentBidder: null,
-      timerSeconds: 0
+      timerSeconds: 0,
+      allowFreeRelease: false
     };
     await db.saveAuction(auctionState);
     io.emit('auction_update', auctionState);
