@@ -114,6 +114,7 @@ export default function SecretaryConsole() {
       };
     } else {
       p = {
+        ...p,
         name: p.Nome,
         role: p.Ruolo,
         quot: p.Quotazione,

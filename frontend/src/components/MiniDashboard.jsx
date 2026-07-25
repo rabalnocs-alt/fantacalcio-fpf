@@ -84,12 +84,25 @@ export default function MiniDashboard({ auction }) {
             </div>
           )}
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', textAlign: 'center', fontSize: '0.75rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '4px' }}>
-            <div><div style={{color: '#b3c6ff'}}>FM</div><div>{currentPlayer.stats?.fm || '-'}</div></div>
-            <div><div style={{color: '#b3c6ff'}}>Gol</div><div>{currentPlayer.stats?.gol || '-'}</div></div>
-            <div><div style={{color: '#b3c6ff'}}>Ass</div><div>{currentPlayer.stats?.ass || '-'}</div></div>
-            <div><div style={{color: '#b3c6ff'}}>Quot</div><div style={{color: '#3b82f6', fontWeight: 'bold'}}>{currentPlayer.quot || '-'}</div></div>
-          </div>
+          {(currentPlayer.Titolarita > 0 || currentPlayer.MV > 0 || currentPlayer.Presenze > 0) ? (
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '6px' }}>
+              {currentPlayer.Titolarita > 0 && <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>🎯 Tit: <strong>{currentPlayer.Titolarita}</strong></span>}
+              {currentPlayer.Affidabilita > 0 && <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>🛡️ Aff: <strong>{currentPlayer.Affidabilita}</strong></span>}
+              {currentPlayer.Integrita > 0 && <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>🩹 Int: <strong>{currentPlayer.Integrita}</strong></span>}
+              {currentPlayer.Presenze > 0 && <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>🏃 Pres: <strong>{currentPlayer.Presenze}</strong></span>}
+              {currentPlayer.MV > 0 && <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>📊 MV: <strong>{currentPlayer.MV}</strong></span>}
+              <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)', margin: '2px 0' }}></div>
+              <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Quot: <strong style={{ color: '#fbbf24' }}>{currentPlayer.Quotazione || currentPlayer.quot || '-'}</strong></span>
+              <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>FVM: <strong style={{ color: '#3b82f6' }}>{currentPlayer.FVM || '-'}</strong></span>
+            </div>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', textAlign: 'center', fontSize: '0.75rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '4px' }}>
+              <div><div style={{color: '#b3c6ff'}}>FM</div><div>{currentPlayer.stats?.fm || '-'}</div></div>
+              <div><div style={{color: '#b3c6ff'}}>Gol</div><div>{currentPlayer.stats?.gol || '-'}</div></div>
+              <div><div style={{color: '#b3c6ff'}}>Ass</div><div>{currentPlayer.stats?.ass || '-'}</div></div>
+              <div><div style={{color: '#b3c6ff'}}>Quot</div><div style={{color: '#3b82f6', fontWeight: 'bold'}}>{currentPlayer.quot || '-'}</div></div>
+            </div>
+          )}
         </div>
       </div>
 
