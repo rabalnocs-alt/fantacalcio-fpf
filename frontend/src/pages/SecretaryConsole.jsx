@@ -553,7 +553,9 @@ export default function SecretaryConsole() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                 {(team.roster || []).map((p, idx) => {
                   const pName = p.Nome || p.name || p.player || '';
-                  const qtA = p.Quotazione || p.Costo || 0;
+                  const listonePlayer = players.find(lp => (lp.Nome || '').trim().toLowerCase() === pName.toLowerCase());
+                  const qtA = listonePlayer?.Quotazione ?? p.cost ?? 0;
+                  
                   return (
                     <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.3)', padding: '6px 8px', borderRadius: '6px' }}>
                       <div style={{ fontSize: '0.9rem', color: 'white' }}>
@@ -567,7 +569,7 @@ export default function SecretaryConsole() {
                           }
                         }}
                         style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 'bold' }}
-                        title={`Svincola e rimborsa ${qtA} cr (Quotazione attuale)`}
+                        title={`Svincola e rimborsa ${qtA} cr`}
                       >
                         Svincola e Rimborsa ({qtA}cr)
                       </button>
