@@ -474,12 +474,23 @@ async function applyNewListone(newPlayers, sourceName) {
     'SAM': 'Sampdoria', 'SPE': 'Spezia', 'CRE': 'Cremonese'
   };
 
-  listonePlayers = newPlayers.map(p => {
+  const uniquePlayers = new Map();
+  newPlayers.forEach(p => {
+    const name = (p.Nome || p.nome || p.name || p.Player || p.player || '').trim();
+    if (!name) return;
+    const cleanName = name.toLowerCase();
+    if (!uniquePlayers.has(cleanName)) {
+      uniquePlayers.set(cleanName, p);
+    }
+  });
+  const dedupedPlayers = Array.from(uniquePlayers.values());
+
+  listonePlayers = dedupedPlayers.map((p, idx) => {
     let s = p.Squadra ? p.Squadra.trim() : '';
     if (s.length === 3 && teamMapping[s.toUpperCase()]) {
       s = teamMapping[s.toUpperCase()];
     }
-    return { ...p, Squadra: s };
+    return { ...p, Id: idx + 1, Squadra: s };
   });
 
   await db.saveListone(listonePlayers);
