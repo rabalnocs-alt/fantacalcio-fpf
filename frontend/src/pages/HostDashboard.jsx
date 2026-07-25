@@ -399,7 +399,7 @@ export default function HostDashboard() {
               <div className="player-stats-grid" style={{ marginTop: '2rem', gap: '2rem' }}>
                 <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
                   <span className="stat-label">Quot. Attuale</span>
-                  <span className="stat-val" style={{ color: '#fbbf24' }}>{auction.currentPlayer.Quotazione || '-'}</span>
+                  <span className="stat-val" style={{ color: '#fbbf24' }}>{auction.currentPlayer.Quotazione || auction.currentPlayer.quot || '-'}</span>
                 </div>
                 <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
                   <span className="stat-label">FVM</span>
@@ -414,6 +414,23 @@ export default function HostDashboard() {
                   <span className="stat-val">{auction.currentPlayer.Presenze || '-'}</span>
                 </div>
               </div>
+
+              {(auction.currentPlayer.FM !== undefined || auction.currentPlayer.stats?.fm !== undefined) && (
+                <div className="player-stats-grid" style={{ marginTop: '1rem', gap: '2rem' }}>
+                  <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <span className="stat-label">FM</span>
+                    <span className="stat-val" style={{ color: '#10b981' }}>{auction.currentPlayer.FM ?? auction.currentPlayer.stats?.fm ?? '-'}</span>
+                  </div>
+                  <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <span className="stat-label">Gol</span>
+                    <span className="stat-val" style={{ color: '#ef4444' }}>{auction.currentPlayer.GOL ?? auction.currentPlayer.stats?.gol ?? '-'}</span>
+                  </div>
+                  <div className="stat-box" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <span className="stat-label">Assist</span>
+                    <span className="stat-val" style={{ color: '#8b5cf6' }}>{auction.currentPlayer.ASS ?? auction.currentPlayer.stats?.ass ?? '-'}</span>
+                  </div>
+                </div>
+              )}
 
               {/* FantaLab Stats Progress Bars */}
               {(auction.currentPlayer.Titolarita > 0 || auction.currentPlayer.Affidabilita > 0) && (

@@ -852,13 +852,21 @@ export default function ParticipantMobile() {
                             </span>
                           )}
                         </div>
-                        {(p.Titolarita > 0 || p.MV > 0 || p.Presenze > 0) && (
-                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '6px', flexWrap: 'wrap', background: 'rgba(0,0,0,0.2)', padding: '2px 6px', borderRadius: '4px' }}>
+                        {(p.Titolarita > 0 || p.MV > 0 || p.Presenze > 0 || p.FM > 0) && (
+                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '6px', flexWrap: 'wrap', background: 'rgba(0,0,0,0.2)', padding: '4px 6px', borderRadius: '4px' }}>
                             {p.Titolarita > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🎯 Tit: <strong>{p.Titolarita}</strong></span>}
                             {p.Affidabilita > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🛡️ Aff: <strong>{p.Affidabilita}</strong></span>}
                             {p.Integrita > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🩹 Int: <strong>{p.Integrita}</strong></span>}
                             {p.Presenze > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>🏃 Pres: <strong>{p.Presenze}</strong></span>}
                             {p.MV > 0 && <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>📊 MV: <strong>{p.MV}</strong></span>}
+                            {p.FM > 0 && (
+                              <>
+                                <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
+                                <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>FM: <strong style={{ color: '#10b981' }}>{p.FM}</strong></span>
+                                <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>Gol: <strong style={{ color: '#ef4444' }}>{p.GOL ?? p.gol ?? 0}</strong></span>
+                                <span style={{ fontSize: '0.65rem', color: '#cbd5e1' }}>Ass: <strong style={{ color: '#8b5cf6' }}>{p.ASS ?? p.ass ?? 0}</strong></span>
+                              </>
+                            )}
                           </div>
                         )}
                       </div>

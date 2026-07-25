@@ -92,6 +92,14 @@ export default function MiniDashboard({ auction }) {
               {currentPlayer.Presenze > 0 && <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>🏃 Pres: <strong>{currentPlayer.Presenze}</strong></span>}
               {currentPlayer.MV > 0 && <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>📊 MV: <strong>{currentPlayer.MV}</strong></span>}
               <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)', margin: '2px 0' }}></div>
+              {(currentPlayer.FM !== undefined || currentPlayer.stats?.fm !== undefined) && (
+                <>
+                  <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>FM: <strong style={{ color: '#10b981' }}>{currentPlayer.FM ?? currentPlayer.stats?.fm ?? '-'}</strong></span>
+                  <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Gol: <strong style={{ color: '#ef4444' }}>{currentPlayer.GOL ?? currentPlayer.stats?.gol ?? '-'}</strong></span>
+                  <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Ass: <strong style={{ color: '#8b5cf6' }}>{currentPlayer.ASS ?? currentPlayer.stats?.ass ?? '-'}</strong></span>
+                  <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
+                </>
+              )}
               <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Quot: <strong style={{ color: '#fbbf24' }}>{currentPlayer.Quotazione || currentPlayer.quot || '-'}</strong></span>
               <span style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>FVM: <strong style={{ color: '#3b82f6' }}>{currentPlayer.FVM || '-'}</strong></span>
             </div>
