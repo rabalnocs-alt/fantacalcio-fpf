@@ -54,7 +54,8 @@ let auctionState = {
   currentPlayer: null, // { name, role, oldRinnovo, currentOwner, stats, imgUrl }
   currentBid: 0,
   currentBidder: null,
-  timerSeconds: 0
+  timerSeconds: 0,
+  allowFreeRelease: false
 };
 
 async function logTransaction(type, player, oldOwner, newOwner, price) {
@@ -341,9 +342,33 @@ io.on('connection', (socket) => {
   
   socket.on('reset_auction', async () => {
     stopTimer();
-    auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0 };
+    auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0, allowFreeRelease: auctionState.allowFreeRelease };
     await db.saveAuction(auctionState);
     io.emit('auction_update', auctionState);
+  });
+
+  socket.on('set_free_release', async (enabled) => {
+    auctionState.allowFreeRelease = !!enabled;
+    await db.saveAuction(auctionState);
+    io.emit('auction_update', auctionState);
+  });
+
+  socket.on('release_player', async ({ playerName, teamName, refundAmount }) => {
+    const team = teams.find(t => t.name === teamName);
+    if (!team) return;
+
+    const pIndex = (team.roster || []).findIndex(p => getPlayerName(p).toLowerCase() === playerName.toLowerCase());
+    if (pIndex === -1) return;
+
+    const playerToRelease = team.roster[pIndex];
+    team.roster.splice(pIndex, 1);
+    team.fpf += (refundAmount || 0);
+
+    await db.saveTeams(teams);
+    io.emit('teams_update', teams);
+
+    const typeText = refundAmount > 0 ? 'Svincolo Rimborsato' : 'Svincolo Libero';
+    await logTransaction(typeText, playerToRelease.Nome || playerToRelease.name || playerToRelease.player || playerName, teamName, 'SVINCOLATI', refundAmount || 0);
   });
 
   socket.on('undo_last_auction', async () => {

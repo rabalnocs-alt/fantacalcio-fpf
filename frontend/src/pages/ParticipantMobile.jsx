@@ -619,7 +619,21 @@ export default function ParticipantMobile() {
                           {player.name}
                           {player.oldRinnovo ? <span style={{ fontSize: '0.75rem', color: '#666', fontWeight: 'normal', marginLeft: '5px' }}>(Rinnovo: {player.oldRinnovo} cr)</span> : ''}
                         </div>
-                        <div style={{ color: '#666', fontWeight: 'bold' }}>{player.cost} cr</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <div style={{ color: '#666', fontWeight: 'bold' }}>{player.cost} cr</div>
+                          {auction?.allowFreeRelease && (
+                            <button 
+                              onClick={() => {
+                                if (window.confirm(`Vuoi davvero svincolare ${player.name} a 0 crediti?\n\nNon riavrai indietro i crediti spesi, ma libererai uno slot in rosa.`)) {
+                                  socket.emit('release_player', { playerName: player.name, teamName: myTeamName, refundAmount: 0 });
+                                }
+                              }}
+                              style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 'bold' }}
+                            >
+                              🗑️ Svincola a 0 cr
+                            </button>
+                          )}
+                        </div>
                       </div>
                     );
                   } else if (!isBlocked) {

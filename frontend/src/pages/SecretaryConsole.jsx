@@ -518,6 +518,70 @@ export default function SecretaryConsole() {
           )}
         </div>
       </div>
+
+      {/* NEW: Gestione Rose & Svincoli */}
+      <div className="fpf-panel" style={{ marginTop: '2rem', border: '2px solid var(--accent-purple)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <h2>3. Gestione Rose & Svincoli</h2>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(0,0,0,0.3)', padding: '10px 15px', borderRadius: '8px' }}>
+            <span style={{ color: 'white', fontWeight: 'bold' }}>Svincoli Pre-Asta (Partecipanti):</span>
+            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+              <div style={{
+                width: '50px', height: '24px', background: auction?.allowFreeRelease ? '#10b981' : '#4b5563',
+                borderRadius: '12px', position: 'relative', transition: 'background 0.3s'
+              }} onClick={() => socket.emit('set_free_release', !auction?.allowFreeRelease)}>
+                <div style={{
+                  width: '20px', height: '20px', background: 'white', borderRadius: '50%',
+                  position: 'absolute', top: '2px', left: auction?.allowFreeRelease ? '28px' : '2px',
+                  transition: 'left 0.3s'
+                }} />
+              </div>
+            </label>
+            <span style={{ fontSize: '0.8rem', color: '#aaa', marginLeft: '10px' }}>
+              {auction?.allowFreeRelease ? 'Attivo (a 0 cr)' : 'Disattivo'}
+            </span>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '15px' }}>
+          {teams.map(team => (
+            <div key={team.name} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '8px', padding: '10px' }}>
+              <h3 style={{ margin: '0 0 10px 0', color: '#fbbf24', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '5px' }}>
+                {team.name} <span style={{ fontSize: '0.8rem', color: '#aaa' }}>({team.roster?.length || 0}/25)</span>
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                {(team.roster || []).map((p, idx) => {
+                  const pName = p.Nome || p.name || p.player || '';
+                  const qtA = p.Quotazione || p.Costo || 0;
+                  return (
+                    <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.3)', padding: '6px 8px', borderRadius: '6px' }}>
+                      <div style={{ fontSize: '0.9rem', color: 'white' }}>
+                        <span style={{ color: '#aaa', width: '20px', display: 'inline-block' }}>{p.Ruolo || p.role}</span>
+                        {pName}
+                      </div>
+                      <button 
+                        onClick={() => {
+                          if (window.confirm(`Vuoi svincolare ${pName} da ${team.name} rimborsando la Quotazione (${qtA} cr)?\n\nUsa questa funzione per giocatori ritirati o andati all'estero.`)) {
+                            socket.emit('release_player', { playerName: pName, teamName: team.name, refundAmount: qtA });
+                          }
+                        }}
+                        style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 'bold' }}
+                        title={`Svincola e rimborsa ${qtA} cr (Quotazione attuale)`}
+                      >
+                        Svincola e Rimborsa ({qtA}cr)
+                      </button>
+                    </div>
+                  );
+                })}
+                {(!team.roster || team.roster.length === 0) && (
+                  <div style={{ color: '#aaa', fontSize: '0.85rem', fontStyle: 'italic' }}>Rosa vuota</div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
