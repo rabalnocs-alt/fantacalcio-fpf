@@ -428,7 +428,7 @@ export default function SecretaryConsole() {
                   }
                   {players.filter(p => p.Nome && p.Nome.toLowerCase().includes(selectedPlayer.toLowerCase())).length === 0 && (
                     <div style={{ padding: '12px', color: '#b3c6ff', fontSize: '0.95rem' }}>
-                      Nessun risultato
+                      Nessun risultato - Puoi comunque chiamarlo usando l'opzione "Fuori Listone"
                     </div>
                   )}
                 </div>
@@ -437,6 +437,58 @@ export default function SecretaryConsole() {
             <button onClick={handleStartAuction} style={{ background: 'var(--fpf-f1)', display: 'flex', alignItems: 'center', gap: '5px', height: '48px', padding: '0 25px', fontSize: '1.1rem', alignSelf: 'center', border: 'none', borderRadius: '8px', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>
               <Play size={18} /> Mostra a Schermo
             </button>
+          </div>
+          
+          <div style={{ marginTop: '15px', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '8px', border: '1px dashed rgba(255,255,255,0.2)' }}>
+            <h4 style={{ margin: '0 0 10px 0', color: '#fbbf24' }}>Avvia Chiamata (Fuori Listone)</h4>
+            <p style={{ fontSize: '0.85rem', color: '#aaa', margin: '0 0 10px 0' }}>Per giocatori appena arrivati in Serie A e non ancora nel file.</p>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+              <input 
+                type="text" 
+                id="extraPlayerName"
+                placeholder="Nome..." 
+                style={{ flex: 2, padding: '8px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.3)', color: 'white' }}
+              />
+              <input 
+                type="text" 
+                id="extraPlayerRole"
+                placeholder="Ruolo (es. Pc)..." 
+                style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.3)', color: 'white' }}
+              />
+              <input 
+                type="number" 
+                id="extraPlayerQuot"
+                placeholder="Quot. (es. 10)" 
+                style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.3)', color: 'white' }}
+              />
+              <button 
+                onClick={() => {
+                  const name = document.getElementById('extraPlayerName').value.trim();
+                  const role = document.getElementById('extraPlayerRole').value.trim().toUpperCase() || 'N/A';
+                  const quot = parseInt(document.getElementById('extraPlayerQuot').value) || 1;
+                  
+                  if (!name) return alert('Inserisci il nome del giocatore!');
+                  if (auctionedSet.has(name.toLowerCase())) return alert(`Il giocatore ${name} è già stato aggiudicato!`);
+                  
+                  const p = {
+                    name,
+                    role,
+                    quot,
+                    stats: { fm: '-', gol: '-', ass: '-' },
+                    currentOwner: null,
+                    oldRinnovo: 0
+                  };
+                  socket.emit('start_auction', p);
+                  
+                  document.getElementById('extraPlayerName').value = '';
+                  document.getElementById('extraPlayerRole').value = '';
+                  document.getElementById('extraPlayerQuot').value = '';
+                }} 
+                style={{ background: '#10b981', display: 'flex', alignItems: 'center', gap: '5px', padding: '8px 15px', border: 'none', borderRadius: '4px', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}
+              >
+                <Play size={14} /> Fuori Listone
+              </button>
+            </div>
           </div>
         </div>
  
