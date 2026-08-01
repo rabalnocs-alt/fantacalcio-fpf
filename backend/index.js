@@ -250,13 +250,7 @@ io.on('connection', (socket) => {
     const currentRosterCount = biddingTeam.roster ? biddingTeam.roster.length : 0;
     const newBalance = biddingTeam.balance - amount;
 
-    // FPF Rule Check 1: Cannot drop below -600 (Fallimento)
-    if (newBalance < -600) {
-      socket.emit('bid_error', { 
-        message: `Offerta di ${amount} cr rifiutata! Supereresti la soglia massima di debito FPF (-600 crediti).` 
-      });
-      return;
-    }
+    // FPF Rule Check 1: (REMOVED - allow going below -600, FPF tier 8 will cap slots to 23 instead)
 
     const newFpf = fpf.getFpfTierInfo(newBalance);
     const newMaxSlots = newFpf.slot;
