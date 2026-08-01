@@ -401,6 +401,20 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('manual_fpf_update', async ({ teamName, newBalance }) => {
+    const team = teams.find(t => t.name === teamName);
+    if (!team) return;
+    
+    const oldBalance = team.balance;
+    team.balance = newBalance;
+    team.fpf = fpf.getFpfTierInfo(team.balance);
+    
+    await db.saveTeams(teams);
+    io.emit('teams_update', teams);
+    
+    await logTransaction('MODIFICA MANUALE', 'Aggiustamento FPF', teamName, teamName, oldBalance - newBalance);
+  });
+
   socket.on('trigger_force_reload', (pin) => {
     if (pin === '211287') {
       console.log('Master triggered force reload for all screens');

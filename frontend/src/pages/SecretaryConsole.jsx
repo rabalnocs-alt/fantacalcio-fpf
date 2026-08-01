@@ -599,8 +599,26 @@ export default function SecretaryConsole() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '15px' }}>
           {teams.map(team => (
             <div key={team.name} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '8px', padding: '10px' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#fbbf24', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '5px' }}>
-                {team.name} <span style={{ fontSize: '0.8rem', color: '#aaa' }}>({team.roster?.length || 0}/25)</span>
+              <h3 style={{ margin: '0 0 10px 0', color: '#fbbf24', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>{team.name} <span style={{ fontSize: '0.8rem', color: '#aaa' }}>({team.roster?.length || 0}/25)</span></span>
+                <button 
+                  onClick={() => {
+                    const currentBalance = team.balance || 0;
+                    const input = window.prompt(`Modifica Bilancio FPF per ${team.name}\nAttuale: ${currentBalance} cr\n\nInserisci il nuovo bilancio FPF esatto:`, currentBalance);
+                    if (input !== null) {
+                      const newBalance = parseInt(input);
+                      if (!isNaN(newBalance)) {
+                        if (window.confirm(`Confermi di impostare il bilancio FPF di ${team.name} a ${newBalance} cr?`)) {
+                          socket.emit('manual_fpf_update', { teamName: team.name, newBalance });
+                        }
+                      }
+                    }
+                  }}
+                  style={{ background: '#3b82f6', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 'bold' }}
+                  title="Correggi FPF Manualmente"
+                >
+                  Modifica FPF
+                </button>
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                 {(team.roster || []).map((p, idx) => {
