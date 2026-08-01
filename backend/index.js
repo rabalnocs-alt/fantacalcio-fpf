@@ -103,19 +103,20 @@ function startTimer(seconds, newStatus = 'ACTIVE') {
 
 let lastAssignmentSnapshot = null;
 
-function saveSnapshotBeforeAssignment() {
+async function saveSnapshotBeforeAssignment() {
   lastAssignmentSnapshot = {
     teams: JSON.parse(JSON.stringify(teams)),
     transactions: JSON.parse(JSON.stringify(transactions)),
     auctionState: JSON.parse(JSON.stringify(auctionState))
   };
+  await db.saveSnapshot(lastAssignmentSnapshot);
 }
 
 async function resolveAuction() {
   const isFreeAgent = !auctionState.currentPlayer.currentOwner;
   if (isFreeAgent) {
     if (auctionState.currentBidder) {
-      saveSnapshotBeforeAssignment();
+      await saveSnapshotBeforeAssignment();
       auctionState.status = 'ASSIGNED';
       auctionState.lastDecision = 'ACQUISTO';
       assignPlayerToWinner(auctionState.currentBidder, auctionState.currentBid);
@@ -307,7 +308,7 @@ io.on('connection', (socket) => {
     if (auctionState.status !== 'BIVIO') return;
     stopTimer();
 
-    saveSnapshotBeforeAssignment();
+    await saveSnapshotBeforeAssignment();
 
     const ownerTeam = teams.find(t => t.name === auctionState.currentPlayer.currentOwner);
     
@@ -393,6 +394,7 @@ io.on('connection', (socket) => {
       io.emit('auction_update', auctionState);
 
       lastAssignmentSnapshot = null;
+      await db.saveSnapshot(null);
       console.log('Ultima asta annullata con successo!');
     } catch (err) {
       console.error('Error undoing last auction:', err);
@@ -1035,6 +1037,7 @@ async function init() {
     transactions = await db.loadTransactions();
     auctionState = await db.loadAuction();
     config = await db.loadConfig();
+    lastAssignmentSnapshot = await db.loadSnapshot();
 
     const defaultPins = {
       "Salassuolo": "1264",

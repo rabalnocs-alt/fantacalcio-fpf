@@ -119,6 +119,15 @@ async function saveTransactions(transactions) {
   await saveData('transactions', 'transactions.json', 'transactions', transactions);
 }
 
+async function loadSnapshot() {
+  return await loadData('snapshot', 'snapshot.json', 'snapshot', null);
+}
+
+async function saveSnapshot(snapshot) {
+  await saveData('snapshot', 'snapshot.json', 'snapshot', snapshot);
+}
+
+
 async function loadAuction() {
   const defaultState = {
     status: 'IDLE',
@@ -224,6 +233,7 @@ module.exports = {
   loadTeams, saveTeams,
   loadListone, saveListone,
   loadTransactions, saveTransactions,
+  loadSnapshot, saveSnapshot,
   loadAuction, saveAuction,
   loadConfig, saveConfig,
   isFirebaseEnabled
