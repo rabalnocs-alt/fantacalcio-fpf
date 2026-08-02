@@ -229,6 +229,14 @@ async function saveConfig(config) {
   }
 }
 
+async function loadTrades() {
+  return await loadData('trades', 'trades.json', 'trades', []);
+}
+
+async function saveTrades(trades) {
+  await saveData('trades', 'trades.json', 'trades', trades);
+}
+
 module.exports = {
   loadTeams, saveTeams,
   loadListone, saveListone,
@@ -236,5 +244,6 @@ module.exports = {
   loadSnapshot, saveSnapshot,
   loadAuction, saveAuction,
   loadConfig, saveConfig,
+  loadTrades, saveTrades,
   isFirebaseEnabled
 };

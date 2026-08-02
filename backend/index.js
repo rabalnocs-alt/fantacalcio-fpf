@@ -49,13 +49,16 @@ let teams = [];
 let listonePlayers = [];
 let transactions = [];
 let config = {};
+let trades = [];
 let auctionState = {
   status: 'IDLE', // IDLE, ACTIVE (Timer), BIVIO (Tengo/Vendo), ASSIGNED
   currentPlayer: null, // { name, role, oldRinnovo, currentOwner, stats, imgUrl }
   currentBid: 0,
   currentBidder: null,
   timerSeconds: 0,
-  allowFreeRelease: false
+  allowFreeRelease: false,
+  allowSelfCall: false,
+  allowTrades: false
 };
 
 async function logTransaction(type, player, oldOwner, newOwner, price) {
@@ -180,6 +183,7 @@ io.on('connection', (socket) => {
   socket.emit('auction_update', auctionState);
   socket.emit('players_list', listonePlayers);
   socket.emit('transactions_update', transactions);
+  socket.emit('trades_update', trades);
 
   socket.on('start_auction', async (player) => {
     if (!player) return; // Previene crash
@@ -413,6 +417,102 @@ io.on('connection', (socket) => {
     if (pin === '211287') {
       console.log('Master triggered force reload for all screens');
       io.emit('force_reload');
+    }
+  });
+
+  socket.on('set_self_call', async (enabled) => {
+    auctionState.allowSelfCall = !!enabled;
+    await db.saveAuction(auctionState);
+    io.emit('auction_update', auctionState);
+  });
+
+  socket.on('set_trades_enabled', async (enabled) => {
+    auctionState.allowTrades = !!enabled;
+    await db.saveAuction(auctionState);
+    io.emit('auction_update', auctionState);
+  });
+
+  // TRADES: propose a trade between two teams
+  socket.on('propose_trade', async ({ fromTeam, toTeam, offeredPlayers, requestedPlayers, creditOffset }) => {
+    const trade = {
+      id: Date.now(),
+      fromTeam,
+      toTeam,
+      offeredPlayers,   // array of player objects from fromTeam
+      requestedPlayers, // array of player objects from toTeam
+      creditOffset: creditOffset || 0, // positive = fromTeam pays extra to toTeam
+      status: 'PENDING', // PENDING | ACCEPTED | REJECTED | COUNTERED
+      timestamp: new Date().toISOString()
+    };
+    trades.unshift(trade);
+    await db.saveTrades(trades);
+    io.emit('trades_update', trades);
+    console.log(`Trade proposed: ${fromTeam} -> ${toTeam}`);
+  });
+
+  // TRADES: respond to a trade (accept/reject/counter)
+  socket.on('respond_trade', async ({ tradeId, action, counterOffer }) => {
+    const tradeIdx = trades.findIndex(t => t.id === tradeId);
+    if (tradeIdx === -1) return;
+    const trade = trades[tradeIdx];
+
+    if (action === 'ACCEPT') {
+      // Execute the trade
+      const fromTeam = teams.find(t => t.name === trade.fromTeam);
+      const toTeam = teams.find(t => t.name === trade.toTeam);
+      if (!fromTeam || !toTeam) return;
+
+      // Remove offered players from fromTeam, add to toTeam
+      for (const p of trade.offeredPlayers) {
+        fromTeam.roster = (fromTeam.roster || []).filter(r => (r.name || r.Nome || '').toLowerCase() !== (p.name || p.Nome || '').toLowerCase());
+        toTeam.roster = toTeam.roster || [];
+        toTeam.roster.push({ ...p, cost: p.cost || 0 });
+      }
+      // Remove requested players from toTeam, add to fromTeam
+      for (const p of trade.requestedPlayers) {
+        toTeam.roster = (toTeam.roster || []).filter(r => (r.name || r.Nome || '').toLowerCase() !== (p.name || p.Nome || '').toLowerCase());
+        fromTeam.roster = fromTeam.roster || [];
+        fromTeam.roster.push({ ...p, cost: p.cost || 0 });
+      }
+      // Apply credit offset: fromTeam pays creditOffset to toTeam
+      if (trade.creditOffset !== 0) {
+        fromTeam.balance = (fromTeam.balance || 0) - trade.creditOffset;
+        toTeam.balance = (toTeam.balance || 0) + trade.creditOffset;
+        fromTeam.fpf = fpf.getFpfTierInfo(fromTeam.balance);
+        toTeam.fpf = fpf.getFpfTierInfo(toTeam.balance);
+      }
+
+      trades[tradeIdx].status = 'ACCEPTED';
+      await db.saveTeams(teams);
+      await db.saveTrades(trades);
+      io.emit('teams_update', teams);
+      io.emit('trades_update', trades);
+
+      await logTransaction('SCAMBIO', `${trade.offeredPlayers.map(p=>p.name||p.Nome).join('+')} <-> ${trade.requestedPlayers.map(p=>p.name||p.Nome).join('+')}`, trade.fromTeam, trade.toTeam, trade.creditOffset);
+    } else if (action === 'REJECT') {
+      trades[tradeIdx].status = 'REJECTED';
+      await db.saveTrades(trades);
+      io.emit('trades_update', trades);
+    } else if (action === 'COUNTER') {
+      // Add a new counter-offer trade
+      trades[tradeIdx].status = 'COUNTERED';
+      if (counterOffer) {
+        const counter = {
+          id: Date.now(),
+          fromTeam: trade.toTeam,
+          toTeam: trade.fromTeam,
+          offeredPlayers: counterOffer.offeredPlayers || trade.requestedPlayers,
+          requestedPlayers: counterOffer.requestedPlayers || trade.offeredPlayers,
+          creditOffset: counterOffer.creditOffset || 0,
+          status: 'PENDING',
+          isCounter: true,
+          originalTradeId: tradeId,
+          timestamp: new Date().toISOString()
+        };
+        trades.unshift(counter);
+      }
+      await db.saveTrades(trades);
+      io.emit('trades_update', trades);
     }
   });
 
@@ -1046,6 +1146,7 @@ async function init() {
     auctionState = await db.loadAuction();
     config = await db.loadConfig();
     lastAssignmentSnapshot = await db.loadSnapshot();
+    trades = await db.loadTrades();
 
     const defaultPins = {
       "Salassuolo": "1264",

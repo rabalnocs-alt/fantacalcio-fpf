@@ -36,9 +36,22 @@ export default function ParticipantMobile() {
   const [teams, setTeams] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [auction, setAuction] = useState(null);
-  const [activeTab, setActiveTab] = useState('live'); // 'live', 'roster', 'listone', 'formazione', 'note', 'movimenti'
+  const [activeTab, setActiveTab] = useState('live'); // 'live', 'roster', 'listone', 'formazione', 'altre-rose', 'movimenti', 'scambi'
   const [bidAmount, setBidAmount] = useState('');
   const prevBidRef = useRef(0);
+
+  // Self-call states
+  const [selfCallSearch, setSelfCallSearch] = useState('');
+  const [selfCallPlayer, setSelfCallPlayer] = useState(null);
+  const [selfCallPrice, setSelfCallPrice] = useState(1);
+
+  // Trades states
+  const [trades, setTrades] = useState([]);
+  const [tradeTargetTeam, setTradeTargetTeam] = useState('');
+  const [tradeOfferedPlayers, setTradeOfferedPlayers] = useState([]);
+  const [tradeRequestedPlayers, setTradeRequestedPlayers] = useState([]);
+  const [tradeCreditOffset, setTradeCreditOffset] = useState(0);
+  const [tradeStep, setTradeStep] = useState(1); // 1=choose team, 2=choose players, 3=confirm
 
   // Listone Tab States
   const [listone, setListone] = useState([]);
@@ -76,6 +89,7 @@ export default function ParticipantMobile() {
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('transactions_update', (data) => setTransactions(data));
     socket.on('players_list', (data) => setListone(data));
+    socket.on('trades_update', (data) => setTrades(Array.isArray(data) ? data : []));
     socket.on('bid_error', ({ message }) => {
       alert(message || 'Offerta non valida!');
     });
@@ -94,6 +108,7 @@ export default function ParticipantMobile() {
       socket.off('auction_update');
       socket.off('bid_error');
       socket.off('force_reload');
+      socket.off('trades_update');
     };
   }, []);
 
@@ -574,7 +589,101 @@ export default function ParticipantMobile() {
                   )}
                 </>
               ) : (
-                <p style={{ color: 'var(--text-muted)' }}>Nessuna asta in corso. Attendi la prossima chiamata.</p>
+                 <p style={{ color: 'var(--text-muted)' }}>Nessuna asta in corso. Attendi la prossima chiamata.</p>
+              )}
+
+              {/* SELF-CALL section - only when no auction running and allowSelfCall is on */}
+              {auction?.allowSelfCall && (!auction?.status || auction?.status === 'IDLE') && (
+                <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(59,130,246,0.1)', border: '2px solid #3b82f6', borderRadius: '12px', textAlign: 'left' }}>
+                  <h4 style={{ color: '#3b82f6', margin: '0 0 12px 0', textAlign: 'center' }}>📣 Chiama un Giocatore all'Asta</h4>
+                  
+                  {/* Search player */}
+                  <input
+                    type="text"
+                    placeholder="Cerca giocatore nel listone..."
+                    value={selfCallSearch}
+                    onChange={e => { setSelfCallSearch(e.target.value); setSelfCallPlayer(null); }}
+                    style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #3b82f6', background: 'rgba(0,0,0,0.5)', color: 'white', marginBottom: '8px', boxSizing: 'border-box' }}
+                  />
+                  
+                  {/* Autocomplete results */}
+                  {selfCallSearch.length >= 2 && !selfCallPlayer && (
+                    <div style={{ background: '#1e293b', borderRadius: '8px', maxHeight: '180px', overflowY: 'auto', marginBottom: '8px' }}>
+                      {listone.filter(p => {
+                        const name = (p.Nome || p.name || '').toLowerCase();
+                        const isOwned = teams.some(t => (t.roster || []).some(r => (r.name || r.Nome || '').toLowerCase() === name));
+                        return !isOwned && name.includes(selfCallSearch.toLowerCase());
+                      }).slice(0, 20).map((p, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => { setSelfCallPlayer(p); setSelfCallSearch(p.Nome || p.name || ''); setSelfCallPrice(p.Quotazione || 1); }}
+                          style={{ padding: '10px', borderBottom: '1px solid rgba(255,255,255,0.05)', cursor: 'pointer', color: 'white', display: 'flex', justifyContent: 'space-between' }}
+                        >
+                          <span><strong style={{ color: '#3b82f6' }}>{p.Ruolo || p.role}</strong> {p.Nome || p.name}</span>
+                          <span style={{ color: '#fbbf24' }}>{p.Quotazione || 0} cr</span>
+                        </div>
+                      ))}
+                      {listone.filter(p => {
+                        const name = (p.Nome || p.name || '').toLowerCase();
+                        const isOwned = teams.some(t => (t.roster || []).some(r => (r.name || r.Nome || '').toLowerCase() === name));
+                        return !isOwned && name.includes(selfCallSearch.toLowerCase());
+                      }).length === 0 && (
+                        <div style={{ padding: '10px', color: '#aaa', textAlign: 'center' }}>Nessun giocatore trovato</div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Non-listed player option */}
+                  <div style={{ fontSize: '0.8rem', color: '#aaa', marginBottom: '8px', textAlign: 'center' }}>oppure chiama un giocatore non in lista</div>
+
+                  {/* Starting price */}
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '12px' }}>
+                    <span style={{ color: 'white', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>Base d'asta:</span>
+                    <input
+                      type="number"
+                      value={selfCallPrice}
+                      onChange={e => setSelfCallPrice(Math.max(1, parseInt(e.target.value) || 1))}
+                      min={1}
+                      style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #fbbf24', background: 'rgba(0,0,0,0.5)', color: 'white', textAlign: 'center', fontSize: '1.1rem' }}
+                    />
+                    <span style={{ color: '#fbbf24' }}>cr</span>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      const playerName = selfCallPlayer ? (selfCallPlayer.Nome || selfCallPlayer.name) : selfCallSearch.trim();
+                      if (!playerName) { alert('Seleziona o scrivi un giocatore!'); return; }
+                      const playerObj = selfCallPlayer ? {
+                        name: playerName,
+                        role: selfCallPlayer.Ruolo || selfCallPlayer.role || 'Pc',
+                        oldRinnovo: null,
+                        currentOwner: null,
+                        stats: {},
+                        imgUrl: selfCallPlayer.imgUrl || null,
+                        Quotazione: selfCallPlayer.Quotazione || selfCallPrice,
+                        calledByTeam: myTeamName
+                      } : {
+                        name: playerName,
+                        role: 'Pc',
+                        oldRinnovo: null,
+                        currentOwner: null,
+                        stats: {},
+                        imgUrl: null,
+                        Quotazione: selfCallPrice,
+                        calledByTeam: myTeamName
+                      };
+                      if (window.confirm(`Chiami ${playerName} all'asta con base d'asta ${selfCallPrice} cr?`)) {
+                        socket.emit('start_auction', playerObj);
+                        setSelfCallSearch('');
+                        setSelfCallPlayer(null);
+                        setSelfCallPrice(1);
+                      }
+                    }}
+                    style={{ width: '100%', padding: '12px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '10px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}
+                  >
+                    📣 Manda in Asta
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -959,18 +1068,256 @@ export default function ParticipantMobile() {
         </div>
       )}
 
-      {/* Note Tab */}
-      {activeTab === 'note' && (
-        <div className="tab-content">
-          <div className="fpf-panel" style={{ background: 'var(--bg-card)', padding: '1.5rem', borderRadius: '15px', height: '100%' }}>
-            <h2 style={{ marginBottom: '1rem' }}>I Miei Obiettivi</h2>
-            <textarea 
-              value={notes}
-              onChange={saveNotes}
-              placeholder="Scrivi qui i tuoi appunti, obiettivi di mercato, ecc... (verranno salvati in automatico)"
-              style={{ width: '100%', height: '300px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--text-muted)', borderRadius: '10px', padding: '10px', resize: 'none' }}
-            />
-          </div>
+      {/* Altre Rose Tab */}
+      {activeTab === 'altre-rose' && (
+        <div className="tab-content" style={{ padding: '15px', paddingBottom: '80px' }}>
+          <h2 style={{ marginBottom: '1rem', color: '#fbbf24' }}>👥 Rose degli Altri</h2>
+          {teams.filter(t => t.name !== myTeamName).map(team => {
+            const sortedRoster = [...(team.roster || [])].sort((a, b) => {
+              const roleA = (() => {
+                const r = (a.role || '').toLowerCase();
+                if (r.includes('por')) return 0;
+                if (/\b(dc|dd|ds)\b/i.test(r) || r.includes('e')) return 1;
+                if (/\b(m|c)\b/i.test(r) && !r.includes('pc') && !r.includes('dc')) return 2;
+                if (/\b(t|w)\b/i.test(r)) return 3;
+                if (/\b(a|pc)\b/i.test(r)) return 4;
+                return 5;
+              })();
+              const roleB = (() => {
+                const r = (b.role || '').toLowerCase();
+                if (r.includes('por')) return 0;
+                if (/\b(dc|dd|ds)\b/i.test(r) || r.includes('e')) return 1;
+                if (/\b(m|c)\b/i.test(r) && !r.includes('pc') && !r.includes('dc')) return 2;
+                if (/\b(t|w)\b/i.test(r)) return 3;
+                if (/\b(a|pc)\b/i.test(r)) return 4;
+                return 5;
+              })();
+              return roleA - roleB;
+            });
+            const roleGroupColors = ['#ffc107','#10b981','#0ea5e9','#8b5cf6','#ef4444','#6b7280'];
+            const roleGroupLabels = ['PORTIERI','DIFENSORI VARI','CENTROCAMPISTI','T E W','A E PC','ALTRO'];
+            const getRoleGroup = (role) => {
+              const r = (role || '').toLowerCase();
+              if (r.includes('por')) return 0;
+              if (/\b(dc|dd|ds)\b/i.test(r) || r.includes('e')) return 1;
+              if (/\b(m|c)\b/i.test(r) && !r.includes('pc') && !r.includes('dc')) return 2;
+              if (/\b(t|w)\b/i.test(r)) return 3;
+              if (/\b(a|pc)\b/i.test(r)) return 4;
+              return 5;
+            };
+            let lastGroup = -1;
+            return (
+              <div key={team.name} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px', padding: '12px', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                  <h3 style={{ margin: 0, color: '#fbbf24' }}>{team.name}</h3>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <span style={{ color: '#aaa', fontSize: '0.85rem' }}>{team.roster?.length || 0} giocatori</span>
+                    <span style={{ color: team.balance >= 0 ? '#10b981' : '#ef4444', fontWeight: 'bold', fontSize: '0.85rem' }}>{team.balance || 0} cr FPF</span>
+                  </div>
+                </div>
+                {sortedRoster.map((p, idx) => {
+                  const group = getRoleGroup(p.role);
+                  const showHeader = group !== lastGroup;
+                  lastGroup = group;
+                  return (
+                    <React.Fragment key={idx}>
+                      {showHeader && (
+                        <div style={{ background: roleGroupColors[group], color: group === 0 ? 'black' : 'white', padding: '3px 8px', fontSize: '0.75rem', fontWeight: 'bold', borderRadius: '4px', marginTop: idx > 0 ? '6px' : '0', marginBottom: '3px' }}>
+                          {roleGroupLabels[group]}
+                        </div>
+                      )}
+                      <div style={{ display: 'flex', alignItems: 'center', padding: '6px 8px', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', marginBottom: '2px' }}>
+                        <span style={{ background: getMantraColor(p.role), color: 'white', padding: '2px 5px', borderRadius: '3px', fontSize: '0.75rem', fontWeight: 'bold', marginRight: '8px', minWidth: '28px', textAlign: 'center' }}>{p.role}</span>
+                        <span style={{ flex: 1, color: 'white', fontSize: '0.9rem' }}>{p.name || p.Nome}</span>
+                        <span style={{ color: '#aaa', fontSize: '0.8rem' }}>{p.cost} cr</span>
+                      </div>
+                    </React.Fragment>
+                  );
+                })}
+                {sortedRoster.length === 0 && <div style={{ color: '#aaa', textAlign: 'center', fontStyle: 'italic', padding: '10px' }}>Rosa vuota</div>}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Scambi Tab */}
+      {activeTab === 'scambi' && (
+        <div className="tab-content" style={{ padding: '15px', paddingBottom: '80px' }}>
+          {!auction?.allowTrades ? (
+            <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#aaa' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔒</div>
+              <h3 style={{ color: 'white' }}>Scambi non attivi</h3>
+              <p>Il master deve attivare la funzione scambi dalla Console.</p>
+            </div>
+          ) : (
+            <>
+              {/* Incoming trade proposals */}
+              {(() => {
+                const myIncoming = trades.filter(t => t.toTeam === myTeamName && t.status === 'PENDING');
+                return myIncoming.length > 0 ? (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h3 style={{ color: '#ef4444', marginBottom: '10px' }}>⚠️ Proposte Ricevute ({myIncoming.length})</h3>
+                    {myIncoming.map(trade => (
+                      <div key={trade.id} style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid #ef4444', borderRadius: '10px', padding: '12px', marginBottom: '10px' }}>
+                        <p style={{ color: 'white', margin: '0 0 8px 0', fontWeight: 'bold' }}>Da: {trade.fromTeam}</p>
+                        <p style={{ color: '#aaa', fontSize: '0.85rem', margin: '0 0 4px 0' }}>Ti offrono: <strong style={{ color: 'white' }}>{(trade.offeredPlayers || []).map(p => p.name || p.Nome).join(', ')}</strong></p>
+                        <p style={{ color: '#aaa', fontSize: '0.85rem', margin: '0 0 8px 0' }}>Vogliono: <strong style={{ color: 'white' }}>{(trade.requestedPlayers || []).map(p => p.name || p.Nome).join(', ')}</strong></p>
+                        {trade.creditOffset !== 0 && <p style={{ color: '#fbbf24', fontSize: '0.85rem', margin: '0 0 8px 0' }}>{trade.creditOffset > 0 ? `+${trade.creditOffset} cr conguaglio a te` : `${trade.creditOffset} cr conguaglio a loro`}</p>}
+                        <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+                          <button onClick={() => socket.emit('respond_trade', { tradeId: trade.id, action: 'ACCEPT' })} style={{ flex: 1, padding: '10px', background: '#10b981', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>✅ Accetta</button>
+                          <button onClick={() => socket.emit('respond_trade', { tradeId: trade.id, action: 'REJECT' })} style={{ flex: 1, padding: '10px', background: '#ef4444', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>❌ Rifiuta</button>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const counterCredit = parseInt(window.prompt('Conguaglio crediti (positivo = ricevi, negativo = dai):', '0') || '0');
+                            socket.emit('respond_trade', { tradeId: trade.id, action: 'COUNTER', counterOffer: {
+                              offeredPlayers: trade.requestedPlayers,
+                              requestedPlayers: trade.offeredPlayers,
+                              creditOffset: counterCredit
+                            }});
+                          }}
+                          style={{ width: '100%', marginTop: '6px', padding: '8px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}
+                        >↩️ Controproposta</button>
+                      </div>
+                    ))}
+                  </div>
+                ) : null;
+              })()}
+
+              {/* Outgoing proposals */}
+              {(() => {
+                const myOutgoing = trades.filter(t => t.fromTeam === myTeamName && t.status === 'PENDING');
+                return myOutgoing.length > 0 ? (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h3 style={{ color: '#fbbf24', marginBottom: '10px' }}>📤 Proposte Inviate</h3>
+                    {myOutgoing.map(trade => (
+                      <div key={trade.id} style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid #fbbf24', borderRadius: '10px', padding: '12px', marginBottom: '8px' }}>
+                        <p style={{ color: 'white', margin: '0 0 4px 0' }}>➡️ A: {trade.toTeam} — <span style={{ color: '#aaa', fontSize: '0.85rem' }}>In attesa risposta</span></p>
+                        <p style={{ color: '#aaa', fontSize: '0.8rem', margin: 0 }}>Offri: {(trade.offeredPlayers || []).map(p => p.name || p.Nome).join(', ')} | Vuoi: {(trade.requestedPlayers || []).map(p => p.name || p.Nome).join(', ')}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null;
+              })()}
+
+              {/* New trade proposal */}
+              <div style={{ background: 'rgba(139,92,246,0.1)', border: '1px solid #8b5cf6', borderRadius: '12px', padding: '15px' }}>
+                <h3 style={{ color: '#8b5cf6', margin: '0 0 15px 0' }}>🔄 Nuova Proposta di Scambio</h3>
+                
+                {/* Step 1: Choose target team */}
+                <div style={{ marginBottom: '12px' }}>
+                  <label style={{ color: 'white', fontSize: '0.9rem', display: 'block', marginBottom: '6px' }}>1. Squadra con cui vuoi trattare:</label>
+                  <select value={tradeTargetTeam} onChange={e => { setTradeTargetTeam(e.target.value); setTradeOfferedPlayers([]); setTradeRequestedPlayers([]); }} style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', color: 'white', border: '1px solid #8b5cf6' }}>
+                    <option value="">-- Seleziona squadra --</option>
+                    {teams.filter(t => t.name !== myTeamName).map(t => <option key={t.name} value={t.name}>{t.name}</option>)}
+                  </select>
+                </div>
+
+                {tradeTargetTeam && (() => {
+                  const myTeamObj = teams.find(t => t.name === myTeamName);
+                  const targetTeamObj = teams.find(t => t.name === tradeTargetTeam);
+                  if (!myTeamObj || !targetTeamObj) return null;
+
+                  return (
+                    <>
+                      {/* Step 2: My players to offer */}
+                      <div style={{ marginBottom: '12px' }}>
+                        <label style={{ color: 'white', fontSize: '0.9rem', display: 'block', marginBottom: '6px' }}>2. Tuoi giocatori da offrire (seleziona):</label>
+                        <div style={{ maxHeight: '200px', overflowY: 'auto', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '8px' }}>
+                          {([...( myTeamObj.roster || [])].sort((a,b) => getMacroRole(a.role).name > getMacroRole(b.role).name ? 1 : -1)).map((p, idx) => {
+                            const pName = p.name || p.Nome;
+                            const isSelected = tradeOfferedPlayers.some(op => (op.name || op.Nome) === pName);
+                            return (
+                              <div key={idx} onClick={() => setTradeOfferedPlayers(prev => isSelected ? prev.filter(op => (op.name || op.Nome) !== pName) : [...prev, p])}
+                                style={{ display: 'flex', alignItems: 'center', padding: '8px', borderRadius: '6px', cursor: 'pointer', background: isSelected ? 'rgba(139,92,246,0.3)' : 'transparent', marginBottom: '2px', border: isSelected ? '1px solid #8b5cf6' : '1px solid transparent' }}>
+                                <span style={{ marginRight: '8px', fontSize: '1.2rem' }}>{isSelected ? '✅' : '⬜'}</span>
+                                <span style={{ background: getMantraColor(p.role), color: 'white', padding: '2px 5px', borderRadius: '3px', fontSize: '0.75rem', marginRight: '8px' }}>{p.role}</span>
+                                <span style={{ color: 'white', flex: 1 }}>{pName}</span>
+                                <span style={{ color: '#aaa', fontSize: '0.8rem' }}>{p.cost} cr</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        {tradeOfferedPlayers.length > 0 && <p style={{ color: '#8b5cf6', fontSize: '0.8rem', marginTop: '4px' }}>Selezionati: {tradeOfferedPlayers.map(p=>p.name||p.Nome).join(', ')}</p>}
+                      </div>
+
+                      {/* Step 3: Target players to request */}
+                      <div style={{ marginBottom: '12px' }}>
+                        <label style={{ color: 'white', fontSize: '0.9rem', display: 'block', marginBottom: '6px' }}>3. Giocatori da richiedere a {tradeTargetTeam}:</label>
+                        <div style={{ maxHeight: '200px', overflowY: 'auto', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '8px' }}>
+                          {([...(targetTeamObj.roster || [])].sort((a,b) => getMacroRole(a.role).name > getMacroRole(b.role).name ? 1 : -1)).map((p, idx) => {
+                            const pName = p.name || p.Nome;
+                            const isSelected = tradeRequestedPlayers.some(rp => (rp.name || rp.Nome) === pName);
+                            return (
+                              <div key={idx} onClick={() => setTradeRequestedPlayers(prev => isSelected ? prev.filter(rp => (rp.name || rp.Nome) !== pName) : [...prev, p])}
+                                style={{ display: 'flex', alignItems: 'center', padding: '8px', borderRadius: '6px', cursor: 'pointer', background: isSelected ? 'rgba(139,92,246,0.3)' : 'transparent', marginBottom: '2px', border: isSelected ? '1px solid #8b5cf6' : '1px solid transparent' }}>
+                                <span style={{ marginRight: '8px', fontSize: '1.2rem' }}>{isSelected ? '✅' : '⬜'}</span>
+                                <span style={{ background: getMantraColor(p.role), color: 'white', padding: '2px 5px', borderRadius: '3px', fontSize: '0.75rem', marginRight: '8px' }}>{p.role}</span>
+                                <span style={{ color: 'white', flex: 1 }}>{pName}</span>
+                                <span style={{ color: '#aaa', fontSize: '0.8rem' }}>{p.cost} cr</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        {tradeRequestedPlayers.length > 0 && <p style={{ color: '#8b5cf6', fontSize: '0.8rem', marginTop: '4px' }}>Richiesti: {tradeRequestedPlayers.map(p=>p.name||p.Nome).join(', ')}</p>}
+                      </div>
+
+                      {/* Credit offset */}
+                      <div style={{ marginBottom: '16px' }}>
+                        <label style={{ color: 'white', fontSize: '0.9rem', display: 'block', marginBottom: '6px' }}>4. Conguaglio crediti FPF (+ se paghi tu, - se pagano loro):</label>
+                        <input type="number" value={tradeCreditOffset} onChange={e => setTradeCreditOffset(parseInt(e.target.value) || 0)}
+                          style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', color: 'white', border: '1px solid #8b5cf6', textAlign: 'center', fontSize: '1.1rem', boxSizing: 'border-box' }} />
+                        {tradeCreditOffset !== 0 && <p style={{ color: '#fbbf24', fontSize: '0.8rem', margin: '4px 0 0 0' }}>{tradeCreditOffset > 0 ? `Paghi ${tradeCreditOffset} cr a ${tradeTargetTeam}` : `Ricevi ${Math.abs(tradeCreditOffset)} cr da ${tradeTargetTeam}`}</p>}
+                      </div>
+
+                      {/* FPF Impact preview */}
+                      {(tradeOfferedPlayers.length > 0 || tradeRequestedPlayers.length > 0) && (() => {
+                        const myNewSlots = (myTeamObj.roster?.length || 0) - tradeOfferedPlayers.length + tradeRequestedPlayers.length;
+                        const theirNewSlots = (targetTeamObj.roster?.length || 0) - tradeRequestedPlayers.length + tradeOfferedPlayers.length;
+                        const myNewBalance = (myTeamObj.balance || 0) - tradeCreditOffset;
+                        const theirNewBalance = (targetTeamObj.balance || 0) + tradeCreditOffset;
+                        return (
+                          <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: '8px', padding: '10px', marginBottom: '12px' }}>
+                            <p style={{ color: '#aaa', fontSize: '0.8rem', margin: '0 0 6px 0', textAlign: 'center' }}>📊 Impatto FPF</p>
+                            <div style={{ display: 'flex', gap: '10px' }}>
+                              <div style={{ flex: 1, textAlign: 'center' }}>
+                                <p style={{ color: 'white', fontWeight: 'bold', margin: '0 0 3px 0', fontSize: '0.85rem' }}>La Tua Squadra</p>
+                                <p style={{ color: myNewSlots > (myTeamObj.fpf?.slot || 25) ? '#ef4444' : '#10b981', margin: 0, fontSize: '0.8rem' }}>Slot: {myTeamObj.roster?.length || 0} → {myNewSlots}</p>
+                                <p style={{ color: myNewBalance < myTeamObj.balance ? '#ef4444' : '#10b981', margin: 0, fontSize: '0.8rem' }}>FPF: {myTeamObj.balance} → {myNewBalance}</p>
+                              </div>
+                              <div style={{ flex: 1, textAlign: 'center' }}>
+                                <p style={{ color: 'white', fontWeight: 'bold', margin: '0 0 3px 0', fontSize: '0.85rem' }}>{tradeTargetTeam}</p>
+                                <p style={{ color: theirNewSlots > (targetTeamObj.fpf?.slot || 25) ? '#ef4444' : '#10b981', margin: 0, fontSize: '0.8rem' }}>Slot: {targetTeamObj.roster?.length || 0} → {theirNewSlots}</p>
+                                <p style={{ color: theirNewBalance < targetTeamObj.balance ? '#ef4444' : '#10b981', margin: 0, fontSize: '0.8rem' }}>FPF: {targetTeamObj.balance} → {theirNewBalance}</p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })()}
+
+                      <button
+                        disabled={tradeOfferedPlayers.length === 0 && tradeRequestedPlayers.length === 0}
+                        onClick={() => {
+                          if (!tradeTargetTeam) { alert('Scegli una squadra!'); return; }
+                          if (tradeOfferedPlayers.length === 0 && tradeRequestedPlayers.length === 0) { alert('Seleziona almeno un giocatore da offrire o richiedere!'); return; }
+                          if (window.confirm(`Confermi la proposta di scambio a ${tradeTargetTeam}?\n\nOffri: ${tradeOfferedPlayers.map(p=>p.name||p.Nome).join(', ') || 'nessuno'}\nVuoi: ${tradeRequestedPlayers.map(p=>p.name||p.Nome).join(', ') || 'nessuno'}\nConguaglio: ${tradeCreditOffset} cr`)) {
+                            socket.emit('propose_trade', { fromTeam: myTeamName, toTeam: tradeTargetTeam, offeredPlayers: tradeOfferedPlayers, requestedPlayers: tradeRequestedPlayers, creditOffset: tradeCreditOffset });
+                            setTradeTargetTeam('');
+                            setTradeOfferedPlayers([]);
+                            setTradeRequestedPlayers([]);
+                            setTradeCreditOffset(0);
+                            alert('Proposta inviata! Attendi la risposta.');
+                          }
+                        }}
+                        style={{ width: '100%', padding: '14px', background: tradeOfferedPlayers.length === 0 && tradeRequestedPlayers.length === 0 ? '#374151' : '#8b5cf6', color: 'white', border: 'none', borderRadius: '10px', fontWeight: 'bold', fontSize: '1rem', cursor: tradeOfferedPlayers.length === 0 && tradeRequestedPlayers.length === 0 ? 'not-allowed' : 'pointer' }}
+                      >🔄 Invia Proposta di Scambio</button>
+                    </>
+                  );
+                })()}
+              </div>
+            </>
+          )}
         </div>
       )}
 
@@ -1126,37 +1473,43 @@ export default function ParticipantMobile() {
       }}>
         <button 
           onClick={() => setActiveTab('live')}
-          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'live' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'live' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.7rem' }}
         >
           ⚡ Asta
         </button>
         <button 
           onClick={() => setActiveTab('roster')}
-          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'roster' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'roster' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.7rem' }}
         >
           📋 Rosa
         </button>
         <button 
           onClick={() => setActiveTab('listone')}
-          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'listone' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'listone' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.7rem' }}
         >
           🔍 Listone
         </button>
         <button 
           onClick={() => setActiveTab('formazione')}
-          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'formazione' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'formazione' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.7rem' }}
         >
           ⚽ Campo
         </button>
         <button 
-          onClick={() => setActiveTab('note')}
-          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'note' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
+          onClick={() => setActiveTab('altre-rose')}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'altre-rose' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.7rem' }}
         >
-          📝 Note
+          👥 Rose
+        </button>
+        <button 
+          onClick={() => setActiveTab('scambi')}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'scambi' ? '#8b5cf6' : 'transparent', border: 'none', color: activeTab === 'scambi' ? 'white' : (trades.filter(t => t.toTeam === myTeamName && t.status === 'PENDING').length > 0 ? '#f59e0b' : 'white'), borderRadius: '8px', fontWeight: 'bold', fontSize: '0.7rem', position: 'relative' }}
+        >
+          🔄 Scambi{trades.filter(t => t.toTeam === myTeamName && t.status === 'PENDING').length > 0 ? ` (${trades.filter(t => t.toTeam === myTeamName && t.status === 'PENDING').length})` : ''}
         </button>
         <button 
           onClick={() => setActiveTab('movimenti')}
-          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'movimenti' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.75rem' }}
+          style={{ flex: 1, padding: '0.4rem 0.1rem', background: activeTab === 'movimenti' ? 'var(--fpf-f1)' : 'transparent', border: 'none', color: 'white', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.7rem' }}
         >
           📜 Storico
         </button>

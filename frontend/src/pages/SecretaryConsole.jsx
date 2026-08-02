@@ -573,26 +573,63 @@ export default function SecretaryConsole() {
 
       {/* NEW: Gestione Rose & Svincoli */}
       <div className="fpf-panel" style={{ marginTop: '2rem', border: '2px solid var(--accent-purple)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '10px' }}>
           <h2>3. Gestione Rose & Svincoli</h2>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(0,0,0,0.3)', padding: '10px 15px', borderRadius: '8px' }}>
-            <span style={{ color: 'white', fontWeight: 'bold' }}>Svincoli Pre-Asta (Partecipanti):</span>
-            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            {/* Toggle: Svincoli Pre-Asta */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: '8px' }}>
+              <span style={{ color: 'white', fontWeight: 'bold', fontSize: '0.85rem' }}>🔓 Svincoli Pre-Asta:</span>
               <div style={{
-                width: '50px', height: '24px', background: auction?.allowFreeRelease ? '#10b981' : '#4b5563',
-                borderRadius: '12px', position: 'relative', transition: 'background 0.3s'
+                width: '44px', height: '22px', background: auction?.allowFreeRelease ? '#10b981' : '#4b5563',
+                borderRadius: '11px', position: 'relative', transition: 'background 0.3s', cursor: 'pointer'
               }} onClick={() => socket.emit('set_free_release', !auction?.allowFreeRelease)}>
                 <div style={{
-                  width: '20px', height: '20px', background: 'white', borderRadius: '50%',
-                  position: 'absolute', top: '2px', left: auction?.allowFreeRelease ? '28px' : '2px',
+                  width: '18px', height: '18px', background: 'white', borderRadius: '50%',
+                  position: 'absolute', top: '2px', left: auction?.allowFreeRelease ? '24px' : '2px',
                   transition: 'left 0.3s'
                 }} />
               </div>
-            </label>
-            <span style={{ fontSize: '0.8rem', color: '#aaa', marginLeft: '10px' }}>
-              {auction?.allowFreeRelease ? 'Attivo (a 0 cr)' : 'Disattivo'}
-            </span>
+              <span style={{ fontSize: '0.75rem', color: auction?.allowFreeRelease ? '#10b981' : '#aaa' }}>
+                {auction?.allowFreeRelease ? 'ON' : 'OFF'}
+              </span>
+            </div>
+
+            {/* Toggle: Chiamata Autonoma */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: '8px' }}>
+              <span style={{ color: 'white', fontWeight: 'bold', fontSize: '0.85rem' }}>📣 Chiamata Autonoma:</span>
+              <div style={{
+                width: '44px', height: '22px', background: auction?.allowSelfCall ? '#3b82f6' : '#4b5563',
+                borderRadius: '11px', position: 'relative', transition: 'background 0.3s', cursor: 'pointer'
+              }} onClick={() => socket.emit('set_self_call', !auction?.allowSelfCall)}>
+                <div style={{
+                  width: '18px', height: '18px', background: 'white', borderRadius: '50%',
+                  position: 'absolute', top: '2px', left: auction?.allowSelfCall ? '24px' : '2px',
+                  transition: 'left 0.3s'
+                }} />
+              </div>
+              <span style={{ fontSize: '0.75rem', color: auction?.allowSelfCall ? '#3b82f6' : '#aaa' }}>
+                {auction?.allowSelfCall ? 'ON' : 'OFF'}
+              </span>
+            </div>
+
+            {/* Toggle: Scambi */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: '8px' }}>
+              <span style={{ color: 'white', fontWeight: 'bold', fontSize: '0.85rem' }}>🔄 Scambi:</span>
+              <div style={{
+                width: '44px', height: '22px', background: auction?.allowTrades ? '#8b5cf6' : '#4b5563',
+                borderRadius: '11px', position: 'relative', transition: 'background 0.3s', cursor: 'pointer'
+              }} onClick={() => socket.emit('set_trades_enabled', !auction?.allowTrades)}>
+                <div style={{
+                  width: '18px', height: '18px', background: 'white', borderRadius: '50%',
+                  position: 'absolute', top: '2px', left: auction?.allowTrades ? '24px' : '2px',
+                  transition: 'left 0.3s'
+                }} />
+              </div>
+              <span style={{ fontSize: '0.75rem', color: auction?.allowTrades ? '#8b5cf6' : '#aaa' }}>
+                {auction?.allowTrades ? 'ON' : 'OFF'}
+              </span>
+            </div>
           </div>
         </div>
 
