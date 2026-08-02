@@ -373,14 +373,24 @@ io.on('connection', (socket) => {
 
   socket.on('undo_last_auction', async () => {
     if (!lastAssignmentSnapshot) {
-      socket.emit('undo_error', { message: 'Nessuna asta precedente da annullare.' });
+      socket.emit('undo_error', { message: 'Nessuna asta precedente da annullare. Il ripristino è disponibile solo dopo una aggiudicazione.' });
       return;
     }
 
     try {
       teams = JSON.parse(JSON.stringify(lastAssignmentSnapshot.teams));
       transactions = JSON.parse(JSON.stringify(lastAssignmentSnapshot.transactions));
-      auctionState = { status: 'IDLE', currentPlayer: null, currentBid: 0, currentBidder: null, timerSeconds: 0 };
+      // Reset auction to IDLE but preserve the toggles (allowFreeRelease, allowSelfCall, allowTrades)
+      auctionState = {
+        status: 'IDLE',
+        currentPlayer: null,
+        currentBid: 0,
+        currentBidder: null,
+        timerSeconds: 0,
+        allowFreeRelease: auctionState.allowFreeRelease || false,
+        allowSelfCall: auctionState.allowSelfCall || false,
+        allowTrades: auctionState.allowTrades || false
+      };
 
       stopTimer();
       await db.saveTeams(teams);
@@ -391,11 +401,16 @@ io.on('connection', (socket) => {
       io.emit('transactions_update', transactions);
       io.emit('auction_update', auctionState);
 
+      // Clear snapshot so it can't be undone twice
       lastAssignmentSnapshot = null;
       await db.saveSnapshot(null);
+
+      // Notify the requesting socket of success
+      socket.emit('undo_success', { message: '↩️ Ultima asta annullata con successo! Bilanci e rose ripristinati.' });
       console.log('Ultima asta annullata con successo!');
     } catch (err) {
       console.error('Error undoing last auction:', err);
+      socket.emit('undo_error', { message: 'Errore interno durante il ripristino: ' + err.message });
     }
   });
 

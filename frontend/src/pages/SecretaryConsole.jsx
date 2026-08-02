@@ -35,7 +35,12 @@ export default function SecretaryConsole() {
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('players_list', (data) => setPlayers(data));
     socket.on('transactions_update', (data) => setTransactions(data));
-    socket.on('start_auction_error', ({ message }) => alert(message || 'Calciatore non chiamabile!'));
+    socket.on('undo_error', ({ message }) => {
+      alert('⚠️ Annulla Asta: ' + (message || 'Nessuna asta precedente da annullare.'));
+    });
+    socket.on('undo_success', ({ message }) => {
+      alert(message || '↩️ Ultima asta annullata con successo!');
+    });
     socket.on('force_reload', () => {
       console.log('Master requested a forced reload');
       window.location.reload();
@@ -45,7 +50,8 @@ export default function SecretaryConsole() {
       socket.off('teams_update');
       socket.off('players_list');
       socket.off('transactions_update');
-      socket.off('start_auction_error');
+      socket.off('undo_error');
+      socket.off('undo_success');
       socket.off('force_reload');
     };
   }, []);
@@ -204,20 +210,14 @@ export default function SecretaryConsole() {
       alert("Errore di connessione");
     }
   };
-  const handleUndoLastAuction = async () => {
+  const handleUndoLastAuction = () => {
     if (!window.confirm("Sei sicuro di voler annullare l'ultima aggiudicazione e ripristinare il bilancio e la rosa al momento precedente?")) return;
-    try {
-      const res = await fetch(`${BACKEND_URL}/api/undo-last-auction`, { method: 'POST' });
-      const data = await res.json();
-      if (data.success) {
-        alert("↩️ Ultima asta annullata con successo! Bilanci e rose ripristinati.");
-      } else {
-        alert(data.error || "Errore durante l'annullamento dell'asta.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Errore di connessione");
-    }
+    socket.emit('undo_last_auction');
+    // Response is handled by 'undo_error' listener or teams_update/auction_update
+    // If no error arrives within a moment, it succeeded.
+    setTimeout(() => {
+      // If we get here without an error alert, it worked
+    }, 500);
   };
 
   return (
