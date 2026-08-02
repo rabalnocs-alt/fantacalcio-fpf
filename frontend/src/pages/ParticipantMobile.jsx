@@ -658,7 +658,8 @@ export default function ParticipantMobile() {
                       </div>
                     );
                   }
-                })()}
+                });
+              })()}
               </div>
             </div>
           </div>
