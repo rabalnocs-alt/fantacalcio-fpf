@@ -367,10 +367,10 @@ export default function ParticipantMobile() {
     // If the role is already a macro role name (e.g. from the roleOrder loop)
     const roleColors = {
       'PORTIERI': '#ffc107',
-      'DIFENSORI': '#10b981',
-      'MEDIANA': '#0ea5e9',
-      'FANTASISTI': '#8b5cf6',
-      'ATTACCANTI': '#ef4444'
+      'DIFENSORI VARI': '#10b981',
+      'CENTROCAMPISTI': '#0ea5e9',
+      'T E W': '#8b5cf6',
+      'A E PC': '#ef4444'
     };
     if (roleColors[role]) {
       return { name: role, color: roleColors[role] };
@@ -379,10 +379,10 @@ export default function ParticipantMobile() {
     // Otherwise, parse the raw player role string
     const r = role.toLowerCase();
     if (r.includes('por')) return { name: 'PORTIERI', color: roleColors['PORTIERI'] }; 
-    if (/\b(dc|dd|ds)\b/i.test(r) || r.includes('e')) return { name: 'DIFENSORI', color: roleColors['DIFENSORI'] }; 
-    if (/\b(m|c)\b/i.test(r) && !r.includes('pc') && !r.includes('dc')) return { name: 'MEDIANA', color: roleColors['MEDIANA'] }; 
-    if (/\b(w|t|a)\b/i.test(r)) return { name: 'FANTASISTI', color: roleColors['FANTASISTI'] }; 
-    if (/\b(pc)\b/i.test(r)) return { name: 'ATTACCANTI', color: roleColors['ATTACCANTI'] }; 
+    if (/\b(dc|dd|ds)\b/i.test(r) || r.includes('e')) return { name: 'DIFENSORI VARI', color: roleColors['DIFENSORI VARI'] }; 
+    if (/\b(m|c)\b/i.test(r) && !r.includes('pc') && !r.includes('dc')) return { name: 'CENTROCAMPISTI', color: roleColors['CENTROCAMPISTI'] }; 
+    if (/\b(t|w)\b/i.test(r)) return { name: 'T E W', color: roleColors['T E W'] }; 
+    if (/\b(a|pc)\b/i.test(r)) return { name: 'A E PC', color: roleColors['A E PC'] }; 
     return { name: 'ALTRO', color: '#6b7280' };
   };
 
@@ -431,7 +431,7 @@ export default function ParticipantMobile() {
     return acc;
   }, {});
 
-  const roleOrder = ['PORTIERI', 'DIFENSORI', 'MEDIANA', 'FANTASISTI', 'ATTACCANTI', 'ALTRO'];
+  const roleOrder = ['PORTIERI', 'DIFENSORI VARI', 'CENTROCAMPISTI', 'T E W', 'A E PC', 'ALTRO'];
 
   return (
     <div className="page-container" style={{ paddingBottom: '80px', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -605,8 +605,15 @@ export default function ParticipantMobile() {
 
               {/* 30 Slot Grid */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {Array.from({ length: 30 }).map((_, idx) => {
-                  const player = myTeam.roster[idx];
+                {(() => {
+                  const sortedRoster = [...(myTeam.roster || [])].sort((a, b) => {
+                    const roleA = getMacroRole(a.role).name;
+                    const roleB = getMacroRole(b.role).name;
+                    return roleOrder.indexOf(roleA) - roleOrder.indexOf(roleB);
+                  });
+                  
+                  return Array.from({ length: 30 }).map((_, idx) => {
+                    const player = sortedRoster[idx];
                   const slotAllowed = (myTeam.fpf?.slot || 25);
                   const isBlocked = idx >= slotAllowed;
 
@@ -651,7 +658,7 @@ export default function ParticipantMobile() {
                       </div>
                     );
                   }
-                })}
+                })()}
               </div>
             </div>
           </div>
@@ -1088,7 +1095,7 @@ export default function ParticipantMobile() {
               >
                 Rimuovi Giocatore
               </div>
-              {myTeam.roster.map((p, idx) => (
+              {([...(myTeam.roster || [])].sort((a, b) => roleOrder.indexOf(getMacroRole(a.role).name) - roleOrder.indexOf(getMacroRole(b.role).name))).map((p, idx) => (
                 <div 
                   key={idx} 
                   onClick={() => confirmPlayerSelection(p)}
