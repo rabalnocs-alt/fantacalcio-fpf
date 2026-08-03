@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { Upload, Play, DollarSign, StopCircle, Download } from 'lucide-react';
+import { Upload, Play, DollarSign, StopCircle, Download, FileSpreadsheet } from 'lucide-react';
+import * as XLSX from 'xlsx';
 import { socket, BACKEND_URL } from '../utils/socket';
 
 export default function SecretaryConsole() {
@@ -15,6 +16,7 @@ export default function SecretaryConsole() {
   const [listoneSourceMode, setListoneSourceMode] = useState('fantalab_excel');
   const [pastedText, setPastedText] = useState('');
   const [transactions, setTransactions] = useState([]);
+  const [trades, setTrades] = useState([]);
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/transactions`)
@@ -35,6 +37,7 @@ export default function SecretaryConsole() {
     socket.on('teams_update', (data) => setTeams(data));
     socket.on('players_list', (data) => setPlayers(data));
     socket.on('transactions_update', (data) => setTransactions(data));
+    socket.on('trades_update', (data) => setTrades(data));
     socket.on('undo_error', ({ message }) => {
       alert('⚠️ Annulla Asta: ' + (message || 'Nessuna asta precedente da annullare.'));
     });
@@ -50,6 +53,7 @@ export default function SecretaryConsole() {
       socket.off('teams_update');
       socket.off('players_list');
       socket.off('transactions_update');
+      socket.off('trades_update');
       socket.off('undo_error');
       socket.off('undo_success');
       socket.off('force_reload');
@@ -218,6 +222,54 @@ export default function SecretaryConsole() {
     setTimeout(() => {
       // If we get here without an error alert, it worked
     }, 500);
+  };
+
+  const handleExportExcel = () => {
+    // 1. Transactions Sheet
+    const txData = transactions.map(tx => ({
+      ID: tx.id,
+      Data: new Date(tx.timestamp).toLocaleString('it-IT'),
+      Tipo: tx.type,
+      Giocatore: tx.player?.name || tx.player || '',
+      Ruolo: tx.player?.role || '',
+      Squadra: tx.newOwner || tx.oldOwner || '',
+      Prezzo: tx.price
+    }));
+    const wsTransactions = XLSX.utils.json_to_sheet(txData);
+
+    // 2. Trades Sheet
+    const acceptedTrades = trades.filter(t => t.status === 'ACCEPTED');
+    const tradesData = acceptedTrades.map(trade => ({
+      ID: trade.id,
+      Data: new Date(trade.timestamp).toLocaleString('it-IT'),
+      'Da Squadra': trade.fromTeam,
+      'A Squadra': trade.toTeam,
+      'Giocatori Dati': trade.offeredPlayers.map(p => `${p.name} (${p.role})`).join(', '),
+      'Giocatori Ricevuti': trade.requestedPlayers.map(p => `${p.name} (${p.role})`).join(', '),
+      'Conguaglio (Da->A)': trade.balanceTransfer
+    }));
+    const wsTrades = XLSX.utils.json_to_sheet(tradesData);
+
+    // 3. Teams Roster Sheet
+    const rostersData = [];
+    teams.forEach(team => {
+      team.roster?.forEach(player => {
+        rostersData.push({
+          Squadra: team.name,
+          Giocatore: player.name,
+          Ruolo: player.role,
+          Costo: player.cost
+        });
+      });
+    });
+    const wsRosters = XLSX.utils.json_to_sheet(rostersData);
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, wsTransactions, "Acquisti e Svincoli");
+    XLSX.utils.book_append_sheet(wb, wsTrades, "Scambi");
+    XLSX.utils.book_append_sheet(wb, wsRosters, "Rose Attuali");
+
+    XLSX.writeFile(wb, "Riepilogo_Mercato_Fantacalcio.xlsx");
   };
 
   return (
@@ -695,6 +747,55 @@ export default function SecretaryConsole() {
           ))}
         </div>
       </div>
+
+      {/* NEW: Storico Scambi ed Esportazione */}
+      <div className="fpf-panel" style={{ marginTop: '2rem', border: '2px solid var(--accent-blue)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '10px' }}>
+          <h2>4. Storico Scambi & Esportazione</h2>
+          <button 
+            onClick={handleExportExcel}
+            style={{ background: '#10b981', color: 'white', display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            <FileSpreadsheet size={20} /> Esporta Riepilogo Excel
+          </button>
+        </div>
+
+        <div style={{ background: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '15px' }}>
+          <h3 style={{ margin: '0 0 15px 0', color: '#60a5fa' }}>Scambi Conclusi</h3>
+          
+          {trades.filter(t => t.status === 'ACCEPTED').length === 0 ? (
+            <div style={{ color: '#aaa', fontStyle: 'italic' }}>Nessuno scambio concluso finora.</div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {trades.filter(t => t.status === 'ACCEPTED').map(trade => (
+                <div key={trade.id} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '8px', padding: '12px', borderLeft: '4px solid #8b5cf6' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '0.8rem', color: '#aaa' }}>{new Date(trade.timestamp).toLocaleString('it-IT')}</span>
+                    <span style={{ fontSize: '0.8rem', background: '#10b981', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>COMPLETATO</span>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                    <div>
+                      <div style={{ color: '#fbbf24', fontWeight: 'bold', marginBottom: '5px' }}>Da: {trade.fromTeam}</div>
+                      {trade.offeredPlayers.map(p => (
+                        <div key={p.name} style={{ fontSize: '0.9rem' }}>• {p.name} <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>({p.role})</span></div>
+                      ))}
+                      {trade.balanceTransfer > 0 && <div style={{ fontSize: '0.9rem', color: '#10b981', marginTop: '4px' }}>+ {trade.balanceTransfer} cr</div>}
+                    </div>
+                    <div>
+                      <div style={{ color: '#60a5fa', fontWeight: 'bold', marginBottom: '5px' }}>A: {trade.toTeam}</div>
+                      {trade.requestedPlayers.map(p => (
+                        <div key={p.name} style={{ fontSize: '0.9rem' }}>• {p.name} <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>({p.role})</span></div>
+                      ))}
+                      {trade.balanceTransfer < 0 && <div style={{ fontSize: '0.9rem', color: '#10b981', marginTop: '4px' }}>+ {Math.abs(trade.balanceTransfer)} cr</div>}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
     </div>
   );
 }
