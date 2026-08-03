@@ -1316,6 +1316,42 @@ export default function ParticipantMobile() {
                   );
                 })()}
               </div>
+
+              {/* Storico Generale Scambi (Tutte le squadre) */}
+              <div style={{ marginTop: '25px', background: 'rgba(0,0,0,0.2)', borderRadius: '10px', padding: '15px', border: '1px solid rgba(139,92,246,0.3)' }}>
+                <h3 style={{ margin: '0 0 15px 0', color: '#a78bfa', fontSize: '1.1rem', textAlign: 'center' }}>Storico Generale Scambi</h3>
+                {trades.filter(t => t.status === 'ACCEPTED').length === 0 ? (
+                  <div style={{ color: '#aaa', fontStyle: 'italic', textAlign: 'center', fontSize: '0.9rem' }}>Nessuno scambio concluso finora nell'intera lega.</div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {trades.filter(t => t.status === 'ACCEPTED').map(trade => (
+                      <div key={trade.id} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '8px', padding: '12px', borderLeft: '4px solid #8b5cf6' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '0.75rem', color: '#aaa' }}>{new Date(trade.timestamp).toLocaleString('it-IT')}</span>
+                          <span style={{ fontSize: '0.75rem', background: '#10b981', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>COMPLETATO</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          <div>
+                            <div style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '0.9rem' }}>Da: {trade.fromTeam}</div>
+                            {trade.offeredPlayers.map(p => (
+                              <div key={p.name} style={{ fontSize: '0.85rem' }}>• {p.name} <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>({p.role})</span></div>
+                            ))}
+                            {trade.balanceTransfer > 0 && <div style={{ fontSize: '0.85rem', color: '#10b981', marginTop: '2px' }}>+ {trade.balanceTransfer} cr</div>}
+                          </div>
+                          <div style={{ borderTop: '1px dashed rgba(255,255,255,0.2)', paddingTop: '8px' }}>
+                            <div style={{ color: '#60a5fa', fontWeight: 'bold', fontSize: '0.9rem' }}>A: {trade.toTeam}</div>
+                            {trade.requestedPlayers.map(p => (
+                              <div key={p.name} style={{ fontSize: '0.85rem' }}>• {p.name} <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>({p.role})</span></div>
+                            ))}
+                            {trade.balanceTransfer < 0 && <div style={{ fontSize: '0.85rem', color: '#10b981', marginTop: '2px' }}>+ {Math.abs(trade.balanceTransfer)} cr</div>}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
             </>
           )}
         </div>
