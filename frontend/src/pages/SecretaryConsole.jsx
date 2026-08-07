@@ -17,6 +17,7 @@ export default function SecretaryConsole() {
   const [pastedText, setPastedText] = useState('');
   const [transactions, setTransactions] = useState([]);
   const [trades, setTrades] = useState([]);
+  const [viewMode, setViewMode] = useState('sintetica');
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/transactions`)
@@ -685,7 +686,90 @@ export default function SecretaryConsole() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '15px' }}>
+        {/* View Mode Toggle */}
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+          <button 
+            onClick={() => setViewMode('sintetica')}
+            style={{ flex: 1, padding: '10px', borderRadius: '8px', border: 'none', fontWeight: 'bold', background: viewMode === 'sintetica' ? '#3b82f6' : 'rgba(255,255,255,0.1)', color: viewMode === 'sintetica' ? 'white' : '#aaa', cursor: 'pointer' }}
+          >
+            📱 Vista Sintetica (Riepilogo)
+          </button>
+          <button 
+            onClick={() => setViewMode('completa')}
+            style={{ flex: 1, padding: '10px', borderRadius: '8px', border: 'none', fontWeight: 'bold', background: viewMode === 'completa' ? '#3b82f6' : 'rgba(255,255,255,0.1)', color: viewMode === 'completa' ? 'white' : '#aaa', cursor: 'pointer' }}
+          >
+            📋 Vista Completa (Svincoli)
+          </button>
+        </div>
+
+        {viewMode === 'sintetica' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '12px' }}>
+            {teams.map(team => {
+              const currentBalance = team.balance || 0;
+              const fpfData = team.fpf || {};
+              const slotUsati = team.roster?.length || 0;
+              const maxSlot = fpfData.slot || 25;
+              
+              // Color coding for balance
+              let balanceColor = '#10b981'; // green
+              if (currentBalance < 0 && currentBalance >= -200) balanceColor = '#fbbf24'; // yellow
+              else if (currentBalance < -200 && currentBalance >= -400) balanceColor = '#f97316'; // orange
+              else if (currentBalance < -400) balanceColor = '#ef4444'; // red
+
+              return (
+                <div key={team.name} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '10px', padding: '15px', borderLeft: `4px solid ${balanceColor}`, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h3 style={{ margin: 0, color: 'white', fontSize: '1.2rem' }}>{team.name}</h3>
+                    <span style={{ fontSize: '0.75rem', padding: '3px 6px', borderRadius: '4px', background: 'rgba(255,255,255,0.1)', color: '#aaa' }}>{fpfData.label || 'Sconosciuta'}</span>
+                  </div>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    {/* FPF */}
+                    <div style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: '0.8rem', color: '#aaa', fontWeight: 'bold' }}>FPF</span>
+                      <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: balanceColor }}>{currentBalance} cr</span>
+                    </div>
+
+                    {/* SLOT */}
+                    <div style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: '0.8rem', color: '#aaa', fontWeight: 'bold' }}>SLOT</span>
+                      <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: slotUsati > maxSlot ? '#ef4444' : 'white' }}>{slotUsati} / {maxSlot}</span>
+                    </div>
+                  </div>
+
+                  {/* BONUS */}
+                  <div style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.8rem', color: '#aaa', fontWeight: 'bold' }}>BONUS FPF</span>
+                    <div style={{ display: 'flex', gap: '10px', fontSize: '0.9rem' }}>
+                      <span style={{ color: '#60a5fa' }}>Casa +{fpfData.bonusCasa || 0}</span>
+                      <span style={{ color: '#a78bfa' }}>Trasf +{fpfData.bonusTrasferta || 0}</span>
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => {
+                      const input = window.prompt(`Modifica Bilancio FPF per ${team.name}\nAttuale: ${currentBalance} cr\n\nInserisci il nuovo bilancio FPF esatto:`, currentBalance);
+                      if (input !== null) {
+                        const newBalance = parseInt(input);
+                        if (!isNaN(newBalance)) {
+                          if (window.confirm(`Confermi di impostare il bilancio FPF di ${team.name} a ${newBalance} cr?`)) {
+                            socket.emit('manual_fpf_update', { teamName: team.name, newBalance });
+                          }
+                        }
+                      }
+                    }}
+                    style={{ background: 'linear-gradient(to right, #3b82f6, #2563eb)', color: 'white', border: 'none', borderRadius: '6px', padding: '8px', fontSize: '0.9rem', cursor: 'pointer', fontWeight: 'bold', marginTop: '5px' }}
+                  >
+                    ✏️ Modifica FPF Manualmente
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {viewMode === 'completa' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '15px' }}>
           {teams.map(team => (
             <div key={team.name} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '8px', padding: '10px' }}>
               <h3 style={{ margin: '0 0 10px 0', color: '#fbbf24', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -746,6 +830,7 @@ export default function SecretaryConsole() {
             </div>
           ))}
         </div>
+        )}
       </div>
 
       {/* NEW: Storico Scambi ed Esportazione */}
